@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Central — YWCA Columbus Staff Portal</title>
+<!--
+════════════════════════════════════════════════════════════════
+  MISSION CENTRAL — YWCA COLUMBUS STAFF PORTAL
+  SharePoint Embed Web Part — Full Homepage HTML
+  Version 1.0 | April 2026
+
+  HOW TO USE THIS FILE IN SHAREPOINT:
+  1. Go to your new Communication Site homepage
+  2. Click Edit (pencil icon, top right)
+  3. Click the + button to add a new web part
+  4. Search for "Embed" and select it
+  5. Paste the ENTIRE contents of this file into the Embed code box
+  6. Click Apply → Publish
+
+  TO CHANGE THE PORTAL NAME FROM "Mission Central":
+  Use Ctrl+F (Find & Replace) in any text editor and replace:
+    "Mission Central" → your new name
+  All 11 instances will update at once. See the Name Change Guide
+  document for the full checklist of other places to update.
+
+  TO UPDATE LINKS:
+  Search for "YOUR_FORM_LINK_HERE" and replace with your actual
+  Microsoft Forms URLs. Search for "YOUR_DEPT_LINK_HERE" patterns
+  for department site URLs.
+
+  TO ADD REAL PHOTOS:
+  Replace the CSS gradient backgrounds on .hero-bg and news card
+  .nh-img divs with:
+    background: url('YOUR_SHAREPOINT_IMAGE_URL') center/cover;
+  Upload photos to your Site Assets library first.
+════════════════════════════════════════════════════════════════
+-->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --or:#FD5A1E;--or2:#c94110;--blk:#1a1a1a;--wht:#ffffff;
+  --cream:#faf9f7;--gray:#f0ede8;--gray2:#e2ddd7;--gtxt:#6b6763;
+  --font-h:'Barlow Condensed','Arial Black',Arial,sans-serif;
+  --font-b:'Barlow',Arial,sans-serif;
+}
+html,body{width:100%;margin:0;padding:0;background:var(--cream)}
+.mc{font-family:var(--font-b);background:var(--cream);color:var(--blk);max-width:1400px;margin:0 auto}
+
+/* ── TOP BAR ── */
+.tb{background:var(--blk);padding:5px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.tb-l{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.04em}
+.tb-r{display:flex;align-items:center;gap:12px}
+.lang{display:flex;gap:4px}
+.lb{padding:2px 8px;border-radius:2px;border:1px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.55);font-size:10px;cursor:pointer;font-family:var(--font-b);letter-spacing:.04em;transition:all .15s}
+.lb.on,.lb:hover{background:var(--or);color:#fff;border-color:var(--or)}
+.usr{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.65);font-size:12px;font-family:var(--font-b)}
+.av{width:24px;height:24px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;font-family:var(--font-h)}
+
+/* ── HEADER ── */
+.hdr{background:#fff;border-bottom:4px solid var(--or);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo-wrap{display:flex;align-items:center;gap:18px}
+.logo-txt{display:flex;flex-direction:column;gap:1px}
+.logo-tag{font-family:var(--font-b);font-size:8px;color:var(--or);letter-spacing:.07em;text-transform:lowercase}
+.logo-wm{font-family:var(--font-h);font-size:44px;color:var(--or);line-height:.88;letter-spacing:-.01em;font-weight:900}
+.logo-loc{font-family:var(--font-b);font-size:9px;color:var(--gtxt);letter-spacing:.12em;text-transform:lowercase}
+.vdiv{width:1px;background:var(--gray2);height:44px}
+.portal-id{padding-left:16px}
+.portal-nm{font-family:var(--font-h);font-size:26px;font-weight:900;color:var(--blk);letter-spacing:.04em;text-transform:uppercase;line-height:1}
+.portal-sub{font-size:11px;color:var(--gtxt);margin-top:2px;font-family:var(--font-b)}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.srch-wrap{display:flex;align-items:center;gap:8px;background:var(--gray);border:1.5px solid var(--gray2);border-radius:24px;padding:8px 16px;min-width:220px;transition:border-color .15s}
+.srch-wrap:focus-within{border-color:var(--or)}
+.srch-wrap input{background:none;border:none;outline:none;font-size:13px;color:var(--blk);font-family:var(--font-b);width:100%}
+.srch-wrap input::placeholder{color:var(--gtxt)}
+
+/* ── NAV ── */
+.nav{background:var(--blk);display:flex;align-items:stretch;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.ni{padding:12px 18px;font-family:var(--font-h);font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.5);cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;text-decoration:none;display:flex;align-items:center;transition:all .15s}
+.ni:hover{color:#fff;background:rgba(255,255,255,.07);text-decoration:none}
+.ni.on{color:var(--or);border-bottom-color:var(--or)}
+.ni.hot{background:var(--or);color:#fff;border-bottom-color:transparent;gap:6px}
+.ni.hot:hover{background:var(--or2)}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:320px;overflow:hidden;display:flex;align-items:stretch}
+.hero-bg-left{flex:1;background:var(--blk);padding:40px 28px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2;min-width:0}
+.hero-bg-left::after{content:'';position:absolute;top:0;right:-40px;bottom:0;width:80px;background:var(--blk);clip-path:polygon(0 0,0 100%,100% 100%);z-index:1}
+.hero-photo-right{
+  flex:0 0 50%;
+  /* REPLACE THIS GRADIENT WITH YOUR REAL PHOTO:
+     background: url('https://YOUR-TENANT.sharepoint.com/sites/MissionCentral/SiteAssets/hero-photo.jpg') center/cover; */
+  background:linear-gradient(100deg,var(--blk) 0%,#2a0e04 30%,#3d1508 60%,#1a1a1a 100%);
+  position:relative;
+}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,var(--blk) 0%,transparent 40%)}
+.hero-eyebrow{font-family:var(--font-h);font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--or);margin-bottom:12px;position:relative;z-index:2}
+.hero-h1{font-family:var(--font-h);font-size:54px;font-weight:900;color:#fff;line-height:.92;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:14px;position:relative;z-index:2}
+.hero-h1 em{color:var(--or);font-style:normal;display:block}
+.hero-sub{font-family:var(--font-b);font-size:13px;color:rgba(255,255,255,.65);line-height:1.55;margin-bottom:22px;position:relative;z-index:2;max-width:420px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:2}
+.btn-or{background:var(--or);color:#fff;border:none;font-family:var(--font-h);font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:11px 22px;border-radius:3px;cursor:pointer;transition:background .15s;white-space:nowrap;text-decoration:none;display:inline-block}
+.btn-or:hover{background:var(--or2);color:#fff;text-decoration:none}
+.btn-wh{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3);font-family:var(--font-h);font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:11px 22px;border-radius:3px;cursor:pointer;transition:all .15s;white-space:nowrap;text-decoration:none;display:inline-block}
+.btn-wh:hover{border-color:#fff;background:rgba(255,255,255,.1);color:#fff;text-decoration:none}
+.mission-stamp{position:absolute;bottom:20px;right:20px;z-index:3;text-align:right}
+.ms-tag{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.ms-big{font-family:var(--font-h);font-size:20px;font-weight:900;color:var(--or);letter-spacing:.08em;text-transform:uppercase;line-height:1}
+
+/* ── STATS BAND ── */
+.stats{background:var(--or);display:flex;flex-wrap:wrap}
+.stat{flex:1;min-width:140px;padding:18px 16px;text-align:center;border-right:1px solid rgba(255,255,255,.2)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:var(--font-h);font-size:42px;font-weight:900;color:#fff;line-height:1}
+.stat-l{font-family:var(--font-b);font-size:11px;color:rgba(255,255,255,.8);margin-top:3px;line-height:1.35}
+
+/* ── MAIN LAYOUT ── */
+.main{display:grid;grid-template-columns:1fr 310px;gap:0}
+.left{padding:22px 22px 22px 24px;display:flex;flex-direction:column;gap:22px;border-right:1px solid var(--gray2)}
+.right{padding:20px 20px 20px 16px;display:flex;flex-direction:column;gap:16px}
+
+/* ── SECTION HEADS ── */
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.sh-title{font-family:var(--font-h);font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--blk);white-space:nowrap}
+.sh-line{flex:1;height:2px;background:var(--or);opacity:.25;min-width:20px}
+.sh-link{font-family:var(--font-h);font-size:11px;font-weight:700;color:var(--or);cursor:pointer;white-space:nowrap;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
+.sh-link:hover{text-decoration:underline}
+
+/* ── NEWS ── */
+.news-2col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.news-hero{border-radius:8px;overflow:hidden;border:1px solid var(--gray2);cursor:pointer;transition:all .15s;text-decoration:none;display:block;color:inherit}
+.news-hero:hover{border-color:var(--or);transform:translateY(-2px);text-decoration:none;color:inherit}
+.nh-img{height:160px;position:relative;
+  /* REPLACE WITH REAL PHOTO: background: url('...') center/cover; */
+}
+.nh-img.org{background:linear-gradient(145deg,#b03010,#FD5A1E 55%,#ff8040)}
+.nh-img.hr{background:linear-gradient(145deg,#1a4a2a,#2d7a44 60%,#40a060)}
+.nh-img.tech{background:linear-gradient(145deg,#1a1a3a,#2d2d6a 60%,#4040aa)}
+.nh-img.comm{background:linear-gradient(145deg,#3a1a3a,#6a2d6a 60%,#aa40aa)}
+.nh-tag-pill{position:absolute;top:10px;left:10px;color:#fff;font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:2px}
+.nh-tag-pill.or{background:var(--or)}
+.nh-tag-pill.dk{background:rgba(0,0,0,.6)}
+.nh-overlay{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;background:linear-gradient(transparent,rgba(0,0,0,.8))}
+.nh-hl{font-family:var(--font-h);font-size:17px;font-weight:700;color:#fff;line-height:1.2}
+.nh-body{padding:12px 14px;background:#fff}
+.nh-date{font-size:11px;color:var(--gtxt);margin-bottom:4px}
+.nh-excerpt{font-size:12px;color:var(--gtxt);line-height:1.5}
+.news-4col{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ns{border-radius:6px;overflow:hidden;border:1px solid var(--gray2);background:#fff;cursor:pointer;transition:border-color .15s;text-decoration:none;display:block;color:inherit}
+.ns:hover{border-color:var(--or);text-decoration:none;color:inherit}
+.ns-img{height:60px}
+.ns-img.a{background:linear-gradient(135deg,#1a4a2a,#3a8a4a)}
+.ns-img.b{background:linear-gradient(135deg,#1a2d4a,#2d4a8a)}
+.ns-img.c{background:linear-gradient(135deg,#4a1a0a,#8a3a1a)}
+.ns-img.d{background:linear-gradient(135deg,#2a2a1a,#5a5a2a)}
+.ns-bd{padding:8px 10px}
+.ns-h{font-size:11px;font-weight:600;color:var(--blk);line-height:1.3}
+.ns-d{font-size:10px;color:var(--gtxt);margin-top:2px}
+
+/* ── JEB LEARNING CARD ── */
+.jeb{border-radius:10px;overflow:hidden;border:3px solid var(--or);background:var(--blk);position:relative;cursor:pointer;transition:all .15s;text-decoration:none;display:block;color:inherit}
+.jeb:hover{transform:translateY(-2px);text-decoration:none;color:inherit}
+.jeb-pattern{position:absolute;inset:0;opacity:.07;background-image:repeating-linear-gradient(-45deg,var(--or) 0,var(--or) 1px,transparent 0,transparent 10px)}
+.jeb-inner{position:relative;z-index:1;padding:22px 24px}
+.jeb-badge{display:inline-flex;align-items:center;gap:7px;background:var(--or);color:#fff;font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 12px;border-radius:2px;margin-bottom:12px}
+.jeb-h{font-family:var(--font-h);font-size:30px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:.02em;line-height:1.05;margin-bottom:8px}
+.jeb-h em{color:var(--or);font-style:normal}
+.jeb-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.55;margin-bottom:16px;max-width:600px}
+.jeb-modules{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.jeb-mod{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:3px;padding:4px 10px;font-size:11px;color:rgba(255,255,255,.75);font-family:var(--font-h);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.jeb-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.jeb-url{font-size:11px;color:rgba(255,255,255,.35);font-family:var(--font-b)}
+
+/* ── REQUEST CARDS ── */
+.req-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.rq{background:#fff;border:1px solid var(--gray2);border-radius:8px;padding:16px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit}
+.rq:hover{border-color:var(--or);transform:translateY(-2px);box-shadow:0 4px 16px rgba(253,90,30,.1);text-decoration:none;color:inherit}
+.rq-icon{width:38px;height:38px;border-radius:7px;background:#fff0eb;display:flex;align-items:center;justify-content:center;font-size:20px}
+.rq-t{font-family:var(--font-h);font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;color:var(--blk)}
+.rq-d{font-size:12px;color:var(--gtxt);line-height:1.5}
+.rq-cta{font-family:var(--font-h);font-size:12px;font-weight:700;color:var(--or);text-transform:uppercase;letter-spacing:.08em;margin-top:auto}
+
+/* ── DEPT GRID ── */
+.dept-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.dc{background:#fff;border:1px solid var(--gray2);border-radius:6px;padding:9px 11px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:7px;text-decoration:none;color:inherit}
+.dc:hover{border-color:var(--or);background:#fff8f5;text-decoration:none;color:inherit}
+.dc-dot{width:7px;height:7px;border-radius:50%;background:var(--or);flex-shrink:0}
+.dc-dot.g{background:var(--gtxt)}
+.dc-t{font-size:11px;font-weight:600;color:var(--blk);line-height:1.25}
+
+/* ── DOCS ── */
+.doc-list{display:flex;flex-direction:column;gap:7px}
+.doc{background:#fff;border:1px solid var(--gray2);border-radius:6px;padding:10px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color .15s;text-decoration:none;color:inherit}
+.doc:hover{border-color:var(--or);text-decoration:none;color:inherit}
+.doc-ic{font-size:18px;flex-shrink:0}
+.doc-inf{flex:1;min-width:0}
+.doc-n{font-size:13px;font-weight:600;color:var(--blk)}
+.doc-m{font-size:10px;color:var(--gtxt);margin-top:1px}
+.badge{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:2px;white-space:nowrap;flex-shrink:0}
+.b-or{background:#fff0eb;color:var(--or)}
+.b-gy{background:var(--gray);color:var(--gtxt)}
+.b-red{background:#fff0ee;color:#cc2200}
+
+/* ── SIDEBAR CARDS ── */
+.sb-card{background:#fff;border:1px solid var(--gray2);border-radius:8px;overflow:hidden}
+.sb-hd{background:var(--blk);padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
+.sb-ht{font-family:var(--font-h);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#fff}
+.sb-hl{font-family:var(--font-h);font-size:10px;font-weight:700;color:var(--or);cursor:pointer;letter-spacing:.05em;text-transform:uppercase;text-decoration:none}
+.sb-hl:hover{text-decoration:underline;color:var(--or)}
+.sb-bd{padding:12px 14px}
+.sb-search{width:100%;padding:7px 10px;border:1px solid var(--gray2);border-radius:4px;font-size:12px;outline:none;font-family:var(--font-b);background:var(--gray);color:var(--blk);margin-bottom:8px}
+.sb-search:focus{border-color:var(--or)}
+
+/* ── STAFF ── */
+.sr{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--gray)}
+.sr:last-child{border-bottom:none}
+.sav{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+.sav.or{background:var(--or)}
+.sav.bk{background:var(--blk)}
+.sav.gy{background:#888}
+.sav.gn{background:#2d6644}
+.si{flex:1;min-width:0}
+.sn{font-size:13px;font-weight:600;color:var(--blk)}
+.srl{font-size:10px;color:var(--gtxt)}
+.sd{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--or)}
+
+/* ── CALENDAR ── */
+.ce{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray);align-items:flex-start}
+.ce:last-child{border-bottom:none}
+.cd{min-width:36px;text-align:center;flex-shrink:0}
+.cm{font-family:var(--font-h);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--or)}
+.cn{font-family:var(--font-h);font-size:22px;font-weight:900;color:var(--blk);line-height:1}
+.ci{flex:1;min-width:0}
+.ct{font-size:12px;font-weight:600;color:var(--blk);line-height:1.3}
+.ctm{font-size:10px;color:var(--gtxt);margin-top:1px}
+.ctg{display:inline-block;font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:1px 5px;border-radius:2px;margin-top:3px}
+.tg-org{background:#fff0eb;color:var(--or)}
+.tg-hr{background:#e8f0ff;color:#2244aa}
+.tg-it{background:#e8f5ea;color:#2a6a2a}
+
+/* ── TRAINING ── */
+.tri{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--gray);cursor:pointer;text-decoration:none;color:inherit;transition:color .15s}
+.tri:last-child{border-bottom:none}
+.tri:hover{color:var(--or);text-decoration:none}
+.tr-dot{width:6px;height:6px;border-radius:50%;background:var(--or);flex-shrink:0}
+.tr-t{font-size:12px;color:var(--blk);flex:1}
+.tri:hover .tr-t{color:var(--or)}
+.tr-ar{font-size:12px;color:var(--gtxt)}
+
+/* ── CRISIS CARD ── */
+.crisis-card{background:#fff;border:2px solid var(--or);border-radius:8px;overflow:hidden}
+.crisis-hd{background:var(--or);padding:10px 14px}
+.crisis-ht{font-family:var(--font-h);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#fff}
+.crisis-bd{padding:12px 14px;background:#fff8f5}
+.crisis-label{font-size:12px;font-weight:600;color:var(--blk);margin-bottom:4px}
+.crisis-num{font-size:20px;font-weight:700;color:var(--or);font-family:var(--font-h);letter-spacing:.04em}
+.crisis-note{font-size:11px;color:var(--gtxt);margin-top:6px;line-height:1.45}
+
+/* ── IMPACT STRIP ── */
+.impact{background:var(--blk);padding:24px 28px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.imp-txt{flex:2;min-width:200px}
+.imp-h{font-family:var(--font-h);font-size:32px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:.02em;line-height:1.05}
+.imp-h em{color:var(--or);font-style:normal}
+.imp-sub{font-size:13px;color:rgba(255,255,255,.55);margin-top:8px;line-height:1.55}
+.imp-cta{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+.imp-stats{display:flex;gap:28px;flex-wrap:wrap}
+.imp-stat{text-align:center}
+.imp-n{font-family:var(--font-h);font-size:40px;font-weight:900;color:var(--or);line-height:1}
+.imp-l{font-size:11px;color:rgba(255,255,255,.55);margin-top:3px;line-height:1.3}
+
+/* ── FOOTER ── */
+.foot{background:var(--blk);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-top:3px solid var(--or);flex-wrap:wrap;gap:8px}
+.fl{font-family:var(--font-h);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4)}
+.fl strong{color:var(--or)}
+.fr{font-size:10px;color:rgba(255,255,255,.3);font-family:var(--font-b)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .main{grid-template-columns:1fr}
+  .right{padding:0 20px 20px;border-top:1px solid var(--gray2)}
+  .left{border-right:none}
+  .news-4col{grid-template-columns:1fr 1fr}
+  .dept-grid{grid-template-columns:repeat(3,1fr)}
+  .hero{flex-direction:column}
+  .hero-photo-right{flex:0 0 200px}
+}
+@media(max-width:600px){
+  .news-2col,.req-grid,.dept-grid{grid-template-columns:1fr}
+  .news-4col{grid-template-columns:1fr}
+  .stats{flex-direction:column}
+  .imp-stats{display:none}
+  .hero-h1{font-size:38px}
+}
+</style>
+
+<div class="mc">
+
+<!-- TOP BAR -->
+<div class="tb">
+  <div class="tb-l" id="tb-date">Loading...</div>
+  <div class="tb-r">
+    <div class="lang">
+      <button class="lb on" onclick="switchLang('en')">EN</button>
+      <button class="lb" onclick="switchLang('es')">ES</button>
+    </div>
+    <div class="usr">
+      <div class="av" id="user-av">?</div>
+      <span id="user-name">Staff Member</span>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="logo-wrap">
+    <div class="logo-txt">
+      <div class="logo-tag">eliminating racism &middot; empowering women</div>
+      <div class="logo-wm">ywca</div>
+      <div class="logo-loc">columbus ohio</div>
+    </div>
+    <div class="vdiv"></div>
+    <div class="portal-id">
+      <div class="portal-nm">Mission Central</div>
+      <div class="portal-sub" data-en="Your YWCA Columbus staff portal" data-es="Su portal de personal de YWCA Columbus">Your YWCA Columbus staff portal</div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="srch-wrap">
+      <span>🔍</span>
+      <input placeholder="Search people, docs, sites..." data-placeholder-en="Search people, docs, sites..." data-placeholder-es="Buscar personas, documentos, sitios..." />
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <!-- UPDATE THESE HREF VALUES WITH YOUR ACTUAL SHAREPOINT PAGE URLS -->
+  <a class="ni on" href="#">Home / Inicio</a>
+  <a class="ni" href="#">News / Noticias</a>
+  <a class="ni" href="#">My Dept.</a>
+  <a class="ni" href="#">Documents / Documentos</a>
+  <a class="ni" href="#">Directory / Directorio</a>
+  <a class="ni" href="#">Calendar / Calendario</a>
+  <a class="ni" href="YOUR_NEW_HIRE_FORM_LINK_HERE" target="_blank">Submit Request</a>
+  <a class="ni" href="#">Training / Capacitaci&oacute;n</a>
+  <a class="ni hot" href="https://learning.ywcacolumbus.org" target="_blank">&#127891; JEB Learning &#8599;</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg-left">
+    <div class="hero-eyebrow" id="hero-greeting">Good morning, Team &mdash; Welcome to Mission Central</div>
+    <div class="hero-h1">YWCA Columbus<em>Is On A Mission.</em></div>
+    <div class="hero-sub" data-en="Check your pending approvals, find your documents, submit requests, and connect with your team — all in one place." data-es="Consulte sus aprobaciones pendientes, encuentre sus documentos, envíe solicitudes y conéctese con su equipo, todo en un solo lugar.">Check your pending approvals, find your documents, submit requests, and connect with your team &mdash; all in one place.</div>
+    <div class="hero-btns">
+      <a class="btn-or" href="YOUR_NEW_HIRE_FORM_LINK_HERE" target="_blank" data-en="+ New Hire Request" data-es="+ Solicitud de Nueva Contratación">+ New Hire Request</a>
+      <a class="btn-or" href="YOUR_IT_FORM_LINK_HERE" target="_blank" data-en="+ IT Request" data-es="+ Solicitud de TI">+ IT Request</a>
+      <a class="btn-wh" href="#" data-en="View My Requests →" data-es="Ver Mis Solicitudes →">View My Requests &rarr;</a>
+    </div>
+  </div>
+  <div class="hero-photo-right">
+    <div class="hero-overlay"></div>
+    <div class="mission-stamp">
+      <div class="ms-tag">YWCA Columbus</div>
+      <div class="ms-big">IS ON A<br>MISSION</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAND -->
+<div class="stats">
+  <div class="stat"><div class="stat-n">140</div><div class="stat-l" data-en="Years serving Columbus" data-es="Años sirviendo a Columbus">Years serving Columbus</div></div>
+  <div class="stat"><div class="stat-n">1,500</div><div class="stat-l" data-en="Children in our programs daily" data-es="Niños en nuestros programas diariamente">Children in our programs daily</div></div>
+  <div class="stat"><div class="stat-n">305</div><div class="stat-l" data-en="Women of Achievement honored" data-es="Mujeres de Logro honradas">Women of Achievement honored</div></div>
+  <div class="stat"><div class="stat-n">200+</div><div class="stat-l" data-en="Staff on this mission with you" data-es="Personal en esta misión con usted">Staff on this mission with you</div></div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+<div class="left">
+
+  <!-- NEWS -->
+  <section>
+    <div class="sh">
+      <div class="sh-title" data-en="News &amp; Announcements" data-es="Noticias y Anuncios">News &amp; Announcements</div>
+      <div class="sh-line"></div>
+      <a class="sh-link" href="#" data-en="View all →" data-es="Ver todo →">View all &rarr;</a>
+    </div>
+    <div class="news-2col">
+      <!-- FEATURED NEWS 1 — replace gradient with real photo URL -->
+      <a class="news-hero" href="#" target="_blank">
+        <div class="nh-img org">
+          <span class="nh-tag-pill or" data-en="Org-Wide" data-es="Toda la Org.">Org-Wide</span>
+          <div class="nh-overlay"><div class="nh-hl">All-Staff Q2 Mission Meeting &mdash; April 10</div></div>
+        </div>
+        <div class="nh-body">
+          <div class="nh-date">April 10, 2026 &middot; 10:00 AM &ndash; 11:30 AM</div>
+          <div class="nh-excerpt">Join us for our quarterly all-hands. Elizabeth Brown will share our Q2 impact update and the 140th anniversary campaign launch.</div>
+        </div>
+      </a>
+      <!-- FEATURED NEWS 2 -->
+      <a class="news-hero" href="#" target="_blank">
+        <div class="nh-img hr">
+          <span class="nh-tag-pill dk">HR Update</span>
+          <div class="nh-overlay"><div class="nh-hl">Benefits Open Enrollment &mdash; Closes April 30</div></div>
+        </div>
+        <div class="nh-body">
+          <div class="nh-date">April 5, 2026</div>
+          <div class="nh-excerpt">Review your 2026&ndash;27 benefits and make changes before the deadline. Full guide in Documents.</div>
+        </div>
+      </a>
+    </div>
+    <div class="news-4col">
+      <a class="ns" href="#"><div class="ns-img a"></div><div class="ns-bd"><div class="ns-h">Mission Central Launches Today</div><div class="ns-d">Apr 7, 2026</div></div></a>
+      <a class="ns" href="#"><div class="ns-img b"></div><div class="ns-bd"><div class="ns-h">Updated IT Security Policy</div><div class="ns-d">Apr 1, 2026</div></div></a>
+      <a class="ns" href="#"><div class="ns-img c"></div><div class="ns-bd"><div class="ns-h">YWCA Columbus Turns 140 &#127881;</div><div class="ns-d">Mar 28, 2026</div></div></a>
+      <a class="ns" href="#"><div class="ns-img d"></div><div class="ns-bd"><div class="ns-h">New Safe &amp; Sound Location Open</div><div class="ns-d">Mar 15, 2026</div></div></a>
+    </div>
+  </section>
+
+  <!-- JEB LEARNING -->
+  <section>
+    <div class="sh">
+      <div class="sh-title">Justice, Equity &amp; Belonging</div>
+      <div class="sh-line"></div>
+      <span class="sh-link" style="color:var(--or)">&#10022; NEW</span>
+    </div>
+    <a class="jeb" href="https://learning.ywcacolumbus.org" target="_blank">
+      <div class="jeb-pattern"></div>
+      <div class="jeb-inner">
+        <div class="jeb-badge">&#127891; JEB Training Platform &mdash; Now Live!</div>
+        <div class="jeb-h">YWCA Columbus<em>JEB Learning</em></div>
+        <div class="jeb-sub" data-en="Your dedicated platform for Justice, Equity &amp; Belonging training. Complete required courses, explore racial equity resources, and track your learning progress — all in one place." data-es="Su plataforma dedicada para capacitación en Justicia, Equidad y Pertenencia. Complete cursos requeridos y realice un seguimiento de su progreso de aprendizaje.">Your dedicated platform for Justice, Equity &amp; Belonging training. Complete required courses, explore racial equity resources, and track your learning progress &mdash; all in one place.</div>
+        <div class="jeb-modules">
+          <span class="jeb-mod">Racial Equity 101</span>
+          <span class="jeb-mod">Leadership for Social Change</span>
+          <span class="jeb-mod">Bright Futures</span>
+          <span class="jeb-mod">DEI Foundations</span>
+        </div>
+        <div class="jeb-cta">
+          <span class="btn-or">Launch JEB Platform &rarr;</span>
+          <span class="jeb-url">learning.ywcacolumbus.org</span>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <!-- REQUESTS -->
+  <section>
+    <div class="sh">
+      <div class="sh-title" data-en="Submit a Request" data-es="Enviar una Solicitud">Submit a Request</div>
+      <div class="sh-line"></div>
+      <a class="sh-link" href="#" data-en="My requests →" data-es="Mis solicitudes →">My requests &rarr;</a>
+    </div>
+    <div class="req-grid">
+      <a class="rq" href="YOUR_NEW_HIRE_FORM_LINK_HERE" target="_blank">
+        <div class="rq-icon">&#128100;</div>
+        <div class="rq-t" data-en="New Hire" data-es="Nueva Contratación">New Hire</div>
+        <div class="rq-d" data-en="Onboard a new team member. Automatically notifies HR &amp; IT." data-es="Incorpore a un nuevo miembro del equipo. Notifica automáticamente a RR.HH. y TI.">Onboard a new team member. Automatically notifies HR &amp; IT.</div>
+        <div class="rq-cta" data-en="Start request →" data-es="Iniciar solicitud →">Start request &rarr;</div>
+      </a>
+      <a class="rq" href="YOUR_TERMINATION_FORM_LINK_HERE" target="_blank">
+        <div class="rq-icon">&#128274;</div>
+        <div class="rq-t" data-en="Termination" data-es="Terminación">Termination</div>
+        <div class="rq-d" data-en="Offboard a departing staff member and trigger access revocation." data-es="Desincorpore a un miembro del personal y active la revocación de acceso.">Offboard a departing staff member and trigger access revocation.</div>
+        <div class="rq-cta" data-en="Start request →" data-es="Iniciar solicitud →">Start request &rarr;</div>
+      </a>
+      <a class="rq" href="YOUR_IT_FORM_LINK_HERE" target="_blank">
+        <div class="rq-icon">&#128187;</div>
+        <div class="rq-t" data-en="IT Support" data-es="Soporte de TI">IT Support</div>
+        <div class="rq-d" data-en="Report issues, request equipment or software, or reset account access." data-es="Reporte problemas, solicite equipos o software, o restablezca el acceso.">Report issues, request equipment or software, or reset account access.</div>
+        <div class="rq-cta" data-en="Start request →" data-es="Iniciar solicitud →">Start request &rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- DEPT SITES -->
+  <section>
+    <div class="sh">
+      <div class="sh-title" data-en="Department Sites" data-es="Sitios de Departamento">Department Sites</div>
+      <div class="sh-line"></div>
+      <a class="sh-link" href="https://ywcacolumbus.sharepoint.com/sites" target="_blank" data-en="All sites →" data-es="Todos los sitios →">All sites &rarr;</a>
+    </div>
+    <div class="dept-grid">
+      <!-- UPDATE EACH HREF WITH THE ACTUAL SHAREPOINT SITE URL -->
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/AdvancementBrand" target="_blank"><div class="dc-dot"></div><div class="dc-t">Advancement</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/AntiRacism" target="_blank"><div class="dc-dot"></div><div class="dc-t">Anti-Racism</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/Board" target="_blank"><div class="dc-dot"></div><div class="dc-t">Board</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/Data" target="_blank"><div class="dc-dot g"></div><div class="dc-t">Data</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/Development" target="_blank"><div class="dc-dot"></div><div class="dc-t">Development &amp; Engagement</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/EDUKidsPlace" target="_blank"><div class="dc-dot g"></div><div class="dc-t">EDU &ndash; Kids Place</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/FamilyCenter" target="_blank"><div class="dc-dot"></div><div class="dc-t">Family Center</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/Finance" target="_blank"><div class="dc-dot g"></div><div class="dc-t">Finance</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/GriswoldFrontDesk" target="_blank"><div class="dc-dot"></div><div class="dc-t">Griswold Front Desk</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/HRAdmin" target="_blank"><div class="dc-dot"></div><div class="dc-t">Human Resources</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/InfoTech" target="_blank"><div class="dc-dot g"></div><div class="dc-t">Info. Technology</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/WomensResidency" target="_blank"><div class="dc-dot"></div><div class="dc-t">Women&apos;s Residency</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/AdvancementCampaign" target="_blank"><div class="dc-dot g"></div><div class="dc-t">Advancement &ndash; Campaign</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/AdvancementGrants" target="_blank"><div class="dc-dot g"></div><div class="dc-t">Advancement &ndash; Grants</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/YWCAMeetings" target="_blank"><div class="dc-dot"></div><div class="dc-t">YWCA Meetings</div></a>
+      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/YWCAUSA" target="_blank"><div class="dc-dot g"></div><div class="dc-t">YWCA USA</div></a>
+    </div>
+  </section>
+
+  <!-- KEY DOCS -->
+  <section>
+    <div class="sh">
+      <div class="sh-title" data-en="Key Documents" data-es="Documentos Clave">Key Documents</div>
+      <div class="sh-line"></div>
+      <a class="sh-link" href="#" data-en="Document library →" data-es="Biblioteca →">Document library &rarr;</a>
+    </div>
+    <div class="doc-list">
+      <a class="doc" href="#" target="_blank"><span class="doc-ic">&#128196;</span><div class="doc-inf"><div class="doc-n">Employee Handbook 2026</div><div class="doc-m">Updated Mar 2026 &middot; HR</div></div><span class="badge b-or">New</span></a>
+      <a class="doc" href="#" target="_blank"><span class="doc-ic">&#128138;</span><div class="doc-inf"><div class="doc-n">Benefits &amp; Open Enrollment Guide</div><div class="doc-m">Closes Apr 30, 2026 &middot; HR</div></div><span class="badge b-red">Urgent</span></a>
+      <a class="doc" href="#" target="_blank"><span class="doc-ic">&#128274;</span><div class="doc-inf"><div class="doc-n">IT Security &amp; Acceptable Use Policy</div><div class="doc-m">Updated Jan 2026 &middot; IT</div></div><span class="badge b-gy">Policy</span></a>
+      <a class="doc" href="#" target="_blank"><span class="doc-ic">&#127912;</span><div class="doc-inf"><div class="doc-n">YWCA Columbus Brand Guide 2023</div><div class="doc-m">Communications</div></div><span class="badge b-gy">Brand</span></a>
+    </div>
+  </section>
+
+</div>
+
+<!-- RIGHT SIDEBAR -->
+<div class="right">
+
+  <!-- STAFF DIRECTORY -->
+  <div class="sb-card">
+    <div class="sb-hd">
+      <div class="sb-ht" data-en="Staff Directory" data-es="Directorio de Personal">Staff Directory</div>
+      <a class="sb-hl" href="#" data-en="View all →" data-es="Ver todo →">View all &rarr;</a>
+    </div>
+    <div class="sb-bd">
+      <input class="sb-search" placeholder="Search name or dept..." data-placeholder-en="Search name or dept..." data-placeholder-es="Buscar nombre o depto..." />
+      <!-- UPDATE NAMES/TITLES TO MATCH CURRENT LEADERSHIP -->
+      <div class="sr"><div class="sav or">EB</div><div class="si"><div class="sn">Elizabeth Brown</div><div class="srl">President &amp; CEO</div><div class="sd">Leadership</div></div></div>
+      <div class="sr"><div class="sav bk">RS</div><div class="si"><div class="sn">Ren&eacute;e Shumate</div><div class="srl">Board Chair</div><div class="sd">Board</div></div></div>
+      <div class="sr"><div class="sav gy">JC</div><div class="si"><div class="sn">Janelle N. Coleman</div><div class="srl">Secretary</div><div class="sd">Board</div></div></div>
+      <div class="sr"><div class="sav gn">MR</div><div class="si"><div class="sn">Mysheika W. Roberts</div><div class="srl">Board of Directors</div><div class="sd">Board</div></div></div>
+    </div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="sb-card">
+    <div class="sb-hd">
+      <div class="sb-ht" data-en="Upcoming Events" data-es="Próximos Eventos">Upcoming Events</div>
+      <a class="sb-hl" href="https://ywcacolumbus.sharepoint.com/sites/YWCAMeetings" target="_blank" data-en="Full calendar →" data-es="Calendario completo →">Full calendar &rarr;</a>
+    </div>
+    <div class="sb-bd">
+      <!-- UPDATE EVENT DETAILS TO MATCH CURRENT CALENDAR -->
+      <div class="ce"><div class="cd"><div class="cm">Apr</div><div class="cn">10</div></div><div class="ci"><div class="ct">All-Staff Q2 Mission Meeting</div><div class="ctm">10:00 AM &ndash; 11:30 AM</div><span class="ctg tg-org">Org-Wide</span></div></div>
+      <div class="ce"><div class="cd"><div class="cm">Apr</div><div class="cn">15</div></div><div class="ci"><div class="ct">HR: Benefits Q&amp;A Session</div><div class="ctm">2:00 PM &ndash; 3:00 PM</div><span class="ctg tg-hr">HR</span></div></div>
+      <div class="ce"><div class="cd"><div class="cm">Apr</div><div class="cn">22</div></div><div class="ci"><div class="ct">Mission Central Training Drop-In</div><div class="ctm">11:00 AM &ndash; 12:00 PM</div><span class="ctg tg-it">IT</span></div></div>
+      <div class="ce"><div class="cd"><div class="cm">Apr</div><div class="cn">30</div></div><div class="ci"><div class="ct">Benefits Enrollment Closes</div><div class="ctm">End of day deadline</div><span class="ctg tg-hr">HR</span></div></div>
+    </div>
+  </div>
+
+  <!-- TRAINING -->
+  <div class="sb-card">
+    <div class="sb-hd">
+      <div class="sb-ht" data-en="Training Resources" data-es="Recursos de Capacitación">Training Resources</div>
+      <a class="sb-hl" href="#" data-en="All →" data-es="Todo →">All &rarr;</a>
+    </div>
+    <div class="sb-bd">
+      <a class="tri" href="https://support.microsoft.com/en-us/office/onedrive-video-tutorials-1f608184-b7e6-43ca-8753-2ff679203132" target="_blank"><div class="tr-dot"></div><div class="tr-t">OneDrive &mdash; Video Tutorials</div><div class="tr-ar">&rarr;</div></a>
+      <a class="tri" href="https://support.microsoft.com/en-us/office/sharepoint-video-training-cb8ef501-84db-4427-ac77-ec20099b8e23" target="_blank"><div class="tr-dot"></div><div class="tr-t">SharePoint Training (Microsoft)</div><div class="tr-ar">&rarr;</div></a>
+      <a class="tri" href="https://support.microsoft.com/en-us/office/get-started-with-microsoft-teams-b98d533f-118e-4bae-bf44-3df2470c2b12" target="_blank"><div class="tr-dot"></div><div class="tr-t">Microsoft Teams &mdash; Getting Started</div><div class="tr-ar">&rarr;</div></a>
+      <a class="tri" href="https://learn.microsoft.com/en-us/training/browse/?roles=business-user" target="_blank"><div class="tr-dot"></div><div class="tr-t">Microsoft Training Paths</div><div class="tr-ar">&rarr;</div></a>
+      <a class="tri" href="https://learning.ywcacolumbus.org" target="_blank"><div class="tr-dot"></div><div class="tr-t" style="color:var(--or);font-weight:600">JEB Training Platform &#8599;</div><div class="tr-ar">&rarr;</div></a>
+    </div>
+  </div>
+
+  <!-- CRISIS LINE -->
+  <div class="crisis-card">
+    <div class="crisis-hd"><div class="crisis-ht" data-en="Crisis Resources" data-es="Recursos de Crisis">Crisis Resources</div></div>
+    <div class="crisis-bd">
+      <div class="crisis-label" data-en="Homeless Hotline — Open 24 Hours" data-es="Línea de Crisis — Abierta 24 Horas">Homeless Hotline &mdash; Open 24 Hours</div>
+      <div class="crisis-num">(614) 274-7000</div>
+      <div class="crisis-note" data-en="For residents or community members needing immediate shelter assistance." data-es="Para residentes o miembros de la comunidad que necesitan asistencia inmediata de refugio.">For residents or community members needing immediate shelter assistance.</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- IMPACT STRIP -->
+<div class="impact">
+  <div class="imp-txt">
+    <div class="imp-h" data-en="Together, We're Changing Columbus." data-es="Juntos, Estamos Cambiando Columbus.">Together, We&apos;re<em>Changing Columbus.</em></div>
+    <div class="imp-sub" data-en="Every staff member at YWCA Columbus is part of something 140 years in the making. Thank you for showing up every day for this mission." data-es="Cada miembro del personal de YWCA Columbus es parte de algo que lleva 140 años construyéndose. Gracias por presentarse cada día para esta misión.">Every staff member at YWCA Columbus is part of something 140 years in the making. Thank you for showing up every day for this mission.</div>
+    <div class="imp-cta">
+      <a class="btn-or" href="https://www.ywcacolumbus.org/about-us" target="_blank">Our Mission &rarr;</a>
+      <a class="btn-wh" href="https://www.ywcacolumbus.org/140years" target="_blank">140 Years of Impact</a>
+    </div>
+  </div>
+  <div class="imp-stats">
+    <div class="imp-stat"><div class="imp-n">120+</div><div class="imp-l" data-en="countries in the<br>YWCA network" data-es="países en la red<br>de YWCA">countries in the<br>YWCA network</div></div>
+    <div class="imp-stat"><div class="imp-n">25M</div><div class="imp-l" data-en="women served<br>worldwide" data-es="mujeres atendidas<br>en todo el mundo">women served<br>worldwide</div></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="foot">
+  <div class="fl"><strong>YWCA Columbus</strong> &middot; Mission Central Staff Portal</div>
+  <div class="fr">65 South Fourth Street &middot; Columbus, OH 43215 &middot; ywcacolumbus.org &middot; IT Support: itsupport@ywcacolumbus.org</div>
+</div>
+
+</div>
+
+<script>
+// ── DATE + GREETING ──────────────────────────────────────────────────
+(function(){
+  var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var now=new Date();
+  var h=now.getHours();
+  var greeting=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  var dateStr=days[now.getDay()]+', '+months[now.getMonth()]+' '+now.getDate()+', '+now.getFullYear();
+  var tb=document.getElementById('tb-date');
+  if(tb)tb.textContent=dateStr+' · Mission Central · YWCA Columbus';
+  var hg=document.getElementById('hero-greeting');
+  if(hg)hg.textContent=greeting+', Team — Welcome to Mission Central';
+})();
+
+// ── LANGUAGE TOGGLE ──────────────────────────────────────────────────
+var currentLang='en';
+function switchLang(lang){
+  currentLang=lang;
+  document.querySelectorAll('.lb').forEach(function(b){b.classList.remove('on')});
+  document.querySelectorAll('.lb').forEach(function(b){if((lang==='en'&&b.textContent==='EN')||(lang==='es'&&b.textContent==='ES'))b.classList.add('on')});
+  document.querySelectorAll('[data-en]').forEach(function(el){
+    var val=el.getAttribute('data-'+lang);
+    if(val)el.innerHTML=val;
+  });
+  document.querySelectorAll('[data-placeholder-'+lang+']').forEach(function(el){
+    el.placeholder=el.getAttribute('data-placeholder-'+lang);
+  });
+}
+</script>
+</html>

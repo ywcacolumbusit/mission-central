@@ -117,6 +117,17 @@
       "type": "tg-org",
       "createdAt": "2026-06-30T20:56:22.855Z",
       "createdBy": "MarCom"
+    },
+    {
+      "id": "event-mr14nl2wbe0h",
+      "status": "live",
+      "month": "Jul",
+      "day": "7",
+      "title": "Tech Talks",
+      "time": "10:00AM",
+      "type": "tg-org",
+      "createdAt": "2026-06-30T20:56:58.232Z",
+      "createdBy": "MarCom"
     }
   ],
   "hrLinks": [

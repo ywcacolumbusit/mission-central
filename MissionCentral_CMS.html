@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -161,6 +160,7 @@ body{font-family:var(--font-b);background:var(--gray);color:var(--blk);min-heigh
   .welcome-cards{grid-template-columns:1fr}
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -274,6 +274,12 @@ body{font-family:var(--font-b);background:var(--gray);color:var(--blk);min-heigh
         <div class="sidebar-item" onclick="showSection('approvals')" id="nav-approvals">
           <span class="sidebar-icon">✅</span> Pending Approvals
         </div>
+        <div class="sidebar-item" onclick="showSection('permissions')" id="nav-permissions">
+          <span class="sidebar-icon">🔐</span> Manage Permissions
+        </div>
+        <div class="sidebar-item" onclick="showSection('history')" id="nav-history">
+          <span class="sidebar-icon">🕒</span> Version History
+        </div>
       </div>
       <div class="sidebar-section">
         <div class="sidebar-label">Help</div>
@@ -343,6 +349,16 @@ body{font-family:var(--font-b);background:var(--gray);color:var(--blk);min-heigh
               <div class="wc-title">Pending Approvals</div>
               <div class="wc-desc">Review and approve content submitted by other departments.</div>
             </div>
+            <div class="welcome-card" onclick="showSection('permissions')">
+              <div class="wc-icon">🔐</div>
+              <div class="wc-title">Manage Permissions</div>
+              <div class="wc-desc">Control which departments can publish instantly vs. need approval.</div>
+            </div>
+            <div class="welcome-card" onclick="showSection('history')">
+              <div class="wc-icon">🕒</div>
+              <div class="wc-title">Version History</div>
+              <div class="wc-desc">Browse every change ever published, including prior versions.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -350,142 +366,20 @@ body{font-family:var(--font-b);background:var(--gray);color:var(--blk);min-heigh
       <!-- NEWS SECTION -->
       <div id="section-news" style="display:none">
         <div style="margin-bottom:16px">
-          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">News & Announcements</div>
-          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Update the news cards that appear on the Mission Central homepage. The two featured cards are the most visible.</div>
-        </div>
-        <div class="approval-banner" id="news-approval-banner" style="display:none">
-          <div class="approval-banner-icon">⏳</div>
-          <div class="approval-banner-text"><strong>Your changes go to IT for approval before publishing.</strong>Once approved, they'll appear live on Mission Central within a few minutes. You'll receive an email confirmation.</div>
+          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">News &amp; Announcements</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Add, edit, and manage all news items. Set status to Live to show on Mission Central, Draft to hide, or Archived to remove from rotation but keep on file.</div>
         </div>
         <div class="status-msg" id="news-status"></div>
-
-        <!-- Featured Card 1 -->
-        <div class="news-card-editor">
-          <div class="nce-head">
-            <div class="nce-num">1</div>
-            <div class="nce-label">Featured Story — Large card, left position</div>
-            <div class="nce-type">Most visible</div>
-          </div>
-          <div class="nce-body">
-            <div class="field-row">
-              <div class="field">
-                <label>Headline <span class="req">*</span></label>
-                <input type="text" id="news1-headline" placeholder="e.g. All-Staff Q3 Mission Meeting — July 15">
-              </div>
-              <div class="field">
-                <label>Category Tag <span class="req">*</span></label>
-                <select id="news1-tag">
-                  <option value="Org-Wide">Org-Wide</option>
-                  <option value="HR Update">HR Update</option>
-                  <option value="Tech">Tech</option>
-                  <option value="Community">Community</option>
-                  <option value="Programs">Programs</option>
-                  <option value="Finance">Finance</option>
-                  <option value="Training">Training</option>
-                  <option value="Urgent">Urgent</option>
-                </select>
-              </div>
-            </div>
-            <div class="field-row">
-              <div class="field">
-                <label>Date & Time</label>
-                <input type="text" id="news1-date" placeholder="e.g. July 15, 2026 · 10:00 AM – 11:30 AM">
-              </div>
-              <div class="field">
-                <label>Link URL (optional)</label>
-                <input type="url" id="news1-link" placeholder="https://... (leave blank if no link)">
-              </div>
-            </div>
-            <div class="field">
-              <label>Short Description <span class="req">*</span></label>
-              <textarea id="news1-excerpt" placeholder="2-3 sentences describing this announcement. This appears below the headline on the homepage."></textarea>
-            </div>
-          </div>
-        </div>
-
-        <!-- Featured Card 2 -->
-        <div class="news-card-editor">
-          <div class="nce-head">
-            <div class="nce-num">2</div>
-            <div class="nce-label">Featured Story — Large card, right position</div>
-            <div class="nce-type">Very visible</div>
-          </div>
-          <div class="nce-body">
-            <div class="field-row">
-              <div class="field">
-                <label>Headline <span class="req">*</span></label>
-                <input type="text" id="news2-headline" placeholder="e.g. Benefits Open Enrollment — Closes April 30">
-              </div>
-              <div class="field">
-                <label>Category Tag <span class="req">*</span></label>
-                <select id="news2-tag">
-                  <option value="HR Update">HR Update</option>
-                  <option value="Org-Wide">Org-Wide</option>
-                  <option value="Tech">Tech</option>
-                  <option value="Community">Community</option>
-                  <option value="Programs">Programs</option>
-                  <option value="Finance">Finance</option>
-                  <option value="Training">Training</option>
-                  <option value="Urgent">Urgent</option>
-                </select>
-              </div>
-            </div>
-            <div class="field-row">
-              <div class="field">
-                <label>Date & Time</label>
-                <input type="text" id="news2-date" placeholder="e.g. April 5, 2026">
-              </div>
-              <div class="field">
-                <label>Link URL (optional)</label>
-                <input type="url" id="news2-link" placeholder="https://...">
-              </div>
-            </div>
-            <div class="field">
-              <label>Short Description <span class="req">*</span></label>
-              <textarea id="news2-excerpt" placeholder="2-3 sentences describing this announcement."></textarea>
-            </div>
-          </div>
-        </div>
-
-        <!-- Small Cards -->
         <div class="section-card">
           <div class="section-card-head">
-            <span class="sch-icon">📋</span>
-            <span class="sch-title">Small News Cards — 4 across</span>
-            <span class="sch-badge badge-live">Secondary visibility</span>
+            <span class="sch-icon">📰</span>
+            <span class="sch-title">All News Items</span>
+            <span class="sch-badge badge-live" id="news-count-badge">0 items</span>
           </div>
           <div class="section-card-body">
-            <div id="small-news-cards">
-              <div class="field-row-3" style="margin-bottom:10px;border-bottom:1px solid var(--gray2);padding-bottom:10px">
-                <div class="field"><label>Card 3 Headline</label><input type="text" id="news3-h" placeholder="Short headline"></div>
-                <div class="field"><label>Date</label><input type="text" id="news3-d" placeholder="Apr 7, 2026"></div>
-                <div class="field"><label>Category</label><select id="news3-tag"><option>Tech</option><option>Org-Wide</option><option>HR Update</option><option>Community</option><option>Programs</option><option>Finance</option><option>Training</option></select></div>
-              </div>
-              <div class="field-row-3" style="margin-bottom:10px;border-bottom:1px solid var(--gray2);padding-bottom:10px">
-                <div class="field"><label>Card 4 Headline</label><input type="text" id="news4-h" placeholder="Short headline"></div>
-                <div class="field"><label>Date</label><input type="text" id="news4-d" placeholder="Apr 1, 2026"></div>
-                <div class="field"><label>Category</label><select id="news4-tag"><option>HR Update</option><option>Org-Wide</option><option>Tech</option><option>Community</option><option>Programs</option><option>Finance</option><option>Training</option></select></div>
-              </div>
-              <div class="field-row-3" style="margin-bottom:10px;border-bottom:1px solid var(--gray2);padding-bottom:10px">
-                <div class="field"><label>Card 5 Headline</label><input type="text" id="news5-h" placeholder="Short headline"></div>
-                <div class="field"><label>Date</label><input type="text" id="news5-d" placeholder="Mar 28, 2026"></div>
-                <div class="field"><label>Category</label><select id="news5-tag"><option>Community</option><option>Org-Wide</option><option>HR Update</option><option>Tech</option><option>Programs</option><option>Finance</option><option>Training</option></select></div>
-              </div>
-              <div class="field-row-3">
-                <div class="field"><label>Card 6 Headline</label><input type="text" id="news6-h" placeholder="Short headline"></div>
-                <div class="field"><label>Date</label><input type="text" id="news6-d" placeholder="Mar 15, 2026"></div>
-                <div class="field"><label>Category</label><select id="news6-tag"><option>Programs</option><option>Org-Wide</option><option>HR Update</option><option>Tech</option><option>Community</option><option>Finance</option><option>Training</option></select></div>
-              </div>
-            </div>
+            <div id="news-items-list"></div>
+            <button class="add-row-btn" data-action="add-news">+ Add a news item</button>
           </div>
-        </div>
-
-        <div class="action-bar">
-          <button class="btn-primary" onclick="submitNews()" id="news-submit-btn">
-            Submit for Approval →
-          </button>
-          <button class="btn-secondary" onclick="previewNews()">Preview changes</button>
-          <div class="action-note" id="news-action-note">Changes will be sent to IT for approval before going live on Mission Central.</div>
         </div>
       </div>
 
@@ -493,111 +387,60 @@ body{font-family:var(--font-b);background:var(--gray);color:var(--blk);min-heigh
       <div id="section-events" style="display:none">
         <div style="margin-bottom:16px">
           <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">Events Calendar</div>
-          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Update the upcoming events shown in the sidebar of Mission Central. Keep the next 4-6 weeks current.</div>
-        </div>
-        <div class="approval-banner" id="events-approval-banner" style="display:none">
-          <div class="approval-banner-icon">⏳</div>
-          <div class="approval-banner-text"><strong>Your changes go to IT for approval before publishing.</strong>You'll receive an email when they go live.</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Add unlimited events. Set status to Live to show on Mission Central (homepage shows the next 4, View All shows everything), Draft to hide, or Archived for past events.</div>
         </div>
         <div class="status-msg" id="events-status"></div>
         <div class="section-card">
           <div class="section-card-head">
             <span class="sch-icon">📅</span>
-            <span class="sch-title">Upcoming Events — Sidebar (shows 4 events)</span>
+            <span class="sch-title">All Events</span>
+            <span class="sch-badge badge-live" id="events-count-badge">0 items</span>
           </div>
           <div class="section-card-body">
-            <div id="events-list">
-              <div class="event-row" id="event-row-1">
-                <div class="field"><label>Month</label><select id="ev1-month"><option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option><option>May</option><option>Jun</option><option>Jul</option><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option></select></div>
-                <div class="field"><label>Event Title <span class="req">*</span></label><input type="text" id="ev1-title" placeholder="e.g. All-Staff Q3 Mission Meeting"></div>
-                <div class="field"><label>Day & Time</label><input type="text" id="ev1-time" placeholder="e.g. 15 · 10:00 AM"></div>
-                <div class="field"><label>Type</label><select id="ev1-type"><option value="tg-org">Org-Wide</option><option value="tg-hr">HR</option><option value="tg-it">IT/Tech</option></select></div>
-                <div></div>
-              </div>
-              <div class="event-row" id="event-row-2">
-                <div class="field"><label>Month</label><select id="ev2-month"><option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option><option>May</option><option>Jun</option><option>Jul</option><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option></select></div>
-                <div class="field"><label>Event Title</label><input type="text" id="ev2-title" placeholder="Event title"></div>
-                <div class="field"><label>Day & Time</label><input type="text" id="ev2-time" placeholder="e.g. 22 · 2:00 PM"></div>
-                <div class="field"><label>Type</label><select id="ev2-type"><option value="tg-hr">HR</option><option value="tg-org">Org-Wide</option><option value="tg-it">IT/Tech</option></select></div>
-                <div></div>
-              </div>
-              <div class="event-row" id="event-row-3">
-                <div class="field"><label>Month</label><select id="ev3-month"><option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option><option>May</option><option>Jun</option><option>Jul</option><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option></select></div>
-                <div class="field"><label>Event Title</label><input type="text" id="ev3-title" placeholder="Event title"></div>
-                <div class="field"><label>Day & Time</label><input type="text" id="ev3-time" placeholder="e.g. 30 · 11:00 AM"></div>
-                <div class="field"><label>Type</label><select id="ev3-type"><option value="tg-it">IT/Tech</option><option value="tg-org">Org-Wide</option><option value="tg-hr">HR</option></select></div>
-                <div></div>
-              </div>
-              <div class="event-row" id="event-row-4">
-                <div class="field"><label>Month</label><select id="ev4-month"><option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option><option>May</option><option>Jun</option><option>Jul</option><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option></select></div>
-                <div class="field"><label>Event Title</label><input type="text" id="ev4-title" placeholder="Event title"></div>
-                <div class="field"><label>Day & Time</label><input type="text" id="ev4-time" placeholder="e.g. 30 · End of day"></div>
-                <div class="field"><label>Type</label><select id="ev4-type"><option value="tg-hr">HR</option><option value="tg-org">Org-Wide</option><option value="tg-it">IT/Tech</option></select></div>
-                <div></div>
-              </div>
-            </div>
+            <div id="events-items-list"></div>
+            <button class="add-row-btn" data-action="add-event">+ Add an event</button>
           </div>
         </div>
-        <div class="action-bar">
-          <button class="btn-primary" onclick="submitEvents()" id="events-submit-btn">Submit for Approval →</button>
-          <div class="action-note">Changes will be sent to IT for approval before going live.</div>
-        </div>
-        <div class="status-msg" id="events-status-bottom"></div>
       </div>
 
       <!-- STAFF DIRECTORY -->
       <div id="section-staff" style="display:none">
         <div style="margin-bottom:16px">
           <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">Employee Directory</div>
-          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Update the staff members shown in the Mission Central sidebar directory. Add, edit, or remove entries.</div>
-        </div>
-        <div class="approval-banner" id="staff-approval-banner" style="display:none">
-          <div class="approval-banner-icon">⏳</div>
-          <div class="approval-banner-text"><strong>Your changes go to IT for approval before publishing.</strong></div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Manage staff entries one at a time, or import an entire list from a CSV or Excel file. Also manage the three main site phone numbers shown at the top of the directory.</div>
         </div>
         <div class="status-msg" id="staff-status"></div>
+
+        <div class="section-card">
+          <div class="section-card-head"><span class="sch-icon">📍</span><span class="sch-title">Main Site Phone Numbers</span><span class="sch-badge badge-live">Shown at top of directory</span></div>
+          <div class="section-card-body">
+            <div id="main-sites-list"></div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-card-head"><span class="sch-icon">📤</span><span class="sch-title">Import Staff List</span></div>
+          <div class="section-card-body">
+            <div style="font-size:12px;color:var(--gtxt);margin-bottom:10px;line-height:1.5">
+              Upload a CSV or Excel file with columns for <strong>Full Name</strong>, <strong>Job Title</strong>, <strong>Department</strong>, and <strong>Direct Dial / Extension</strong> (optional &mdash; leave blank if someone doesn't have one). Staff already in the directory will be updated by matching name; new names will be added.
+            </div>
+            <input type="file" id="staff-import-file" accept=".csv,.xlsx,.xls" style="margin-bottom:10px" />
+            <div id="staff-import-status" style="font-size:12px;margin-top:8px"></div>
+            <button class="btn-primary" data-action="import-staff" id="staff-import-btn" style="margin-top:8px">Upload &amp; Import →</button>
+          </div>
+        </div>
+
         <div class="section-card">
           <div class="section-card-head">
             <span class="sch-icon">👥</span>
-            <span class="sch-title">Employee Directory Entries</span>
+            <span class="sch-title">All Staff Entries</span>
+            <span class="sch-badge badge-live" id="staff-count-badge">0 entries</span>
           </div>
           <div class="section-card-body">
-            <div id="staff-list">
-              <div class="staff-row-editor" id="staff-row-1">
-                <div class="field"><label>Full Name <span class="req">*</span></label><input type="text" id="s1-name" placeholder="First Last"></div>
-                <div class="field"><label>Job Title <span class="req">*</span></label><input type="text" id="s1-title" placeholder="e.g. President & CEO"></div>
-                <div class="field"><label>Department</label><input type="text" id="s1-dept" placeholder="e.g. Leadership"></div>
-                <div class="field"><label>Email (optional)</label><input type="email" id="s1-email" placeholder="name@ywcacolumbus.org"></div>
-                <div></div>
-              </div>
-              <div class="staff-row-editor" id="staff-row-2">
-                <div class="field"><label>Full Name</label><input type="text" id="s2-name" placeholder="First Last"></div>
-                <div class="field"><label>Job Title</label><input type="text" id="s2-title" placeholder="e.g. Board Chair"></div>
-                <div class="field"><label>Department</label><input type="text" id="s2-dept" placeholder="e.g. Board"></div>
-                <div class="field"><label>Email (optional)</label><input type="email" id="s2-email" placeholder="name@ywcacolumbus.org"></div>
-                <button class="remove-btn" onclick="removeStaffRow(2)">✕</button>
-              </div>
-              <div class="staff-row-editor" id="staff-row-3">
-                <div class="field"><label>Full Name</label><input type="text" id="s3-name" placeholder="First Last"></div>
-                <div class="field"><label>Job Title</label><input type="text" id="s3-title" placeholder="e.g. Secretary"></div>
-                <div class="field"><label>Department</label><input type="text" id="s3-dept" placeholder="e.g. Board"></div>
-                <div class="field"><label>Email (optional)</label><input type="email" id="s3-email" placeholder="name@ywcacolumbus.org"></div>
-                <button class="remove-btn" onclick="removeStaffRow(3)">✕</button>
-              </div>
-              <div class="staff-row-editor" id="staff-row-4">
-                <div class="field"><label>Full Name</label><input type="text" id="s4-name" placeholder="First Last"></div>
-                <div class="field"><label>Job Title</label><input type="text" id="s4-title" placeholder="e.g. Director"></div>
-                <div class="field"><label>Department</label><input type="text" id="s4-dept" placeholder="e.g. Programs"></div>
-                <div class="field"><label>Email (optional)</label><input type="email" id="s4-email" placeholder="name@ywcacolumbus.org"></div>
-                <button class="remove-btn" onclick="removeStaffRow(4)">✕</button>
-              </div>
-            </div>
-            <button class="add-row-btn" onclick="addStaffRow()">+ Add another staff member</button>
+            <input type="text" id="staff-filter" placeholder="Search to filter the list below..." style="width:100%;padding:9px 12px;border:1.5px solid var(--gray2);border-radius:5px;font-size:13px;margin-bottom:12px" />
+            <div id="staff-items-list"></div>
+            <button class="add-row-btn" data-action="add-staff">+ Add a staff member manually</button>
           </div>
-        </div>
-        <div class="action-bar">
-          <button class="btn-primary" onclick="submitStaff()" id="staff-submit-btn">Submit for Approval →</button>
-          <div class="action-note">Changes will be sent to IT for approval before going live.</div>
         </div>
       </div>
 
@@ -655,25 +498,21 @@ body{font-family:var(--font-b);background:var(--gray);color:var(--blk);min-heigh
       <div id="section-hrlibrary" style="display:none">
         <div style="margin-bottom:16px">
           <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">HR Resource Library</div>
-          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Manage links shown in the HR Resource Library sidebar (ADP, Referral Program, Brand Store, ReportIt, Feedback). HR access only.</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Add unlimited links &mdash; this is the source of truth for all HR-related documents and tools. The homepage sidebar shows the first 5 Live links; View All shows everything.</div>
         </div>
         <div class="status-msg" id="hrlib-status"></div>
         <div class="section-card">
-          <div class="section-card-head"><span class="sch-icon">📋</span><span class="sch-title">HR Resource Links</span><span class="sch-badge badge-live">HR — publishes instantly</span></div>
+          <div class="section-card-head">
+            <span class="sch-icon">📋</span>
+            <span class="sch-title">All HR Links</span>
+            <span class="sch-badge badge-live" id="hrlib-count-badge">0 links</span>
+          </div>
           <div class="section-card-body">
-            <div class="field-row"><div class="field"><label>ADP Self-Service URL</label><input type="url" id="hrlib-adp" placeholder="https://..."></div></div>
-            <div class="field-row"><div class="field"><label>Referral Program URL</label><input type="url" id="hrlib-referral" placeholder="https://..."></div></div>
-            <div class="field-row"><div class="field"><label>Employee Brand Store URL</label><input type="url" id="hrlib-store" placeholder="https://..."></div></div>
-            <div class="field-row"><div class="field"><label>ReportIt URL</label><input type="url" id="hrlib-reportit" placeholder="https://..."></div></div>
-            <div class="field-row"><div class="field"><label>Anonymous Feedback Form URL</label><input type="url" id="hrlib-feedback" placeholder="https://..."></div></div>
+            <div id="hrlib-items-list"></div>
+            <button class="add-row-btn" data-action="add-hrlink">+ Add an HR link</button>
           </div>
         </div>
-        <div class="action-bar">
-          <button class="btn-primary" onclick="submitHRLibrary()" id="hrlib-submit-btn">Publish Now →</button>
-          <div class="action-note">As HR, your changes publish immediately without approval.</div>
-        </div>
       </div>
-
 
       <div id="section-deptlinks" style="display:none">
         <div style="margin-bottom:16px">
@@ -752,6 +591,48 @@ body{font-family:var(--font-b);background:var(--gray);color:var(--blk);min-heigh
         </div>
       </div>
 
+      <!-- MANAGE PERMISSIONS (MarCom & IT only) -->
+      <div id="section-permissions" style="display:none">
+        <div style="margin-bottom:16px">
+          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">Manage Permissions</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Control which departments can publish changes instantly, without going through approval. Changes here take effect immediately for everyone.</div>
+        </div>
+        <div class="status-msg" id="permissions-status"></div>
+        <div class="section-card">
+          <div class="section-card-head"><span class="sch-icon">🔐</span><span class="sch-title">Auto-Publish Departments</span></div>
+          <div class="section-card-body">
+            <div style="font-size:12px;color:var(--gtxt);margin-bottom:14px;line-height:1.5">Turn ON for any department that should publish changes immediately. Turn OFF to require their changes go through MarCom for approval first.</div>
+            <div id="permissions-list"></div>
+          </div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-primary" onclick="savePermissions()" id="permissions-save-btn">Save Permissions →</button>
+          <div class="action-note">Changes apply immediately to all users the next time they log in.</div>
+        </div>
+      </div>
+
+      <!-- VERSION HISTORY (MarCom & IT only) -->
+      <div id="section-history" style="display:none">
+        <div style="margin-bottom:16px">
+          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">Version History</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Every change ever published through this CMS is logged here, including what the content looked like before the change. Nothing is ever permanently lost.</div>
+        </div>
+        <div class="status-msg" id="history-status"></div>
+        <div class="section-card">
+          <div class="section-card-head">
+            <span class="sch-icon">🕒</span>
+            <span class="sch-title">Change Log</span>
+            <span class="sch-badge badge-live" id="history-count">0 entries</span>
+          </div>
+          <div class="section-card-body" id="history-list">
+            <div style="text-align:center;padding:32px;color:var(--gtxt)">
+              <div style="font-size:32px;margin-bottom:10px">🕒</div>
+              <div style="font-size:14px;font-weight:600">Loading history...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- HELP -->
       <div id="section-help" style="display:none">
         <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk);margin-bottom:16px">How to use Mission Central CMS</div>
@@ -802,7 +683,7 @@ var CONFIG = {
   // Deploy the companion Vercel function (see vercel-backend folder) and
   // paste its URL here. This file never sees or stores your token.
   // Example: 'https://mission-central-backend.vercel.app/api/update-portal'
-  backendUrl: 'https://mission-central-backend.vercel.app/api/update-portal',
+  backendUrl: 'YOUR_VERCEL_BACKEND_URL_HERE',
 
   // GitHub details — informational only, the actual token-protected calls
   // happen inside the Vercel backend function, not here.
@@ -834,7 +715,7 @@ var CONFIG = {
   //  and approved individually... role-based permissions to ensure that the
   //  users uploading information (e.g. HR, LSJ) only have access to the
   //  information they need."
-  autoPublishDepts: ['Leadership','Human Resources','LSJ','MarCom'],
+  autoPublishDepts: ['Leadership','Human Resources','LSJ','MarCom','Information Technology'],
 
   // Role-based section ownership — each elevated role can only edit ITS sections
   // without approval; everyone else can submit to any section but it requires approval
@@ -843,7 +724,11 @@ var CONFIG = {
     'Human Resources': ['staff','hrlibrary','events'],
     'LSJ': ['socialjustice'],
     'MarCom': ['news','events','staff','leadership','socialjustice','hrlibrary','deptlinks','hero'],
+    'Information Technology': ['news','events','staff','leadership','socialjustice','hrlibrary','deptlinks','hero'],
   },
+
+  // Roles allowed to see and use the Manage Permissions and Version History screens
+  fullAdminRoles: ['MarCom', 'Information Technology'],
 };
 
 // ══════════════════════════════════════════════════════
@@ -855,12 +740,13 @@ var state = {
   isAdmin: false,
   staffRowCount: 4,
   deptRowCount: 0,
+  loadedPermissions: null,
 };
 
 // ══════════════════════════════════════════════════════
 // LOGIN
 // ══════════════════════════════════════════════════════
-function doLogin() {
+async function doLogin() {
   var dept = document.getElementById('login-dept').value;
   var name = document.getElementById('login-name').value.trim();
   var code = document.getElementById('login-code').value;
@@ -881,7 +767,28 @@ function doLogin() {
 
   state.dept = dept;
   state.name = name;
-  state.isAdmin = CONFIG.autoPublishDepts.indexOf(dept) !== -1;
+
+  // Try to load live permissions from the backend (set via the Manage Permissions
+  // screen). If the backend is unreachable or not configured, fall back to the
+  // hardcoded CONFIG defaults so login always works.
+  var autoPublishDepts = CONFIG.autoPublishDepts;
+  if (CONFIG.backendUrl && CONFIG.backendUrl !== 'YOUR_VERCEL_BACKEND_URL_HERE') {
+    try {
+      var resp = await fetch(CONFIG.backendUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ action: 'getPermissions' })
+      });
+      var result = await resp.json();
+      if (result.success && result.permissions && result.permissions.autoPublishDepts) {
+        autoPublishDepts = result.permissions.autoPublishDepts;
+        state.loadedPermissions = result.permissions;
+      }
+    } catch (e) {
+      // Backend unreachable — silently fall back to CONFIG defaults
+    }
+  }
+  state.isAdmin = autoPublishDepts.indexOf(dept) !== -1;
 
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
@@ -898,7 +805,7 @@ function doLogout() {
 // ══════════════════════════════════════════════════════
 // INIT APP
 // ══════════════════════════════════════════════════════
-function initApp() {
+async function initApp() {
   // Set greeting
   var h = new Date().getHours();
   document.getElementById('greeting-time').textContent = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
@@ -913,6 +820,7 @@ function initApp() {
   // Welcome sub text
   var sub = document.getElementById('welcome-sub');
   var ownedSections = CONFIG.roleOwnedSections[state.dept] || [];
+  var isFullAdmin = CONFIG.fullAdminRoles.indexOf(state.dept) !== -1;
   if (state.isAdmin) {
     var sectionNames = {news:'News',events:'Events',staff:'Employee Directory',leadership:'Leadership in Motion',socialjustice:'Social Justice Corner',hrlibrary:'HR Resource Library',deptlinks:'Department Links',hero:'Hero & Stats'};
     var ownedList = ownedSections.map(function(s){return sectionNames[s] || s;}).join(', ');
@@ -921,15 +829,15 @@ function initApp() {
     sub.textContent = 'Select a section to update Mission Central. Your changes will be reviewed by MarCom before publishing — usually within a few hours.';
   }
 
-  // Show admin sections only to MarCom (full admin) — others see only their owned sections
-  if (state.dept === 'MarCom') {
+  // Show admin sections to MarCom and IT (full admin roles) — others see only their owned sections
+  if (isFullAdmin) {
     document.getElementById('admin-sidebar').style.display = 'block';
     document.getElementById('admin-welcome-cards').style.display = 'block';
   }
 
-  // Hide sidebar items not owned by this role (unless MarCom, who sees everything)
+  // Hide sidebar items not owned by this role (unless full admin, who sees everything)
   var allEditableSections = ['news','events','staff','leadership','socialjustice','hrlibrary'];
-  if (state.dept !== 'MarCom') {
+  if (!isFullAdmin) {
     allEditableSections.forEach(function(s) {
       var navEl = document.getElementById('nav-' + s);
       if (navEl && ownedSections.indexOf(s) === -1) {
@@ -943,7 +851,7 @@ function initApp() {
 
   // Show/hide approval banners based on ownership
   function setApprovalBanner(sectionId, bannerId) {
-    var owns = state.isAdmin && (state.dept === 'MarCom' || ownedSections.indexOf(sectionId) !== -1);
+    var owns = state.isAdmin && (isFullAdmin || ownedSections.indexOf(sectionId) !== -1);
     var banner = document.getElementById(bannerId);
     if (banner) banner.style.display = owns ? 'none' : 'flex';
   }
@@ -953,20 +861,20 @@ function initApp() {
   setApprovalBanner('leadership', 'leadership-approval-banner');
   setApprovalBanner('socialjustice', 'sj-approval-banner');
 
-  // Update submit button labels based on section ownership
-  function setSubmitLabel(sectionId, btnId, noteId) {
-    var owns = state.isAdmin && (state.dept === 'MarCom' || ownedSections.indexOf(sectionId) !== -1);
-    var btn = document.getElementById(btnId);
-    var note = noteId ? document.getElementById(noteId) : null;
-    if (btn) btn.textContent = owns ? 'Publish Now →' : 'Submit for Approval →';
-    if (note) note.textContent = owns
-      ? 'As ' + state.dept + ', your changes publish immediately without approval.'
-      : 'Changes will be sent to MarCom for approval before going live on Mission Central.';
-  }
-  setSubmitLabel('news', 'news-submit-btn', 'news-action-note');
+  // Note: News, Events, HR Library, and Employee Directory are now unlimited
+  // dynamic lists with per-item status (Draft/Live/Archived) rather than a
+  // single approval banner.
 
-  // Init dept links if MarCom (full admin)
-  if (state.dept === 'MarCom') initDeptLinks();
+  await loadContentStore();
+  if (isFullAdmin) initDeptLinks();
+  renderNewsList();
+  renderEventsList();
+  renderHRLibList();
+  renderStaffList('');
+  renderMainSitesList();
+  populateLeadershipForm();
+  populateSocialJusticeForm();
+  populateHeroForm();
 
   showSection('welcome');
 }
@@ -974,7 +882,7 @@ function initApp() {
 // ══════════════════════════════════════════════════════
 // NAVIGATION
 // ══════════════════════════════════════════════════════
-var sections = ['welcome','news','events','staff','leadership','socialjustice','hrlibrary','deptlinks','hero','approvals','help'];
+var sections = ['welcome','news','events','staff','leadership','socialjustice','hrlibrary','deptlinks','hero','approvals','permissions','history','help'];
 
 function showSection(id) {
   sections.forEach(function(s) {
@@ -986,54 +894,538 @@ function showSection(id) {
       if (s === id) nav.classList.add('active');
     }
   });
+  if (id === 'permissions') loadPermissions();
+  if (id === 'history') loadHistory();
+  if (id === 'news') renderNewsList();
+  if (id === 'events') renderEventsList();
+  if (id === 'hrlibrary') renderHRLibList();
+  if (id === 'staff') { renderStaffList(''); renderMainSitesList(); }
+  if (id === 'leadership') populateLeadershipForm();
+  if (id === 'socialjustice') populateSocialJusticeForm();
+  if (id === 'hero') populateHeroForm();
 }
 
 // ══════════════════════════════════════════════════════
-// STAFF ROWS
+// CONTENT STORE — loaded once at login, edited in-memory,
+// saved back to the backend on each individual save action
 // ══════════════════════════════════════════════════════
-function addStaffRow() {
-  state.staffRowCount++;
-  var n = state.staffRowCount;
-  var div = document.createElement('div');
-  div.className = 'staff-row-editor';
-  div.id = 'staff-row-' + n;
-  div.innerHTML =
-    '<div class="field"><label>Full Name</label><input type="text" id="s'+n+'-name" placeholder="First Last"></div>' +
-    '<div class="field"><label>Job Title</label><input type="text" id="s'+n+'-title" placeholder="e.g. Director"></div>' +
-    '<div class="field"><label>Department</label><input type="text" id="s'+n+'-dept" placeholder="e.g. Programs"></div>' +
-    '<div class="field"><label>Email (optional)</label><input type="email" id="s'+n+'-email" placeholder="name@ywcacolumbus.org"></div>' +
-    '<button class="remove-btn" onclick="removeStaffRow('+n+')">✕</button>';
-  document.getElementById('staff-list').appendChild(div);
+var contentStore = null;
+
+async function loadContentStore() {
+  try {
+    var resp = await fetch(CONFIG.backendUrl, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ action: 'getContent' })
+    });
+    var result = await resp.json();
+    if (result.success) {
+      contentStore = result.content;
+    }
+  } catch (err) {
+    console.error('Could not load content store:', err);
+  }
 }
 
-function removeStaffRow(n) {
-  var el = document.getElementById('staff-row-' + n);
-  if (el) el.remove();
+function statusSelectHtml(current) {
+  var opts = ['draft', 'live', 'archived'];
+  var html = '<select class="js-status" style="font-size:12px;padding:5px 8px">';
+  opts.forEach(function(o) {
+    html += '<option value="' + o + '"' + (o === current ? ' selected' : '') + '>' + o.charAt(0).toUpperCase() + o.slice(1) + '</option>';
+  });
+  return html + '</select>';
+}
+
+function escAttr(s) { return (s || '').toString().replace(/"/g, '&quot;'); }
+function escHtml(s) { return (s || '').toString().replace(/</g, '&lt;'); }
+
+function tagOptionsHtml(current) {
+  var tags = ['Org-Wide', 'HR Update', 'Tech', 'Community', 'Programs', 'Finance', 'Training', 'Urgent'];
+  var html = '';
+  tags.forEach(function(t) {
+    html += '<option value="' + t + '"' + (t === current ? ' selected' : '') + '>' + t + '</option>';
+  });
+  return html;
 }
 
 // ══════════════════════════════════════════════════════
-// DEPT LINKS
+// NEWS — dynamic list with status, featured toggle
+// Uses data-id attributes + event delegation, no inline onclick
 // ══════════════════════════════════════════════════════
-var defaultDeptLinks = [
-  ['Advancement','https://ywcacolumbus.sharepoint.com/sites/AdvancementBrand'],
-  ['Anti-Racism','https://ywcacolumbus.sharepoint.com/sites/AntiRacism'],
-  ['Board','https://ywcacolumbus.sharepoint.com/sites/Board'],
-  ['Data','https://ywcacolumbus.sharepoint.com/sites/Data'],
-  ['Development & Engagement','https://ywcacolumbus.sharepoint.com/sites/Development'],
-  ['EDU – Kids Place','https://ywcacolumbus.sharepoint.com/sites/EDUKidsPlace'],
-  ['Family Center','https://ywcacolumbus.sharepoint.com/sites/FamilyCenter'],
-  ['Finance','https://ywcacolumbus.sharepoint.com/sites/Finance'],
-  ['Griswold Front Desk','https://ywcacolumbus.sharepoint.com/sites/GriswoldFrontDesk'],
-  ['Human Resources','https://ywcacolumbus.sharepoint.com/sites/HRAdmin'],
-  ['Information Technology','https://ywcacolumbus.sharepoint.com/sites/InfoTech'],
-  ["Women's Residency",'https://ywcacolumbus.sharepoint.com/sites/WomensResidency'],
-];
+function renderNewsList() {
+  var container = document.getElementById('news-items-list');
+  var badge = document.getElementById('news-count-badge');
+  if (!container || !contentStore) return;
+  var items = contentStore.news || [];
+  badge.textContent = items.length + ' items';
 
+  var html = '';
+  items.forEach(function(n) {
+    html += '<div class="news-card-editor" data-id="' + n.id + '">';
+    html += '  <div class="nce-head">';
+    html += '    <span style="font-size:11px;font-weight:700;color:var(--blk);flex:1">' + (escHtml(n.headline) || '(no headline yet)') + '</span>';
+    html += statusSelectHtml(n.status);
+    html += '    <label style="font-size:11px;margin-left:10px"><input type="checkbox" class="js-featured"' + (n.featured ? ' checked' : '') + '> Featured</label>';
+    html += '    <button class="remove-btn js-delete-news" style="margin-left:10px">✕</button>';
+    html += '  </div>';
+    html += '  <div class="nce-body">';
+    html += '    <div class="field-row">';
+    html += '      <div class="field"><label>Headline</label><input type="text" class="js-headline" value="' + escAttr(n.headline) + '"></div>';
+    html += '      <div class="field"><label>Category Tag</label><select class="js-tag">' + tagOptionsHtml(n.tag) + '</select></div>';
+    html += '    </div>';
+    html += '    <div class="field-row">';
+    html += '      <div class="field"><label>Date &amp; Time</label><input type="text" class="js-date" value="' + escAttr(n.date) + '"></div>';
+    html += '      <div class="field"><label>Link URL</label><input type="url" class="js-link" value="' + escAttr(n.link) + '"></div>';
+    html += '    </div>';
+    html += '    <div class="field"><label>Short Description</label><textarea class="js-excerpt">' + escHtml(n.excerpt) + '</textarea></div>';
+    html += '    <button class="btn-secondary js-save-news">Save This Item →</button>';
+    html += '  </div></div>';
+  });
+  container.innerHTML = html;
+}
+
+function addNewsRow() {
+  var newItem = { id: 'local-' + Date.now(), status: 'draft', featured: false, headline: '', tag: 'Org-Wide', date: '', excerpt: '', link: '' };
+  contentStore.news = contentStore.news || [];
+  contentStore.news.unshift(newItem);
+  renderNewsList();
+}
+
+async function saveNewsItem(cardEl) {
+  var id = cardEl.getAttribute('data-id');
+  var item = (contentStore.news || []).find(function(n) { return n.id === id; });
+  if (!item) return;
+  item.headline = cardEl.querySelector('.js-headline').value;
+  item.tag = cardEl.querySelector('.js-tag').value;
+  item.date = cardEl.querySelector('.js-date').value;
+  item.link = cardEl.querySelector('.js-link').value;
+  item.excerpt = cardEl.querySelector('.js-excerpt').value;
+  item.status = cardEl.querySelector('.js-status').value;
+  item.featured = cardEl.querySelector('.js-featured').checked;
+
+  if (!item.headline) {
+    showStatus('news-status', 'error', 'Please enter a headline before saving.');
+    return;
+  }
+
+  var isNewItem = id.indexOf('local-') === 0;
+  var result = await callBackend(isNewItem ? 'addNews' : 'updateNews', item);
+  if (result.success) {
+    showStatus('news-status', 'success', '✓ ' + result.message);
+    await loadContentStore();
+    renderNewsList();
+  } else {
+    showStatus('news-status', 'error', result.error || 'Could not save.');
+  }
+}
+
+async function deleteNewsItem(cardEl) {
+  var id = cardEl.getAttribute('data-id');
+  if (!confirm('Delete this news item? This cannot be undone (though it stays in Version History).')) return;
+  if (id.indexOf('local-') === 0) {
+    contentStore.news = contentStore.news.filter(function(n) { return n.id !== id; });
+    renderNewsList();
+    return;
+  }
+  var result = await callBackend('deleteNews', { id: id });
+  if (result.success) {
+    showStatus('news-status', 'success', '✓ Deleted.');
+    await loadContentStore();
+    renderNewsList();
+  } else {
+    showStatus('news-status', 'error', result.error || 'Could not delete.');
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// EVENTS — dynamic list with status
+// ══════════════════════════════════════════════════════
+function renderEventsList() {
+  var container = document.getElementById('events-items-list');
+  var badge = document.getElementById('events-count-badge');
+  if (!container || !contentStore) return;
+  var items = contentStore.events || [];
+  badge.textContent = items.length + ' items';
+
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var types = [['tg-org','Org-Wide'],['tg-hr','HR'],['tg-it','IT/Tech']];
+
+  var html = '';
+  items.forEach(function(e) {
+    html += '<div class="event-row" data-id="' + e.id + '" style="grid-template-columns:80px 1fr 120px 70px 100px auto">';
+    html += '  <div class="field"><label>Month</label><select class="js-month">';
+    months.forEach(function(m) { html += '<option' + (m === e.month ? ' selected' : '') + '>' + m + '</option>'; });
+    html += '  </select></div>';
+    html += '  <div class="field"><label>Event Title</label><input type="text" class="js-title" value="' + escAttr(e.title) + '"></div>';
+    html += '  <div class="field"><label>Time</label><input type="text" class="js-time" value="' + escAttr(e.time) + '" placeholder="e.g. 10:00 AM"></div>';
+    html += '  <div class="field"><label>Day #</label><input type="text" class="js-day" value="' + escAttr(e.day) + '"></div>';
+    html += '  <div class="field"><label>Type</label><select class="js-type">';
+    types.forEach(function(t) { html += '<option value="' + t[0] + '"' + (t[0] === e.type ? ' selected' : '') + '>' + t[1] + '</option>'; });
+    html += '  </select></div>';
+    html += '  <div class="field"><label>Status</label>' + statusSelectHtml(e.status) + '</div>';
+    html += '</div>';
+    html += '<div style="display:flex;gap:8px;margin:-4px 0 10px;padding-left:2px">';
+    html += '  <button class="btn-secondary js-save-event" style="padding:6px 14px;font-size:11px">Save</button>';
+    html += '  <button class="remove-btn js-delete-event" style="padding:6px 10px;font-size:11px">✕ Delete</button>';
+    html += '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function addEventRow() {
+  var newItem = { id: 'local-' + Date.now(), status: 'draft', month: 'Jan', day: '1', title: '', time: '', type: 'tg-org' };
+  contentStore.events = contentStore.events || [];
+  contentStore.events.push(newItem);
+  renderEventsList();
+}
+
+function findEventRowGroup(btnEl) {
+  // The event-row div and its action-buttons div are siblings; find the preceding event-row
+  var actionsDiv = btnEl.closest('div');
+  var eventRow = actionsDiv.previousElementSibling;
+  return eventRow;
+}
+
+async function saveEventItem(btnEl) {
+  var eventRow = findEventRowGroup(btnEl);
+  var id = eventRow.getAttribute('data-id');
+  var item = (contentStore.events || []).find(function(e) { return e.id === id; });
+  if (!item) return;
+  item.month = eventRow.querySelector('.js-month').value;
+  item.title = eventRow.querySelector('.js-title').value;
+  item.time = eventRow.querySelector('.js-time').value;
+  item.day = eventRow.querySelector('.js-day').value;
+  item.type = eventRow.querySelector('.js-type').value;
+  item.status = eventRow.querySelector('.js-status').value;
+
+  if (!item.title) {
+    showStatus('events-status', 'error', 'Please enter an event title before saving.');
+    return;
+  }
+
+  var isNewItem = id.indexOf('local-') === 0;
+  var result = await callBackend(isNewItem ? 'addEvent' : 'updateEvent', item);
+  if (result.success) {
+    showStatus('events-status', 'success', '✓ ' + result.message);
+    await loadContentStore();
+    renderEventsList();
+  } else {
+    showStatus('events-status', 'error', result.error || 'Could not save.');
+  }
+}
+
+async function deleteEventItem(btnEl) {
+  var eventRow = findEventRowGroup(btnEl);
+  var id = eventRow.getAttribute('data-id');
+  if (!confirm('Delete this event?')) return;
+  if (id.indexOf('local-') === 0) {
+    contentStore.events = contentStore.events.filter(function(e) { return e.id !== id; });
+    renderEventsList();
+    return;
+  }
+  var result = await callBackend('deleteEvent', { id: id });
+  if (result.success) {
+    showStatus('events-status', 'success', '✓ Deleted.');
+    await loadContentStore();
+    renderEventsList();
+  } else {
+    showStatus('events-status', 'error', result.error || 'Could not delete.');
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// HR RESOURCE LIBRARY — dynamic list with status
+// ══════════════════════════════════════════════════════
+function renderHRLibList() {
+  var container = document.getElementById('hrlib-items-list');
+  var badge = document.getElementById('hrlib-count-badge');
+  if (!container || !contentStore) return;
+  var items = contentStore.hrLinks || [];
+  badge.textContent = items.length + ' links';
+
+  var html = '';
+  items.forEach(function(h) {
+    html += '<div class="field-row" style="grid-template-columns:50px 1fr 2fr 100px auto;align-items:end;margin-bottom:10px;border-bottom:1px solid var(--gray2);padding-bottom:10px" data-id="' + h.id + '">';
+    html += '  <div class="field"><label>Icon</label><input type="text" class="js-icon" value="' + escAttr(h.icon) + '" style="text-align:center"></div>';
+    html += '  <div class="field"><label>Label</label><input type="text" class="js-label" value="' + escAttr(h.label) + '"></div>';
+    html += '  <div class="field"><label>URL</label><input type="url" class="js-url" value="' + escAttr(h.url) + '"></div>';
+    html += '  <div class="field"><label>Status</label>' + statusSelectHtml(h.status) + '</div>';
+    html += '  <div style="display:flex;gap:6px">';
+    html += '    <button class="btn-secondary js-save-hr" style="padding:8px 12px;font-size:11px">Save</button>';
+    html += '    <button class="remove-btn js-delete-hr" style="padding:8px 10px">✕</button>';
+    html += '  </div></div>';
+  });
+  container.innerHTML = html;
+}
+
+function addHRLinkRow() {
+  var newItem = { id: 'local-' + Date.now(), status: 'live', label: '', icon: '🔗', url: '' };
+  contentStore.hrLinks = contentStore.hrLinks || [];
+  contentStore.hrLinks.push(newItem);
+  renderHRLibList();
+}
+
+async function saveHRLinkItem(rowEl) {
+  var id = rowEl.getAttribute('data-id');
+  var item = (contentStore.hrLinks || []).find(function(h) { return h.id === id; });
+  if (!item) return;
+  item.icon = rowEl.querySelector('.js-icon').value;
+  item.label = rowEl.querySelector('.js-label').value;
+  item.url = rowEl.querySelector('.js-url').value;
+  item.status = rowEl.querySelector('.js-status').value;
+
+  if (!item.label) {
+    showStatus('hrlib-status', 'error', 'Please enter a label before saving.');
+    return;
+  }
+
+  var isNewItem = id.indexOf('local-') === 0;
+  var result = await callBackend(isNewItem ? 'addHRLink' : 'updateHRLink', item);
+  if (result.success) {
+    showStatus('hrlib-status', 'success', '✓ ' + result.message);
+    await loadContentStore();
+    renderHRLibList();
+  } else {
+    showStatus('hrlib-status', 'error', result.error || 'Could not save.');
+  }
+}
+
+async function deleteHRLinkItem(rowEl) {
+  var id = rowEl.getAttribute('data-id');
+  if (!confirm('Delete this HR link?')) return;
+  if (id.indexOf('local-') === 0) {
+    contentStore.hrLinks = contentStore.hrLinks.filter(function(h) { return h.id !== id; });
+    renderHRLibList();
+    return;
+  }
+  var result = await callBackend('deleteHRLink', { id: id });
+  if (result.success) {
+    showStatus('hrlib-status', 'success', '✓ Deleted.');
+    await loadContentStore();
+    renderHRLibList();
+  } else {
+    showStatus('hrlib-status', 'error', result.error || 'Could not delete.');
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// EMPLOYEE DIRECTORY — main sites + staff list + import
+// ══════════════════════════════════════════════════════
+function renderMainSitesList() {
+  var container = document.getElementById('main-sites-list');
+  if (!container || !contentStore) return;
+  var sites = contentStore.mainSites || [];
+  var html = '';
+  sites.forEach(function(s) {
+    html += '<div class="field-row" style="margin-bottom:8px" data-id="' + s.id + '">';
+    html += '  <div class="field"><label>Site Name</label><input type="text" class="js-site-name" value="' + escAttr(s.name) + '"></div>';
+    html += '  <div class="field"><label>Phone Number</label><input type="text" class="js-site-phone" value="' + escAttr(s.phone) + '" placeholder="(614) 555-0100"></div>';
+    html += '</div>';
+  });
+  html += '<button class="btn-secondary" id="save-main-sites-btn" style="margin-top:6px">Save Site Numbers →</button>';
+  container.innerHTML = html;
+}
+
+async function saveMainSites() {
+  var rows = document.querySelectorAll('#main-sites-list > div[data-id]');
+  var sites = contentStore.mainSites || [];
+  rows.forEach(function(rowEl) {
+    var id = rowEl.getAttribute('data-id');
+    var site = sites.find(function(s) { return s.id === id; });
+    if (site) {
+      site.name = rowEl.querySelector('.js-site-name').value;
+      site.phone = rowEl.querySelector('.js-site-phone').value;
+    }
+  });
+  var result = await callBackend('updateMainSites', { sites: sites });
+  if (result.success) {
+    showStatus('staff-status', 'success', '✓ Main site numbers updated.');
+    await loadContentStore();
+    renderMainSitesList();
+  } else {
+    showStatus('staff-status', 'error', result.error || 'Could not save.');
+  }
+}
+
+function renderStaffList(filterText) {
+  var container = document.getElementById('staff-items-list');
+  var badge = document.getElementById('staff-count-badge');
+  if (!container || !contentStore) return;
+  var items = contentStore.staffDirectory || [];
+  badge.textContent = items.length + ' entries';
+
+  var filtered = items;
+  if (filterText) {
+    var q = filterText.toLowerCase();
+    filtered = items.filter(function(s) {
+      return (s.name||'').toLowerCase().indexOf(q) !== -1 || (s.department||'').toLowerCase().indexOf(q) !== -1 || (s.title||'').toLowerCase().indexOf(q) !== -1;
+    });
+  }
+
+  var html = '';
+  filtered.forEach(function(s) {
+    html += '<div class="staff-row-editor" data-id="' + s.id + '">';
+    html += '  <div class="field"><label>Full Name</label><input type="text" class="js-staff-name" value="' + escAttr(s.name) + '"></div>';
+    html += '  <div class="field"><label>Job Title</label><input type="text" class="js-staff-title" value="' + escAttr(s.title) + '"></div>';
+    html += '  <div class="field"><label>Department</label><input type="text" class="js-staff-dept" value="' + escAttr(s.department) + '"></div>';
+    html += '  <div class="field"><label>Direct Dial / Ext.</label><input type="text" class="js-staff-phone" value="' + escAttr(s.phone) + '" placeholder="Optional"></div>';
+    html += '  <div style="display:flex;gap:6px">';
+    html += '    <button class="btn-secondary js-save-staff" style="padding:8px 12px;font-size:11px">Save</button>';
+    html += '    <button class="remove-btn js-delete-staff">✕</button>';
+    html += '  </div></div>';
+  });
+  container.innerHTML = html;
+}
+
+function addStaffRowV3() {
+  var newItem = { id: 'local-' + Date.now(), name: '', title: '', department: '', phone: '' };
+  contentStore.staffDirectory = contentStore.staffDirectory || [];
+  contentStore.staffDirectory.unshift(newItem);
+  renderStaffList(document.getElementById('staff-filter') ? document.getElementById('staff-filter').value : '');
+}
+
+async function saveStaffItem(rowEl) {
+  var id = rowEl.getAttribute('data-id');
+  var item = (contentStore.staffDirectory || []).find(function(s) { return s.id === id; });
+  if (!item) return;
+  item.name = rowEl.querySelector('.js-staff-name').value;
+  item.title = rowEl.querySelector('.js-staff-title').value;
+  item.department = rowEl.querySelector('.js-staff-dept').value;
+  item.phone = rowEl.querySelector('.js-staff-phone').value;
+
+  if (!item.name) {
+    showStatus('staff-status', 'error', 'Please enter a name before saving.');
+    return;
+  }
+
+  var isNewItem = id.indexOf('local-') === 0;
+  var result;
+  if (isNewItem) {
+    result = await callBackend('importStaff', { rows: [{ 'full name': item.name, 'job title': item.title, department: item.department, phone: item.phone }] });
+  } else {
+    result = await callBackend('updateStaff', item);
+  }
+
+  if (result.success) {
+    showStatus('staff-status', 'success', '✓ Saved.');
+    await loadContentStore();
+    renderStaffList(document.getElementById('staff-filter') ? document.getElementById('staff-filter').value : '');
+  } else {
+    showStatus('staff-status', 'error', result.error || 'Could not save.');
+  }
+}
+
+async function deleteStaffItem(rowEl) {
+  var id = rowEl.getAttribute('data-id');
+  if (!confirm('Remove this person from the directory?')) return;
+  if (id.indexOf('local-') === 0) {
+    contentStore.staffDirectory = contentStore.staffDirectory.filter(function(s) { return s.id !== id; });
+    renderStaffList('');
+    return;
+  }
+  var result = await callBackend('deleteStaff', { id: id });
+  if (result.success) {
+    showStatus('staff-status', 'success', '✓ Removed.');
+    await loadContentStore();
+    renderStaffList('');
+  } else {
+    showStatus('staff-status', 'error', result.error || 'Could not remove.');
+  }
+}
+
+// ── STAFF IMPORT (CSV / Excel) ──
+async function importStaffFile() {
+  var fileInput = document.getElementById('staff-import-file');
+  var statusEl = document.getElementById('staff-import-status');
+  var btn = document.getElementById('staff-import-btn');
+
+  if (!fileInput.files || !fileInput.files.length) {
+    statusEl.innerHTML = '<span style="color:var(--red)">Please choose a file first.</span>';
+    return;
+  }
+
+  var file = fileInput.files[0];
+  btn.disabled = true;
+  statusEl.innerHTML = '<span style="color:var(--gtxt)">Reading file...</span>';
+
+  try {
+    var rows = await parseStaffFile(file);
+    if (!rows.length) {
+      statusEl.innerHTML = '<span style="color:var(--red)">No rows found in the file. Check the file has a header row and at least one data row.</span>';
+      btn.disabled = false;
+      return;
+    }
+
+    statusEl.innerHTML = '<span style="color:var(--gtxt)">Importing ' + rows.length + ' rows...</span>';
+    var result = await callBackend('importStaff', { rows: rows });
+
+    if (result.success) {
+      statusEl.innerHTML = '<span style="color:var(--green)">✓ ' + result.message + '</span>';
+      await loadContentStore();
+      renderStaffList('');
+      fileInput.value = '';
+    } else {
+      statusEl.innerHTML = '<span style="color:var(--red)">' + (result.error || 'Import failed.') + '</span>';
+    }
+  } catch (err) {
+    statusEl.innerHTML = '<span style="color:var(--red)">Could not read file: ' + err.message + '</span>';
+  }
+
+  btn.disabled = false;
+}
+
+function parseStaffFile(file) {
+  return new Promise(function(resolve, reject) {
+    var reader = new FileReader();
+    var isCSV = file.name.toLowerCase().endsWith('.csv');
+
+    reader.onload = function(e) {
+      try {
+        if (isCSV) {
+          var text = e.target.result;
+          var lines = text.split(/\r?\n/).filter(function(l) { return l.trim() !== ''; });
+          if (!lines.length) return resolve([]);
+          var headers = lines[0].split(',').map(function(h) { return h.trim().toLowerCase().replace(/^"|"$/g, ''); });
+          var rows = lines.slice(1).map(function(line) {
+            var cells = line.split(',').map(function(c) { return c.trim().replace(/^"|"$/g, ''); });
+            var row = {};
+            headers.forEach(function(h, i) { row[h] = cells[i] || ''; });
+            return row;
+          });
+          resolve(rows);
+        } else {
+          var data = new Uint8Array(e.target.result);
+          var workbook = XLSX.read(data, { type: 'array' });
+          var sheetName = workbook.SheetNames[0];
+          var sheet = workbook.Sheets[sheetName];
+          var json = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+          var normalized = json.map(function(row) {
+            var lower = {};
+            Object.keys(row).forEach(function(k) { lower[k.trim().toLowerCase()] = row[k]; });
+            return lower;
+          });
+          resolve(normalized);
+        }
+      } catch (err) {
+        reject(err);
+      }
+    };
+    reader.onerror = function() { reject(new Error('Could not read the file.')); };
+
+    if (isCSV) reader.readAsText(file);
+    else reader.readAsArrayBuffer(file);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// DEPT LINKS (unchanged structure, still admin-only)
+// ══════════════════════════════════════════════════════
 function initDeptLinks() {
   var list = document.getElementById('dept-links-list');
   list.innerHTML = '';
   state.deptRowCount = 0;
-  defaultDeptLinks.forEach(function(d) { addDeptRowWithValues(d[0], d[1]); });
+  var links = (contentStore && contentStore.deptLinks) || [];
+  links.forEach(function(d) { addDeptRowWithValues(d.name, d.url); });
 }
 
 function addDeptRow() { addDeptRowWithValues('', ''); }
@@ -1046,63 +1438,28 @@ function addDeptRowWithValues(name, url) {
   div.id = 'dept-row-' + n;
   div.style.marginBottom = '8px';
   div.innerHTML =
-    '<div class="field"><label>Department Name</label><input type="text" id="dl'+n+'-name" value="'+name+'" placeholder="e.g. Family Center"></div>' +
-    '<div class="field"><label>SharePoint URL</label><input type="url" id="dl'+n+'-url" value="'+url+'" placeholder="https://ywcacolumbus.sharepoint.com/sites/..."></div>' +
-    '<button class="remove-btn" style="align-self:flex-end;margin-bottom:0" onclick="document.getElementById(\'dept-row-'+n+'\').remove()">✕</button>';
+    '<div class="field"><label>Department Name</label><input type="text" id="dl' + n + '-name" value="' + escAttr(name) + '" placeholder="e.g. Family Center"></div>' +
+    '<div class="field"><label>SharePoint URL</label><input type="url" id="dl' + n + '-url" value="' + escAttr(url) + '" placeholder="https://ywcacolumbus.sharepoint.com/sites/..."></div>' +
+    '<button class="remove-btn js-delete-dept" style="align-self:flex-end;margin-bottom:0" data-target="dept-row-' + n + '">✕</button>';
   document.getElementById('dept-links-list').appendChild(div);
 }
 
-// ══════════════════════════════════════════════════════
-// COLLECT FORM DATA
-// ══════════════════════════════════════════════════════
-function collectNewsData() {
-  return {
-    featured1: {
-      headline: document.getElementById('news1-headline').value,
-      tag: document.getElementById('news1-tag').value,
-      date: document.getElementById('news1-date').value,
-      link: document.getElementById('news1-link').value,
-      excerpt: document.getElementById('news1-excerpt').value,
-    },
-    featured2: {
-      headline: document.getElementById('news2-headline').value,
-      tag: document.getElementById('news2-tag').value,
-      date: document.getElementById('news2-date').value,
-      link: document.getElementById('news2-link').value,
-      excerpt: document.getElementById('news2-excerpt').value,
-    },
-    small: [
-      {h:v('news3-h'),d:v('news3-d'),tag:v('news3-tag')},
-      {h:v('news4-h'),d:v('news4-d'),tag:v('news4-tag')},
-      {h:v('news5-h'),d:v('news5-d'),tag:v('news5-tag')},
-      {h:v('news6-h'),d:v('news6-d'),tag:v('news6-tag')},
-    ]
-  };
-}
-
-function collectEventsData() {
-  var events = [];
-  for (var i = 1; i <= 4; i++) {
-    events.push({
-      month: v('ev'+i+'-month'),
-      title: v('ev'+i+'-title'),
-      time:  v('ev'+i+'-time'),
-      type:  v('ev'+i+'-type'),
-    });
-  }
-  return events;
-}
-
-function collectStaffData() {
-  var staff = [];
-  for (var i = 1; i <= state.staffRowCount; i++) {
-    var row = document.getElementById('staff-row-' + i);
+async function submitDeptLinks() {
+  var links = [];
+  for (var i = 1; i <= state.deptRowCount; i++) {
+    var row = document.getElementById('dept-row-' + i);
     if (!row) continue;
-    var name = v('s'+i+'-name');
-    if (!name) continue;
-    staff.push({name:name, title:v('s'+i+'-title'), dept:v('s'+i+'-dept'), email:v('s'+i+'-email')});
+    var name = v('dl' + i + '-name');
+    var url = v('dl' + i + '-url');
+    if (name && url) links.push({ name: name, url: url });
   }
-  return staff;
+  var result = await callBackend('updateDeptLinks', { links: links });
+  if (result.success) {
+    showStatus('dept-status', 'success', '✓ Department links updated.');
+    await loadContentStore();
+  } else {
+    showStatus('dept-status', 'error', result.error || 'Could not save.');
+  }
 }
 
 function v(id) {
@@ -1111,85 +1468,142 @@ function v(id) {
 }
 
 // ══════════════════════════════════════════════════════
-// SUBMIT FUNCTIONS — USE CLAUDE API TO GENERATE UPDATE
+// LEADERSHIP / SOCIAL JUSTICE / HERO — single-record sections
 // ══════════════════════════════════════════════════════
-async function submitNews() {
-  var data = collectNewsData();
-  if (!data.featured1.headline || !data.featured1.excerpt) {
-    showStatus('news-status', 'error', 'Please fill in at least the headline and description for Featured Story 1.');
-    return;
-  }
-  await handleSubmission('news-submit-btn', 'news-status', 'News & Announcements', data);
+function populateLeadershipForm() {
+  if (!contentStore || !contentStore.leadership) return;
+  var l = contentStore.leadership;
+  if (document.getElementById('lim-name')) document.getElementById('lim-name').value = l.name || '';
+  if (document.getElementById('lim-title')) document.getElementById('lim-title').value = l.title || '';
+  if (document.getElementById('lim-text')) document.getElementById('lim-text').value = l.text || '';
 }
 
-async function submitEvents() {
-  var data = collectEventsData();
-  if (!data[0].title) {
-    showStatus('events-status', 'error', 'Please fill in at least the first event title.');
-    return;
-  }
-  await handleSubmission('events-submit-btn', 'events-status', 'Events Calendar', data);
+function populateSocialJusticeForm() {
+  if (!contentStore || !contentStore.socialJustice) return;
+  var sj = contentStore.socialJustice;
+  if (document.getElementById('sj-headline')) document.getElementById('sj-headline').value = sj.headline || '';
+  if (document.getElementById('sj-text')) document.getElementById('sj-text').value = sj.text || '';
+  if (document.getElementById('sj-link')) document.getElementById('sj-link').value = sj.link || '';
 }
 
-async function submitStaff() {
-  var data = collectStaffData();
-  if (!data.length) {
-    showStatus('staff-status', 'error', 'Please add at least one staff member.');
-    return;
-  }
-  await handleSubmission('staff-submit-btn', 'staff-status', 'Employee Directory', data);
+function populateHeroForm() {
+  if (!contentStore || !contentStore.hero) return;
+  var h = contentStore.hero;
+  if (document.getElementById('hero-sub')) document.getElementById('hero-sub').value = h.subtext || '';
+  (h.stats || []).forEach(function(s, i) {
+    var numEl = document.getElementById('stat' + (i + 1) + '-num');
+    var labelEl = document.getElementById('stat' + (i + 1) + '-label');
+    if (numEl) numEl.value = s.num || '';
+    if (labelEl) labelEl.value = s.label || '';
+  });
 }
 
 async function submitLeadership() {
-  var data = {name: v('lim-name'), title: v('lim-title'), text: v('lim-text')};
+  var data = { name: v('lim-name'), title: v('lim-title'), text: v('lim-text') };
   if (!data.name || !data.text) {
     showStatus('leadership-status', 'error', 'Please fill in the leader name and message.');
     return;
   }
-  await handleSubmission('leadership-submit-btn', 'leadership-status', 'Leadership in Motion', data);
+  var result = await callBackend('updateLeadership', data);
+  if (result.success) {
+    showStatus('leadership-status', 'success', '✓ ' + result.message);
+    await loadContentStore();
+  } else {
+    showStatus('leadership-status', 'error', result.error || 'Could not save.');
+  }
 }
 
 async function submitSocialJustice() {
-  var data = {headline: v('sj-headline'), text: v('sj-text'), link: v('sj-link')};
+  var data = { headline: v('sj-headline'), text: v('sj-text'), link: v('sj-link') };
   if (!data.headline || !data.text) {
     showStatus('sj-status', 'error', 'Please fill in the headline and description.');
     return;
   }
-  await handleSubmission('sj-submit-btn', 'sj-status', 'Social Justice Corner', data);
-}
-
-async function submitHRLibrary() {
-  var data = {
-    adp: v('hrlib-adp'), referral: v('hrlib-referral'), store: v('hrlib-store'),
-    reportit: v('hrlib-reportit'), feedback: v('hrlib-feedback'),
-  };
-  await handleSubmission('hrlib-submit-btn', 'hrlib-status', 'HR Resource Library', data);
+  var result = await callBackend('updateSocialJustice', data);
+  if (result.success) {
+    showStatus('sj-status', 'success', '✓ ' + result.message);
+    await loadContentStore();
+  } else {
+    showStatus('sj-status', 'error', result.error || 'Could not save.');
+  }
 }
 
 async function submitHero() {
   var data = {
-    heroSub: v('hero-sub'),
+    subtext: v('hero-sub'),
     stats: [
-      {num:v('stat1-num'),label:v('stat1-label')},
-      {num:v('stat2-num'),label:v('stat2-label')},
-      {num:v('stat3-num'),label:v('stat3-label')},
-      {num:v('stat4-num'),label:v('stat4-label')},
+      { num: v('stat1-num'), label: v('stat1-label') },
+      { num: v('stat2-num'), label: v('stat2-label') },
+      { num: v('stat3-num'), label: v('stat3-label') },
+      { num: v('stat4-num'), label: v('stat4-label') },
     ]
   };
-  await handleSubmission('hero-submit-btn', 'hero-status', 'Hero & Stats', data);
+  var result = await callBackend('updateHero', data);
+  if (result.success) {
+    showStatus('hero-status', 'success', '✓ ' + result.message);
+    await loadContentStore();
+  } else {
+    showStatus('hero-status', 'error', result.error || 'Could not save.');
+  }
 }
 
-async function submitDeptLinks() {
-  var links = [];
-  for (var i = 1; i <= state.deptRowCount; i++) {
-    var row = document.getElementById('dept-row-' + i);
-    if (!row) continue;
-    var name = v('dl'+i+'-name');
-    var url  = v('dl'+i+'-url');
-    if (name && url) links.push({name:name, url:url});
+// ══════════════════════════════════════════════════════
+// GENERIC BACKEND CALL HELPER
+// ══════════════════════════════════════════════════════
+async function callBackend(action, data) {
+  try {
+    var resp = await fetch(CONFIG.backendUrl, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ action: action, data: data, submitterName: state.name, submitterDept: state.dept })
+    });
+    return await resp.json();
+  } catch (err) {
+    return { success: false, error: 'Network error: ' + err.message };
   }
-  await handleSubmission('dept-submit-btn', 'dept-status', 'Department Links', links);
 }
+
+// ══════════════════════════════════════════════════════
+// EVENT DELEGATION — single click listener handles all dynamic buttons
+// This avoids ever building onclick="..." strings with embedded quotes.
+// ══════════════════════════════════════════════════════
+document.addEventListener('click', function(e) {
+  var t = e.target;
+
+  if (t.matches('[data-action="add-news"]')) { addNewsRow(); return; }
+  if (t.matches('[data-action="add-event"]')) { addEventRow(); return; }
+  if (t.matches('[data-action="add-hrlink"]')) { addHRLinkRow(); return; }
+  if (t.matches('[data-action="add-staff"]')) { addStaffRowV3(); return; }
+  if (t.matches('[data-action="import-staff"]')) { importStaffFile(); return; }
+
+  if (t.classList.contains('js-save-news')) { saveNewsItem(t.closest('.news-card-editor')); return; }
+  if (t.classList.contains('js-delete-news')) { deleteNewsItem(t.closest('.news-card-editor')); return; }
+
+  if (t.classList.contains('js-save-event')) { saveEventItem(t); return; }
+  if (t.classList.contains('js-delete-event')) { deleteEventItem(t); return; }
+
+  if (t.classList.contains('js-save-hr')) { saveHRLinkItem(t.closest('[data-id]')); return; }
+  if (t.classList.contains('js-delete-hr')) { deleteHRLinkItem(t.closest('[data-id]')); return; }
+
+  if (t.classList.contains('js-save-staff')) { saveStaffItem(t.closest('.staff-row-editor')); return; }
+  if (t.classList.contains('js-delete-staff')) { deleteStaffItem(t.closest('.staff-row-editor')); return; }
+
+  if (t.id === 'save-main-sites-btn') { saveMainSites(); return; }
+
+  if (t.classList.contains('js-delete-dept')) {
+    var targetId = t.getAttribute('data-target');
+    var el = document.getElementById(targetId);
+    if (el) el.remove();
+    return;
+  }
+});
+
+document.addEventListener('input', function(e) {
+  if (e.target.id === 'staff-filter') {
+    renderStaffList(e.target.value);
+  }
+});
+
 
 // ══════════════════════════════════════════════════════
 // CORE SUBMISSION HANDLER
@@ -1303,6 +1717,142 @@ function showStatus(id, type, msg) {
 // ══════════════════════════════════════════════════════
 function previewNews() {
   window.open('https://ywcacolumbusit.github.io/mission-central/', '_blank');
+}
+
+// ══════════════════════════════════════════════════════
+// MANAGE PERMISSIONS (MarCom & IT only)
+// ══════════════════════════════════════════════════════
+var allDepartments = [
+  'Leadership', 'Human Resources', 'LSJ', 'MarCom', 'Information Technology',
+  'Advancement', 'Board', 'Data', 'Development & Engagement', 'EDU - Kids Place',
+  'Family Center', 'Finance', 'Griswold Front Desk', "Women's Residency", 'YWCA Meetings',
+];
+
+async function loadPermissions() {
+  var list = document.getElementById('permissions-list');
+  list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gtxt)">Loading current permissions...</div>';
+
+  try {
+    var resp = await fetch(CONFIG.backendUrl, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ action: 'getPermissions' })
+    });
+    var result = await resp.json();
+    var perms = result.permissions || { autoPublishDepts: CONFIG.autoPublishDepts };
+    state.loadedPermissions = perms;
+
+    list.innerHTML = '';
+    allDepartments.forEach(function(dept) {
+      var isOn = perms.autoPublishDepts && perms.autoPublishDepts.indexOf(dept) !== -1;
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border:1px solid var(--gray2);border-radius:6px;margin-bottom:8px;background:#fff';
+      row.innerHTML =
+        '<div style="font-size:13px;font-weight:600;color:var(--blk)">' + dept + '</div>' +
+        '<label style="position:relative;display:inline-block;width:42px;height:24px">' +
+        '<input type="checkbox" data-dept="' + dept + '" ' + (isOn ? 'checked' : '') + ' style="opacity:0;width:0;height:0" onchange="toggleDeptSwitch(this)">' +
+        '<span class="perm-toggle-track" style="position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:' + (isOn ? 'var(--or)' : '#ccc') + ';border-radius:24px;transition:.2s"></span>' +
+        '<span class="perm-toggle-knob" style="position:absolute;height:18px;width:18px;left:' + (isOn ? '21px' : '3px') + ';top:3px;background:white;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.3)"></span>' +
+        '</label>';
+      list.appendChild(row);
+    });
+  } catch (err) {
+    list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--red)">Could not load permissions: ' + err.message + '</div>';
+  }
+}
+
+function toggleDeptSwitch(checkbox) {
+  var track = checkbox.nextElementSibling;
+  var knob = track.nextElementSibling;
+  if (checkbox.checked) {
+    track.style.background = 'var(--or)';
+    knob.style.left = '21px';
+  } else {
+    track.style.background = '#ccc';
+    knob.style.left = '3px';
+  }
+}
+
+async function savePermissions() {
+  var btn = document.getElementById('permissions-save-btn');
+  var origText = btn.textContent;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Saving...';
+
+  var checkboxes = document.querySelectorAll('#permissions-list input[type=checkbox]');
+  var newAutoPublishDepts = [];
+  checkboxes.forEach(function(cb) {
+    if (cb.checked) newAutoPublishDepts.push(cb.getAttribute('data-dept'));
+  });
+
+  var updatedPerms = state.loadedPermissions || {};
+  updatedPerms.autoPublishDepts = newAutoPublishDepts;
+  if (!updatedPerms.roleOwnedSections) updatedPerms.roleOwnedSections = CONFIG.roleOwnedSections;
+
+  try {
+    var resp = await fetch(CONFIG.backendUrl, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ action: 'setPermissions', data: { permissions: updatedPerms } })
+    });
+    var result = await resp.json();
+    if (result.success) {
+      showStatus('permissions-status', 'success', '✓ Permissions saved. Departments will see the updated access the next time they log in.');
+    } else {
+      showStatus('permissions-status', 'error', result.error || 'Could not save permissions.');
+    }
+  } catch (err) {
+    showStatus('permissions-status', 'error', 'Something went wrong: ' + err.message);
+  }
+
+  btn.disabled = false;
+  btn.textContent = origText;
+}
+
+// ══════════════════════════════════════════════════════
+// VERSION HISTORY (MarCom & IT only)
+// ══════════════════════════════════════════════════════
+async function loadHistory() {
+  var list = document.getElementById('history-list');
+  list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gtxt)">Loading history...</div>';
+
+  try {
+    var resp = await fetch(CONFIG.backendUrl, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ action: 'getArchive' })
+    });
+    var result = await resp.json();
+    var archive = result.archive || [];
+
+    document.getElementById('history-count').textContent = archive.length + ' entries';
+
+    if (!archive.length) {
+      list.innerHTML = '<div style="text-align:center;padding:32px;color:var(--gtxt)"><div style="font-size:32px;margin-bottom:10px">🕒</div><div style="font-size:14px;font-weight:600">No history yet</div><div style="font-size:12px;margin-top:4px">Changes published through the CMS will appear here.</div></div>';
+      return;
+    }
+
+    list.innerHTML = '';
+    archive.forEach(function(entry) {
+      var date = new Date(entry.timestamp);
+      var dateStr = date.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}) + ' at ' + date.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'});
+      var row = document.createElement('div');
+      row.style.cssText = 'border:1px solid var(--gray2);border-radius:6px;padding:12px 14px;margin-bottom:8px;background:#fff';
+      row.innerHTML =
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">' +
+        '<div style="font-size:13px;font-weight:700;color:var(--blk)">' + entry.sectionName + '</div>' +
+        '<div style="font-size:11px;color:var(--gtxt)">' + dateStr + '</div>' +
+        '</div>' +
+        '<div style="font-size:12px;color:var(--gtxt);margin-bottom:6px">Changed by ' + entry.submitterName + ' (' + entry.submitterDept + ')</div>' +
+        '<details style="font-size:11px"><summary style="cursor:pointer;color:var(--or);font-weight:600">View what changed</summary>' +
+        '<pre style="white-space:pre-wrap;background:var(--gray);padding:8px;border-radius:4px;margin-top:6px;font-size:10px;color:var(--dk);max-height:200px;overflow:auto">' +
+        JSON.stringify(entry.changesApplied, null, 2).replace(/</g,'&lt;') +
+        '</pre></details>';
+      list.appendChild(row);
+    });
+  } catch (err) {
+    list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--red)">Could not load history: ' + err.message + '</div>';
+  }
 }
 
 // ══════════════════════════════════════════════════════

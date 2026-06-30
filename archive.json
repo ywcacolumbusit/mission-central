@@ -1,5 +1,20 @@
 [
   {
+    "timestamp": "2026-06-30T20:56:58.894Z",
+    "action": "Added event: Tech Talks",
+    "submitterName": "Service Desk",
+    "submitterDept": "MarCom",
+    "changesApplied": {
+      "id": "local-1782852993435",
+      "status": "live",
+      "month": "Jul",
+      "day": "7",
+      "title": "Tech Talks",
+      "time": "10:00AM",
+      "type": "tg-org"
+    }
+  },
+  {
     "timestamp": "2026-06-30T20:56:23.528Z",
     "action": "Added event: Office Closed",
     "submitterName": "Service Desk",

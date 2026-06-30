@@ -109,36 +109,138 @@
     }
   ],
   "hrLinks": [
-    { "id": "hr-001", "status": "live", "label": "ADP Self-Service", "icon": "📋", "url": "" },
-    { "id": "hr-002", "status": "live", "label": "Referral Program", "icon": "🎁", "url": "" },
-    { "id": "hr-003", "status": "live", "label": "Employee Brand Store", "icon": "🛍️", "url": "" },
-    { "id": "hr-004", "status": "live", "label": "Submit ReportIt", "icon": "📝", "url": "" },
-    { "id": "hr-005", "status": "live", "label": "Anonymous Feedback", "icon": "💬", "url": "" }
+    {
+      "id": "hr-001",
+      "status": "live",
+      "label": "ADP Self-Service",
+      "icon": "📋",
+      "url": ""
+    },
+    {
+      "id": "hr-002",
+      "status": "live",
+      "label": "Referral Program",
+      "icon": "🎁",
+      "url": ""
+    },
+    {
+      "id": "hr-003",
+      "status": "live",
+      "label": "Employee Brand Store",
+      "icon": "🛍️",
+      "url": ""
+    },
+    {
+      "id": "hr-004",
+      "status": "live",
+      "label": "Submit ReportIt",
+      "icon": "📝",
+      "url": ""
+    },
+    {
+      "id": "hr-005",
+      "status": "live",
+      "label": "Anonymous Feedback",
+      "icon": "💬",
+      "url": ""
+    }
   ],
   "staffDirectory": [
-    { "id": "staff-001", "name": "Elizabeth Brown", "title": "President & CEO", "department": "Leadership", "phone": "" },
-    { "id": "staff-002", "name": "Sue Darby", "title": "Chief Operating Officer", "department": "Leadership", "phone": "" },
-    { "id": "staff-003", "name": "Dana Raymond", "title": "VP, Programs", "department": "Leadership", "phone": "" },
-    { "id": "staff-004", "name": "Makiva McIntosh", "title": "VP, Marketing & Communications", "department": "MarCom", "phone": "" }
+    {
+      "id": "staff-001",
+      "name": "Elizabeth Brown",
+      "title": "President & CEO",
+      "department": "Leadership",
+      "phone": ""
+    },
+    {
+      "id": "staff-002",
+      "name": "Sue Darby",
+      "title": "Chief Operating Officer",
+      "department": "Leadership",
+      "phone": ""
+    },
+    {
+      "id": "staff-003",
+      "name": "Dana Raymond",
+      "title": "VP, Programs",
+      "department": "Leadership",
+      "phone": ""
+    },
+    {
+      "id": "staff-004",
+      "name": "Makiva McIntosh",
+      "title": "VP, Marketing & Communications",
+      "department": "MarCom",
+      "phone": ""
+    }
   ],
   "mainSites": [
-    { "id": "site-001", "name": "Griswold Front Desk", "phone": "(614) 224-9121" },
-    { "id": "site-002", "name": "Family Center", "phone": "" },
-    { "id": "site-003", "name": "Jenkins Campus", "phone": "" }
+    {
+      "id": "site-001",
+      "name": "Griswold Front Desk",
+      "phone": "(614) 224-9121"
+    },
+    {
+      "id": "site-002",
+      "name": "Family Center",
+      "phone": ""
+    },
+    {
+      "id": "site-003",
+      "name": "Jenkins Campus",
+      "phone": ""
+    }
   ],
   "deptLinks": [
-    { "name": "Advancement", "url": "https://ywcacolumbus.sharepoint.com/sites/AdvancementBrand" },
-    { "name": "Anti-Racism", "url": "https://ywcacolumbus.sharepoint.com/sites/AntiRacism" },
-    { "name": "Board", "url": "https://ywcacolumbus.sharepoint.com/sites/Board" },
-    { "name": "Data", "url": "https://ywcacolumbus.sharepoint.com/sites/Data" },
-    { "name": "Development & Engagement", "url": "https://ywcacolumbus.sharepoint.com/sites/Development" },
-    { "name": "EDU – Kids Place", "url": "https://ywcacolumbus.sharepoint.com/sites/EDUKidsPlace" },
-    { "name": "Family Center", "url": "https://ywcacolumbus.sharepoint.com/sites/FamilyCenter" },
-    { "name": "Finance", "url": "https://ywcacolumbus.sharepoint.com/sites/Finance" },
-    { "name": "Griswold Front Desk", "url": "https://ywcacolumbus.sharepoint.com/sites/GriswoldFrontDesk" },
-    { "name": "Human Resources", "url": "https://ywcacolumbus.sharepoint.com/sites/HRAdmin" },
-    { "name": "Information Technology", "url": "https://ywcacolumbus.sharepoint.com/sites/InfoTech" },
-    { "name": "Women's Residency", "url": "https://ywcacolumbus.sharepoint.com/sites/WomensResidency" }
+    {
+      "name": "Advancement",
+      "url": "https://ywcacolumbus.sharepoint.com/sites/AdvancementBrand"
+    },
+    {
+      "name": "Anti-Racism",
+      "url": "https://ywcacolumbus.sharepoint.com/sites/AntiRacism"
+    },
+    {
+      "name": "Board",
+      "url": "https://ywcacolumbus.sharepoint.com/sites/Board"
+    },
+    {
+      "name": "Data",
+      "url": "https://ywcacolumbus.sharepoint.com/sites/Data"
+    },
+    {
+      "name": "Development & Engagement",
+      "url": "https://ywcacolumbus.sharepoint.com/sites/Development"
+    },
+    {
+      "name": "EDU – Kids Place",
+      "url": "https://ywcacolumbus.sharepoint.com/sites/EDUKidsPlace"
+    },
+    {
+      "name": "Family Center",
+      "url": "https://ywcacolumbus.sharepoint.com/sites/FamilyCenter"
+    },
+    {
+      "name": "Finance",
+      "url": "https://ywcacolumbus.sharepoint.com/sites/Finance"
+    },
+    {
+      "name": "Griswold Front Desk",
+      "url": "https://ywcacolumbus.sharepoint.com/sites/GriswoldFrontDesk"
+    },
+    {
+      "name": "Human Resources",
+      "url": "https://ywcacolumbus.sharepoint.com/sites/HRAdmin"
+    },
+    {
+      "name": "Information Technology",
+      "url": "https://ywcacolumbus.sharepoint.com/sites/InfoTech"
+    },
+    {
+      "name": "Women's Residency",
+      "url": "https://ywcacolumbus.sharepoint.com/sites/WomensResidency"
+    }
   ],
   "leadership": {
     "name": "Elizabeth Brown",
@@ -153,10 +255,22 @@
   "hero": {
     "subtext": "Catch up on news, check your benefits, submit a request, and see what's happening across YWCA Columbus — all in one place.",
     "stats": [
-      { "num": "139", "label": "Years changing lives in Columbus" },
-      { "num": "1,500", "label": "Children served daily" },
-      { "num": "305", "label": "Women of Achievement honored" },
-      { "num": "200+", "label": "Staff on this mission with you" }
+      {
+        "num": "150",
+        "label": "Years changing lives in Columbus"
+      },
+      {
+        "num": "1,500",
+        "label": "Children served daily"
+      },
+      {
+        "num": "305",
+        "label": "Women of Achievement honored"
+      },
+      {
+        "num": "200+",
+        "label": "Staff on this mission with you"
+      }
     ]
   }
 }

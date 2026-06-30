@@ -1,5 +1,20 @@
 [
   {
+    "timestamp": "2026-06-30T20:56:23.528Z",
+    "action": "Added event: Office Closed",
+    "submitterName": "Service Desk",
+    "submitterDept": "MarCom",
+    "changesApplied": {
+      "id": "local-1782852946633",
+      "status": "live",
+      "month": "Jul",
+      "day": "3",
+      "title": "Office Closed",
+      "time": "All Day",
+      "type": "tg-org"
+    }
+  },
+  {
     "timestamp": "2026-06-30T20:54:08.806Z",
     "action": "Updated Leadership in Motion",
     "submitterName": "Service Desk",

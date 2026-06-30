@@ -1,5 +1,32 @@
 [
   {
+    "timestamp": "2026-06-30T21:19:11.204Z",
+    "action": "Updated Hero & Stats",
+    "submitterName": "Service Desk",
+    "submitterDept": "MarCom",
+    "changesApplied": {
+      "subtext": "Catch up on news, check your benefits, submit a request, and see what's happening across YWCA Columbus — all in one place.",
+      "stats": [
+        {
+          "num": "150",
+          "label": "Years changing lives in Columbus"
+        },
+        {
+          "num": "1,500",
+          "label": "Children served daily"
+        },
+        {
+          "num": "310",
+          "label": "Women of Achievement honored"
+        },
+        {
+          "num": "200+",
+          "label": "Staff on this mission with you"
+        }
+      ]
+    }
+  },
+  {
     "timestamp": "2026-06-30T21:16:58.760Z",
     "action": "Updated news item news-005",
     "submitterName": "Service Desk",

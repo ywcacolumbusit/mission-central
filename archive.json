@@ -1,5 +1,23 @@
 [
   {
+    "timestamp": "2026-06-30T21:16:43.460Z",
+    "action": "Updated news item news-003",
+    "submitterName": "Service Desk",
+    "submitterDept": "MarCom",
+    "changesApplied": {
+      "id": "news-003",
+      "status": "live",
+      "featured": false,
+      "headline": "Mission Central Refresh Is Live",
+      "tag": "Tech",
+      "date": "Jun 22, 2026",
+      "excerpt": "",
+      "link": "",
+      "createdAt": "2026-06-22T09:00:00.000Z",
+      "createdBy": "MarCom"
+    }
+  },
+  {
     "timestamp": "2026-06-30T21:16:37.853Z",
     "action": "Updated news item news-006",
     "submitterName": "Service Desk",

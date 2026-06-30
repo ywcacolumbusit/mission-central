@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Central CMS — YWCA Columbus</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --or:#FD5A1E;--or2:#c94110;--blk:#2D2A26;--wht:#fff;
+  --gray:#FAF8F4;--gray2:#E5DFD2;--gtxt:#6B6357;--dk:#3a352e;
+  --green:#1a5c2a;--greenl:#e8f5ea;--blue:#0a2a5a;--bluel:#e8f0ff;
+  --red:#cc2200;--redl:#fff0ee;--amber:#8a5800;--amberl:#fff8e8;
+  --font-h:'Barlow Condensed',Arial,sans-serif;
+  --font-b:'Barlow',Arial,sans-serif;
+}
+body{font-family:var(--font-b);background:var(--gray);color:var(--blk);min-height:100vh}
+
+/* ── LOGIN SCREEN ── */
+#login-screen{
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;background:linear-gradient(135deg,#FAF8F4,#FFE8DA);padding:20px;
+}
+.login-card{
+  background:var(--wht);border-radius:12px;overflow:hidden;
+  width:100%;max-width:420px;box-shadow:0 24px 64px rgba(0,0,0,.4);
+}
+.login-header{background:var(--or);padding:28px 32px}
+.login-logo-tag{font-size:9px;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:lowercase}
+.login-logo{font-family:var(--font-h);font-size:48px;color:#fff;font-weight:900;line-height:.9;letter-spacing:-.01em}
+.login-logo-loc{font-size:9px;color:rgba(255,255,255,.55);letter-spacing:.1em;text-transform:lowercase;margin-bottom:12px}
+.login-title{font-family:var(--font-h);font-size:18px;font-weight:700;color:#fff;letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+.login-sub{font-size:12px;color:rgba(255,255,255,.6);margin-top:3px}
+.login-body{padding:28px 32px}
+.login-dept-label{font-size:11px;font-weight:700;color:var(--gtxt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.login-select{width:100%;padding:10px 12px;border:1.5px solid var(--gray2);border-radius:6px;font-size:14px;font-family:var(--font-b);color:var(--blk);background:#fff;outline:none;margin-bottom:14px}
+.login-select:focus{border-color:var(--or)}
+.login-input{width:100%;padding:10px 12px;border:1.5px solid var(--gray2);border-radius:6px;font-size:14px;font-family:var(--font-b);color:var(--blk);outline:none;margin-bottom:14px}
+.login-input:focus{border-color:var(--or)}
+.login-btn{width:100%;background:var(--or);color:#fff;border:none;font-family:var(--font-h);font-size:16px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:13px;border-radius:6px;cursor:pointer;transition:background .15s}
+.login-btn:hover{background:var(--or2)}
+.login-error{background:var(--redl);border:1px solid #ffb0a0;border-radius:4px;padding:8px 12px;font-size:12px;color:var(--red);margin-bottom:12px;display:none}
+
+/* ── MAIN APP ── */
+#app{display:none}
+.app-header{background:var(--wht);padding:0 24px;display:flex;align-items:center;gap:0;border-bottom:3px solid var(--or)}
+.app-logo{display:flex;align-items:center;gap:14px;padding:12px 0}
+.logo-txt .tag{font-size:8px;color:var(--or);letter-spacing:.06em;text-transform:lowercase}
+.logo-txt .wm{font-family:var(--font-h);font-size:32px;color:var(--or);font-weight:900;line-height:.9}
+.logo-txt .loc{font-size:8px;color:var(--gtxt);letter-spacing:.1em;text-transform:lowercase}
+.app-divider{width:1px;background:var(--gray2);height:36px;margin:0 16px}
+.app-title{font-family:var(--font-h);font-size:18px;font-weight:700;color:var(--blk);text-transform:uppercase;letter-spacing:.08em}
+.app-title span{color:var(--or)}
+.app-user{margin-left:auto;display:flex;align-items:center;gap:8px}
+.app-dept-badge{background:var(--or);color:#fff;font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:2px}
+.app-dept-badge.admin{background:var(--green)}
+.logout-btn{background:var(--gray);color:var(--gtxt);border:1px solid var(--gray2);font-size:11px;padding:4px 10px;border-radius:3px;cursor:pointer;font-family:var(--font-b)}
+.logout-btn:hover{color:var(--blk);background:var(--gray2)}
+
+/* ── LAYOUT ── */
+.app-body{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 67px)}
+.sidebar{background:var(--wht);border-right:1px solid var(--gray2);padding:16px 0}
+.sidebar-section{margin-bottom:4px}
+.sidebar-label{font-size:10px;font-weight:700;color:var(--gtxt);text-transform:uppercase;letter-spacing:.1em;padding:8px 16px 4px}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;transition:all .15s;border-left:3px solid transparent;font-size:13px;color:var(--dk);font-weight:500}
+.sidebar-item:hover{background:var(--gray);color:var(--blk)}
+.sidebar-item.active{background:#fff5ed;border-left-color:var(--or);color:var(--or);font-weight:700}
+.sidebar-item.locked{opacity:.35;cursor:not-allowed}
+.sidebar-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.main-content{padding:24px;max-width:900px}
+
+/* ── SECTION CARDS ── */
+.section-card{background:#fff;border:1px solid var(--gray2);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.section-card-head{background:var(--gray);padding:12px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--gray2)}
+.sch-icon{font-size:16px}
+.sch-title{font-family:var(--font-h);font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blk)}
+.sch-badge{margin-left:auto;font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px}
+.badge-live{background:var(--greenl);color:var(--green)}
+.badge-draft{background:var(--amberl);color:var(--amber)}
+.section-card-body{padding:18px}
+
+/* ── FORM ELEMENTS ── */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:700;color:var(--gtxt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.field label .req{color:var(--or);margin-left:2px}
+.field input,.field select,.field textarea{width:100%;padding:9px 12px;border:1.5px solid var(--gray2);border-radius:5px;font-size:13px;font-family:var(--font-b);color:var(--blk);outline:none;transition:border-color .15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--or)}
+.field textarea{resize:vertical;min-height:80px}
+.field .hint{font-size:10px;color:var(--gtxt);margin-top:3px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+/* ── NEWS EDITOR ── */
+.news-card-editor{border:1px solid var(--gray2);border-radius:6px;overflow:hidden;margin-bottom:12px}
+.nce-head{background:var(--gray);padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--gray2)}
+.nce-num{width:20px;height:20px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+.nce-label{font-size:12px;font-weight:700;color:var(--blk)}
+.nce-type{font-size:10px;color:var(--gtxt);margin-left:auto}
+.nce-body{padding:12px}
+
+/* ── STAFF EDITOR ── */
+.staff-row-editor{border:1px solid var(--gray2);border-radius:6px;padding:12px;margin-bottom:8px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:10px;align-items:end}
+.add-row-btn{display:flex;align-items:center;gap:6px;background:none;border:1.5px dashed var(--gray2);border-radius:6px;padding:10px 16px;font-size:13px;color:var(--gtxt);cursor:pointer;width:100%;justify-content:center;transition:all .15s;font-family:var(--font-b)}
+.add-row-btn:hover{border-color:var(--or);color:var(--or)}
+.remove-btn{background:var(--redl);color:var(--red);border:none;border-radius:4px;padding:8px 10px;cursor:pointer;font-size:13px;transition:background .15s;align-self:end}
+.remove-btn:hover{background:#ffd0c8}
+
+/* ── EVENT EDITOR ── */
+.event-row{border:1px solid var(--gray2);border-radius:6px;padding:12px;margin-bottom:8px;display:grid;grid-template-columns:80px 1fr 120px 100px auto;gap:10px;align-items:end}
+
+/* ── ACTION BUTTONS ── */
+.action-bar{display:flex;align-items:center;gap:10px;padding-top:16px;border-top:1px solid var(--gray2);margin-top:16px}
+.btn-primary{background:var(--or);color:#fff;border:none;font-family:var(--font-h);font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:11px 24px;border-radius:5px;cursor:pointer;transition:background .15s;white-space:nowrap}
+.btn-primary:hover{background:var(--or2)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+.btn-secondary{background:#fff;color:var(--dk);border:1.5px solid var(--gray2);font-family:var(--font-h);font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 20px;border-radius:5px;cursor:pointer;transition:all .15s}
+.btn-secondary:hover{border-color:var(--or);color:var(--or)}
+.action-note{font-size:11px;color:var(--gtxt);flex:1}
+
+/* ── STATUS MESSAGES ── */
+.status-msg{border-radius:6px;padding:10px 14px;font-size:13px;display:none;margin-bottom:14px;line-height:1.5}
+.status-success{background:var(--greenl);border:1px solid #a0d4a8;color:var(--green)}
+.status-pending{background:var(--amberl);border:1px solid #e0c060;color:var(--amber)}
+.status-error{background:var(--redl);border:1px solid #ffb0a0;color:var(--red)}
+
+/* ── APPROVAL BANNER ── */
+.approval-banner{background:var(--amberl);border:1.5px solid #e0c060;border-radius:6px;padding:12px 16px;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start}
+.approval-banner-icon{font-size:16px;flex-shrink:0}
+.approval-banner-text{font-size:12px;color:var(--amber);line-height:1.5}
+.approval-banner-text strong{display:block;margin-bottom:2px;font-size:13px}
+
+/* ── WELCOME SCREEN ── */
+.welcome{padding:0}
+.welcome-hero{background:linear-gradient(135deg,#fff5ed,#ffe0d0);border:1px solid var(--gray2);border-radius:8px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden}
+.welcome-eyebrow{font-size:11px;color:var(--or);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.welcome-title{font-family:var(--font-h);font-size:32px;font-weight:900;color:var(--blk);line-height:1;margin-bottom:6px}
+.welcome-title em{color:var(--or);font-style:normal}
+.welcome-sub{font-size:13px;color:var(--dk);line-height:1.55}
+.welcome-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.welcome-card{background:#fff;border:1px solid var(--gray2);border-radius:6px;padding:14px;cursor:pointer;transition:all .15s}
+.welcome-card:hover{border-color:var(--or);transform:translateY(-1px)}
+.wc-icon{font-size:24px;margin-bottom:8px}
+.wc-title{font-family:var(--font-h);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--blk);margin-bottom:4px}
+.wc-desc{font-size:11px;color:var(--gtxt);line-height:1.45}
+.wc-locked{opacity:.4;cursor:not-allowed}
+.wc-locked:hover{border-color:var(--gray2);transform:none}
+
+/* ── SPINNER ── */
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;margin-right:6px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .app-body{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .field-row,.field-row-3{grid-template-columns:1fr}
+  .staff-row-editor{grid-template-columns:1fr 1fr}
+  .event-row{grid-template-columns:1fr 1fr}
+  .welcome-cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     LOGIN SCREEN
+══════════════════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="login-logo-tag">eliminating racism · empowering women</div>
+      <div class="login-logo">ywca</div>
+      <div class="login-logo-loc">columbus ohio</div>
+      <div style="height:12px"></div>
+      <div class="login-title">Mission Central</div>
+      <div class="login-sub">Content Management System</div>
+    </div>
+    <div class="login-body">
+      <div class="login-dept-label">Your Department <span style="color:var(--or)">*</span></div>
+      <select class="login-select" id="login-dept">
+        <option value="">Select your department...</option>
+        <option value="Leadership">Leadership / Executive Team</option>
+        <option value="Human Resources">Human Resources</option>
+        <option value="LSJ">Learning & Social Justice (LSJ)</option>
+        <option value="MarCom">Marketing & Communications (MarCom)</option>
+        <option value="Advancement">Advancement</option>
+        <option value="Board">Board</option>
+        <option value="Data">Data</option>
+        <option value="Development & Engagement">Development & Engagement</option>
+        <option value="EDU - Kids Place">EDU – Kids Place</option>
+        <option value="Family Center">Family Center</option>
+        <option value="Finance">Finance</option>
+        <option value="Griswold Front Desk">Griswold Front Desk</option>
+        <option value="Information Technology">Information Technology</option>
+        <option value="Women's Residency">Women's Residency</option>
+        <option value="YWCA Meetings">YWCA Meetings</option>
+      </select>
+      <div class="login-dept-label">Your Name <span style="color:var(--or)">*</span></div>
+      <input class="login-input" id="login-name" type="text" placeholder="First and last name">
+      <div class="login-dept-label">Access Code <span style="color:var(--or)">*</span></div>
+      <input class="login-input" id="login-code" type="password" placeholder="Enter your department access code">
+      <div class="login-error" id="login-error">Incorrect access code. Please contact IT at support@ywcacolumbus.org</div>
+      <button class="login-btn" onclick="doLogin()">Sign In →</button>
+      <div style="font-size:11px;color:var(--gtxt);margin-top:12px;text-align:center">Don't have an access code? Contact IT: support@ywcacolumbus.org</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     MAIN APP
+══════════════════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- Header -->
+  <div class="app-header">
+    <div class="app-logo">
+      <div class="logo-txt">
+        <div class="tag">eliminating racism · empowering women</div>
+        <div class="wm">ywca</div>
+        <div class="loc">columbus ohio</div>
+      </div>
+      <div class="app-divider"></div>
+      <div>
+        <div class="app-title">Mission <span>Central</span> CMS</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.35);margin-top:1px">Content Management System</div>
+      </div>
+    </div>
+    <div class="app-user">
+      <div class="app-dept-badge" id="header-dept-badge">Department</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.55)" id="header-user-name">User</div>
+      <button class="logout-btn" onclick="doLogout()">Sign out</button>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="app-body">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">My Content</div>
+        <div class="sidebar-item active" onclick="showSection('welcome')" id="nav-welcome">
+          <span class="sidebar-icon">🏠</span> Home
+        </div>
+        <div class="sidebar-item" onclick="showSection('news')" id="nav-news">
+          <span class="sidebar-icon">📰</span> News & Announcements
+        </div>
+        <div class="sidebar-item" onclick="showSection('events')" id="nav-events">
+          <span class="sidebar-icon">📅</span> Events Calendar
+        </div>
+        <div class="sidebar-item" onclick="showSection('staff')" id="nav-staff">
+          <span class="sidebar-icon">👥</span> Employee Directory
+        </div>
+        <div class="sidebar-item" onclick="showSection('leadership')" id="nav-leadership">
+          <span class="sidebar-icon">🎤</span> Leadership in Motion
+        </div>
+        <div class="sidebar-item" onclick="showSection('socialjustice')" id="nav-socialjustice">
+          <span class="sidebar-icon">✦</span> Social Justice Corner
+        </div>
+        <div class="sidebar-item" onclick="showSection('hrlibrary')" id="nav-hrlibrary">
+          <span class="sidebar-icon">📋</span> HR Resource Library
+        </div>
+      </div>
+      <div class="sidebar-section" id="admin-sidebar" style="display:none">
+        <div class="sidebar-label">Admin Only</div>
+        <div class="sidebar-item" onclick="showSection('deptlinks')" id="nav-deptlinks">
+          <span class="sidebar-icon">🔗</span> Department Links
+        </div>
+        <div class="sidebar-item" onclick="showSection('hero')" id="nav-hero">
+          <span class="sidebar-icon">🖼️</span> Hero & Stats
+        </div>
+        <div class="sidebar-item" onclick="showSection('approvals')" id="nav-approvals">
+          <span class="sidebar-icon">✅</span> Pending Approvals
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Help</div>
+        <div class="sidebar-item" onclick="showSection('help')" id="nav-help">
+          <span class="sidebar-icon">❓</span> How to use this
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content area -->
+    <div class="main-content" id="main-content">
+
+      <!-- WELCOME -->
+      <div id="section-welcome">
+        <div class="welcome-hero">
+          <div class="welcome-eyebrow">Welcome back</div>
+          <div class="welcome-title">Good <em id="greeting-time">morning</em>, <span id="welcome-name">Team</span>.</div>
+          <div class="welcome-sub" id="welcome-sub">Select a section from the sidebar to start updating Mission Central. Your changes will be reviewed before publishing.</div>
+        </div>
+        <div style="font-size:13px;font-weight:600;color:var(--blk);margin-bottom:10px">What would you like to update?</div>
+        <div class="welcome-cards" id="welcome-cards">
+          <div class="welcome-card" onclick="showSection('news')">
+            <div class="wc-icon">📰</div>
+            <div class="wc-title">News & Announcements</div>
+            <div class="wc-desc">Update news posts, announcements, and featured stories on the portal homepage.</div>
+          </div>
+          <div class="welcome-card" onclick="showSection('events')">
+            <div class="wc-icon">📅</div>
+            <div class="wc-title">Events Calendar</div>
+            <div class="wc-desc">Add or update upcoming events, meetings, training sessions, and deadlines.</div>
+          </div>
+          <div class="welcome-card" onclick="showSection('staff')">
+            <div class="wc-icon">👥</div>
+            <div class="wc-title">Employee Directory</div>
+            <div class="wc-desc">Update staff names, titles, departments, and contact information.</div>
+          </div>
+          <div class="welcome-card" onclick="showSection('leadership')">
+            <div class="wc-icon">🎤</div>
+            <div class="wc-title">Leadership in Motion</div>
+            <div class="wc-desc">Post monthly updates and quotes from the Executive Team.</div>
+          </div>
+          <div class="welcome-card" onclick="showSection('socialjustice')">
+            <div class="wc-icon">✦</div>
+            <div class="wc-title">Social Justice Corner</div>
+            <div class="wc-desc">Update this month's learning spotlight from LSJ.</div>
+          </div>
+          <div class="welcome-card" onclick="showSection('hrlibrary')">
+            <div class="wc-icon">📋</div>
+            <div class="wc-title">HR Resource Library</div>
+            <div class="wc-desc">Manage ADP, referral program, brand store, and ReportIt links.</div>
+          </div>
+        </div>
+        <div id="admin-welcome-cards" style="display:none;margin-top:10px">
+          <div class="welcome-cards">
+            <div class="welcome-card" onclick="showSection('deptlinks')">
+              <div class="wc-icon">🔗</div>
+              <div class="wc-title">Department Links</div>
+              <div class="wc-desc">Manage the department site shortcuts displayed on the portal homepage.</div>
+            </div>
+            <div class="welcome-card" onclick="showSection('hero')">
+              <div class="wc-icon">🖼️</div>
+              <div class="wc-title">Hero & Stats</div>
+              <div class="wc-desc">Update the hero headline, subtext, and impact statistics band.</div>
+            </div>
+            <div class="welcome-card" onclick="showSection('approvals')">
+              <div class="wc-icon">✅</div>
+              <div class="wc-title">Pending Approvals</div>
+              <div class="wc-desc">Review and approve content submitted by other departments.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEWS SECTION -->
+      <div id="section-news" style="display:none">
+        <div style="margin-bottom:16px">
+          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">News & Announcements</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Update the news cards that appear on the Mission Central homepage. The two featured cards are the most visible.</div>
+        </div>
+        <div class="approval-banner" id="news-approval-banner" style="display:none">
+          <div class="approval-banner-icon">⏳</div>
+          <div class="approval-banner-text"><strong>Your changes go to IT for approval before publishing.</strong>Once approved, they'll appear live on Mission Central within a few minutes. You'll receive an email confirmation.</div>
+        </div>
+        <div class="status-msg" id="news-status"></div>
+
+        <!-- Featured Card 1 -->
+        <div class="news-card-editor">
+          <div class="nce-head">
+            <div class="nce-num">1</div>
+            <div class="nce-label">Featured Story — Large card, left position</div>
+            <div class="nce-type">Most visible</div>
+          </div>
+          <div class="nce-body">
+            <div class="field-row">
+              <div class="field">
+                <label>Headline <span class="req">*</span></label>
+                <input type="text" id="news1-headline" placeholder="e.g. All-Staff Q3 Mission Meeting — July 15">
+              </div>
+              <div class="field">
+                <label>Category Tag <span class="req">*</span></label>
+                <select id="news1-tag">
+                  <option value="Org-Wide">Org-Wide</option>
+                  <option value="HR Update">HR Update</option>
+                  <option value="Tech">Tech</option>
+                  <option value="Community">Community</option>
+                  <option value="Programs">Programs</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Training">Training</option>
+                  <option value="Urgent">Urgent</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Date & Time</label>
+                <input type="text" id="news1-date" placeholder="e.g. July 15, 2026 · 10:00 AM – 11:30 AM">
+              </div>
+              <div class="field">
+                <label>Link URL (optional)</label>
+                <input type="url" id="news1-link" placeholder="https://... (leave blank if no link)">
+              </div>
+            </div>
+            <div class="field">
+              <label>Short Description <span class="req">*</span></label>
+              <textarea id="news1-excerpt" placeholder="2-3 sentences describing this announcement. This appears below the headline on the homepage."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Card 2 -->
+        <div class="news-card-editor">
+          <div class="nce-head">
+            <div class="nce-num">2</div>
+            <div class="nce-label">Featured Story — Large card, right position</div>
+            <div class="nce-type">Very visible</div>
+          </div>
+          <div class="nce-body">
+            <div class="field-row">
+              <div class="field">
+                <label>Headline <span class="req">*</span></label>
+                <input type="text" id="news2-headline" placeholder="e.g. Benefits Open Enrollment — Closes April 30">
+              </div>
+              <div class="field">
+                <label>Category Tag <span class="req">*</span></label>
+                <select id="news2-tag">
+                  <option value="HR Update">HR Update</option>
+                  <option value="Org-Wide">Org-Wide</option>
+                  <option value="Tech">Tech</option>
+                  <option value="Community">Community</option>
+                  <option value="Programs">Programs</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Training">Training</option>
+                  <option value="Urgent">Urgent</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Date & Time</label>
+                <input type="text" id="news2-date" placeholder="e.g. April 5, 2026">
+              </div>
+              <div class="field">
+                <label>Link URL (optional)</label>
+                <input type="url" id="news2-link" placeholder="https://...">
+              </div>
+            </div>
+            <div class="field">
+              <label>Short Description <span class="req">*</span></label>
+              <textarea id="news2-excerpt" placeholder="2-3 sentences describing this announcement."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Small Cards -->
+        <div class="section-card">
+          <div class="section-card-head">
+            <span class="sch-icon">📋</span>
+            <span class="sch-title">Small News Cards — 4 across</span>
+            <span class="sch-badge badge-live">Secondary visibility</span>
+          </div>
+          <div class="section-card-body">
+            <div id="small-news-cards">
+              <div class="field-row-3" style="margin-bottom:10px;border-bottom:1px solid var(--gray2);padding-bottom:10px">
+                <div class="field"><label>Card 3 Headline</label><input type="text" id="news3-h" placeholder="Short headline"></div>
+                <div class="field"><label>Date</label><input type="text" id="news3-d" placeholder="Apr 7, 2026"></div>
+                <div class="field"><label>Category</label><select id="news3-tag"><option>Tech</option><option>Org-Wide</option><option>HR Update</option><option>Community</option><option>Programs</option><option>Finance</option><option>Training</option></select></div>
+              </div>
+              <div class="field-row-3" style="margin-bottom:10px;border-bottom:1px solid var(--gray2);padding-bottom:10px">
+                <div class="field"><label>Card 4 Headline</label><input type="text" id="news4-h" placeholder="Short headline"></div>
+                <div class="field"><label>Date</label><input type="text" id="news4-d" placeholder="Apr 1, 2026"></div>
+                <div class="field"><label>Category</label><select id="news4-tag"><option>HR Update</option><option>Org-Wide</option><option>Tech</option><option>Community</option><option>Programs</option><option>Finance</option><option>Training</option></select></div>
+              </div>
+              <div class="field-row-3" style="margin-bottom:10px;border-bottom:1px solid var(--gray2);padding-bottom:10px">
+                <div class="field"><label>Card 5 Headline</label><input type="text" id="news5-h" placeholder="Short headline"></div>
+                <div class="field"><label>Date</label><input type="text" id="news5-d" placeholder="Mar 28, 2026"></div>
+                <div class="field"><label>Category</label><select id="news5-tag"><option>Community</option><option>Org-Wide</option><option>HR Update</option><option>Tech</option><option>Programs</option><option>Finance</option><option>Training</option></select></div>
+              </div>
+              <div class="field-row-3">
+                <div class="field"><label>Card 6 Headline</label><input type="text" id="news6-h" placeholder="Short headline"></div>
+                <div class="field"><label>Date</label><input type="text" id="news6-d" placeholder="Mar 15, 2026"></div>
+                <div class="field"><label>Category</label><select id="news6-tag"><option>Programs</option><option>Org-Wide</option><option>HR Update</option><option>Tech</option><option>Community</option><option>Finance</option><option>Training</option></select></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-bar">
+          <button class="btn-primary" onclick="submitNews()" id="news-submit-btn">
+            Submit for Approval →
+          </button>
+          <button class="btn-secondary" onclick="previewNews()">Preview changes</button>
+          <div class="action-note" id="news-action-note">Changes will be sent to IT for approval before going live on Mission Central.</div>
+        </div>
+      </div>
+
+      <!-- EVENTS SECTION -->
+      <div id="section-events" style="display:none">
+        <div style="margin-bottom:16px">
+          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">Events Calendar</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Update the upcoming events shown in the sidebar of Mission Central. Keep the next 4-6 weeks current.</div>
+        </div>
+        <div class="approval-banner" id="events-approval-banner" style="display:none">
+          <div class="approval-banner-icon">⏳</div>
+          <div class="approval-banner-text"><strong>Your changes go to IT for approval before publishing.</strong>You'll receive an email when they go live.</div>
+        </div>
+        <div class="status-msg" id="events-status"></div>
+        <div class="section-card">
+          <div class="section-card-head">
+            <span class="sch-icon">📅</span>
+            <span class="sch-title">Upcoming Events — Sidebar (shows 4 events)</span>
+          </div>
+          <div class="section-card-body">
+            <div id="events-list">
+              <div class="event-row" id="event-row-1">
+                <div class="field"><label>Month</label><select id="ev1-month"><option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option><option>May</option><option>Jun</option><option>Jul</option><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option></select></div>
+                <div class="field"><label>Event Title <span class="req">*</span></label><input type="text" id="ev1-title" placeholder="e.g. All-Staff Q3 Mission Meeting"></div>
+                <div class="field"><label>Day & Time</label><input type="text" id="ev1-time" placeholder="e.g. 15 · 10:00 AM"></div>
+                <div class="field"><label>Type</label><select id="ev1-type"><option value="tg-org">Org-Wide</option><option value="tg-hr">HR</option><option value="tg-it">IT/Tech</option></select></div>
+                <div></div>
+              </div>
+              <div class="event-row" id="event-row-2">
+                <div class="field"><label>Month</label><select id="ev2-month"><option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option><option>May</option><option>Jun</option><option>Jul</option><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option></select></div>
+                <div class="field"><label>Event Title</label><input type="text" id="ev2-title" placeholder="Event title"></div>
+                <div class="field"><label>Day & Time</label><input type="text" id="ev2-time" placeholder="e.g. 22 · 2:00 PM"></div>
+                <div class="field"><label>Type</label><select id="ev2-type"><option value="tg-hr">HR</option><option value="tg-org">Org-Wide</option><option value="tg-it">IT/Tech</option></select></div>
+                <div></div>
+              </div>
+              <div class="event-row" id="event-row-3">
+                <div class="field"><label>Month</label><select id="ev3-month"><option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option><option>May</option><option>Jun</option><option>Jul</option><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option></select></div>
+                <div class="field"><label>Event Title</label><input type="text" id="ev3-title" placeholder="Event title"></div>
+                <div class="field"><label>Day & Time</label><input type="text" id="ev3-time" placeholder="e.g. 30 · 11:00 AM"></div>
+                <div class="field"><label>Type</label><select id="ev3-type"><option value="tg-it">IT/Tech</option><option value="tg-org">Org-Wide</option><option value="tg-hr">HR</option></select></div>
+                <div></div>
+              </div>
+              <div class="event-row" id="event-row-4">
+                <div class="field"><label>Month</label><select id="ev4-month"><option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option><option>May</option><option>Jun</option><option>Jul</option><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option></select></div>
+                <div class="field"><label>Event Title</label><input type="text" id="ev4-title" placeholder="Event title"></div>
+                <div class="field"><label>Day & Time</label><input type="text" id="ev4-time" placeholder="e.g. 30 · End of day"></div>
+                <div class="field"><label>Type</label><select id="ev4-type"><option value="tg-hr">HR</option><option value="tg-org">Org-Wide</option><option value="tg-it">IT/Tech</option></select></div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-primary" onclick="submitEvents()" id="events-submit-btn">Submit for Approval →</button>
+          <div class="action-note">Changes will be sent to IT for approval before going live.</div>
+        </div>
+        <div class="status-msg" id="events-status-bottom"></div>
+      </div>
+
+      <!-- STAFF DIRECTORY -->
+      <div id="section-staff" style="display:none">
+        <div style="margin-bottom:16px">
+          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">Employee Directory</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Update the staff members shown in the Mission Central sidebar directory. Add, edit, or remove entries.</div>
+        </div>
+        <div class="approval-banner" id="staff-approval-banner" style="display:none">
+          <div class="approval-banner-icon">⏳</div>
+          <div class="approval-banner-text"><strong>Your changes go to IT for approval before publishing.</strong></div>
+        </div>
+        <div class="status-msg" id="staff-status"></div>
+        <div class="section-card">
+          <div class="section-card-head">
+            <span class="sch-icon">👥</span>
+            <span class="sch-title">Employee Directory Entries</span>
+          </div>
+          <div class="section-card-body">
+            <div id="staff-list">
+              <div class="staff-row-editor" id="staff-row-1">
+                <div class="field"><label>Full Name <span class="req">*</span></label><input type="text" id="s1-name" placeholder="First Last"></div>
+                <div class="field"><label>Job Title <span class="req">*</span></label><input type="text" id="s1-title" placeholder="e.g. President & CEO"></div>
+                <div class="field"><label>Department</label><input type="text" id="s1-dept" placeholder="e.g. Leadership"></div>
+                <div class="field"><label>Email (optional)</label><input type="email" id="s1-email" placeholder="name@ywcacolumbus.org"></div>
+                <div></div>
+              </div>
+              <div class="staff-row-editor" id="staff-row-2">
+                <div class="field"><label>Full Name</label><input type="text" id="s2-name" placeholder="First Last"></div>
+                <div class="field"><label>Job Title</label><input type="text" id="s2-title" placeholder="e.g. Board Chair"></div>
+                <div class="field"><label>Department</label><input type="text" id="s2-dept" placeholder="e.g. Board"></div>
+                <div class="field"><label>Email (optional)</label><input type="email" id="s2-email" placeholder="name@ywcacolumbus.org"></div>
+                <button class="remove-btn" onclick="removeStaffRow(2)">✕</button>
+              </div>
+              <div class="staff-row-editor" id="staff-row-3">
+                <div class="field"><label>Full Name</label><input type="text" id="s3-name" placeholder="First Last"></div>
+                <div class="field"><label>Job Title</label><input type="text" id="s3-title" placeholder="e.g. Secretary"></div>
+                <div class="field"><label>Department</label><input type="text" id="s3-dept" placeholder="e.g. Board"></div>
+                <div class="field"><label>Email (optional)</label><input type="email" id="s3-email" placeholder="name@ywcacolumbus.org"></div>
+                <button class="remove-btn" onclick="removeStaffRow(3)">✕</button>
+              </div>
+              <div class="staff-row-editor" id="staff-row-4">
+                <div class="field"><label>Full Name</label><input type="text" id="s4-name" placeholder="First Last"></div>
+                <div class="field"><label>Job Title</label><input type="text" id="s4-title" placeholder="e.g. Director"></div>
+                <div class="field"><label>Department</label><input type="text" id="s4-dept" placeholder="e.g. Programs"></div>
+                <div class="field"><label>Email (optional)</label><input type="email" id="s4-email" placeholder="name@ywcacolumbus.org"></div>
+                <button class="remove-btn" onclick="removeStaffRow(4)">✕</button>
+              </div>
+            </div>
+            <button class="add-row-btn" onclick="addStaffRow()">+ Add another staff member</button>
+          </div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-primary" onclick="submitStaff()" id="staff-submit-btn">Submit for Approval →</button>
+          <div class="action-note">Changes will be sent to IT for approval before going live.</div>
+        </div>
+      </div>
+
+      <!-- LEADERSHIP IN MOTION -->
+      <div id="section-leadership" style="display:none">
+        <div style="margin-bottom:16px">
+          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">Leadership in Motion</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Post a monthly update from a Cabinet/Executive Team member. Leadership and MarCom access only.</div>
+        </div>
+        <div class="approval-banner" id="leadership-approval-banner" style="display:none">
+          <div class="approval-banner-icon">⏳</div>
+          <div class="approval-banner-text"><strong>Your changes go to MarCom for approval before publishing.</strong></div>
+        </div>
+        <div class="status-msg" id="leadership-status"></div>
+        <div class="section-card">
+          <div class="section-card-head"><span class="sch-icon">🎤</span><span class="sch-title">Leadership Spotlight</span></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Leader Name <span class="req">*</span></label><input type="text" id="lim-name" placeholder="e.g. Elizabeth Brown"></div>
+              <div class="field"><label>Title <span class="req">*</span></label><input type="text" id="lim-title" placeholder="e.g. President & CEO"></div>
+            </div>
+            <div class="field"><label>Message / Update <span class="req">*</span></label><textarea id="lim-text" placeholder="A short quote or update from this leader (2-4 sentences works best)"></textarea></div>
+          </div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-primary" onclick="submitLeadership()" id="leadership-submit-btn">Submit →</button>
+        </div>
+      </div>
+
+      <!-- SOCIAL JUSTICE CORNER -->
+      <div id="section-socialjustice" style="display:none">
+        <div style="margin-bottom:16px">
+          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">Social Justice Corner</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Update this month's learning spotlight from LSJ. LSJ and MarCom access only.</div>
+        </div>
+        <div class="approval-banner" id="sj-approval-banner" style="display:none">
+          <div class="approval-banner-icon">⏳</div>
+          <div class="approval-banner-text"><strong>Your changes go to MarCom for approval before publishing.</strong></div>
+        </div>
+        <div class="status-msg" id="sj-status"></div>
+        <div class="section-card">
+          <div class="section-card-head"><span class="sch-icon">✦</span><span class="sch-title">This Month's Learning Spotlight</span></div>
+          <div class="section-card-body">
+            <div class="field"><label>Headline <span class="req">*</span></label><input type="text" id="sj-headline" placeholder="e.g. Advance Racial Equity Now"></div>
+            <div class="field"><label>Description <span class="req">*</span></label><textarea id="sj-text" placeholder="2-3 sentences describing this month's focus or learning opportunity"></textarea></div>
+            <div class="field"><label>Link URL</label><input type="url" id="sj-link" placeholder="https://www.ywcacolumbus.org/social-justice/..."></div>
+          </div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-primary" onclick="submitSocialJustice()" id="sj-submit-btn">Submit →</button>
+        </div>
+      </div>
+
+      <!-- HR RESOURCE LIBRARY -->
+      <div id="section-hrlibrary" style="display:none">
+        <div style="margin-bottom:16px">
+          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">HR Resource Library</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Manage links shown in the HR Resource Library sidebar (ADP, Referral Program, Brand Store, ReportIt, Feedback). HR access only.</div>
+        </div>
+        <div class="status-msg" id="hrlib-status"></div>
+        <div class="section-card">
+          <div class="section-card-head"><span class="sch-icon">📋</span><span class="sch-title">HR Resource Links</span><span class="sch-badge badge-live">HR — publishes instantly</span></div>
+          <div class="section-card-body">
+            <div class="field-row"><div class="field"><label>ADP Self-Service URL</label><input type="url" id="hrlib-adp" placeholder="https://..."></div></div>
+            <div class="field-row"><div class="field"><label>Referral Program URL</label><input type="url" id="hrlib-referral" placeholder="https://..."></div></div>
+            <div class="field-row"><div class="field"><label>Employee Brand Store URL</label><input type="url" id="hrlib-store" placeholder="https://..."></div></div>
+            <div class="field-row"><div class="field"><label>ReportIt URL</label><input type="url" id="hrlib-reportit" placeholder="https://..."></div></div>
+            <div class="field-row"><div class="field"><label>Anonymous Feedback Form URL</label><input type="url" id="hrlib-feedback" placeholder="https://..."></div></div>
+          </div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-primary" onclick="submitHRLibrary()" id="hrlib-submit-btn">Publish Now →</button>
+          <div class="action-note">As HR, your changes publish immediately without approval.</div>
+        </div>
+      </div>
+
+
+      <div id="section-deptlinks" style="display:none">
+        <div style="margin-bottom:16px">
+          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">Department Links</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Manage the department site shortcuts on the Mission Central homepage. Admin access only.</div>
+        </div>
+        <div class="status-msg" id="dept-status"></div>
+        <div class="section-card">
+          <div class="section-card-head"><span class="sch-icon">🔗</span><span class="sch-title">Department Site Links</span><span class="sch-badge badge-live">Admin — publishes instantly</span></div>
+          <div class="section-card-body">
+            <div id="dept-links-list"></div>
+            <button class="add-row-btn" onclick="addDeptRow()">+ Add department link</button>
+          </div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-primary" onclick="submitDeptLinks()" id="dept-submit-btn">Publish Changes →</button>
+          <div class="action-note">As an admin, your changes publish immediately without approval.</div>
+        </div>
+      </div>
+
+      <!-- HERO (Admin only) -->
+      <div id="section-hero" style="display:none">
+        <div style="margin-bottom:16px">
+          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">Hero & Stats</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Update the hero banner text and the impact statistics band. Admin access only.</div>
+        </div>
+        <div class="status-msg" id="hero-status"></div>
+        <div class="section-card">
+          <div class="section-card-head"><span class="sch-icon">🖼️</span><span class="sch-title">Hero Banner</span><span class="sch-badge badge-live">Admin — publishes instantly</span></div>
+          <div class="section-card-body">
+            <div class="field"><label>Hero Subtext</label><input type="text" id="hero-sub" placeholder="e.g. Check your pending approvals, find documents, submit requests..."></div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-head"><span class="sch-icon">📊</span><span class="sch-title">Impact Statistics Band</span></div>
+          <div class="section-card-body">
+            <div class="field-row">
+              <div class="field"><label>Stat 1 Number</label><input type="text" id="stat1-num" placeholder="e.g. 140"></div>
+              <div class="field"><label>Stat 1 Label</label><input type="text" id="stat1-label" placeholder="e.g. Years serving Columbus"></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Stat 2 Number</label><input type="text" id="stat2-num" placeholder="e.g. 1,500"></div>
+              <div class="field"><label>Stat 2 Label</label><input type="text" id="stat2-label" placeholder="e.g. Children in our programs daily"></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Stat 3 Number</label><input type="text" id="stat3-num" placeholder="e.g. 305"></div>
+              <div class="field"><label>Stat 3 Label</label><input type="text" id="stat3-label" placeholder="e.g. Women of Achievement honored"></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Stat 4 Number</label><input type="text" id="stat4-num" placeholder="e.g. 200+"></div>
+              <div class="field"><label>Stat 4 Label</label><input type="text" id="stat4-label" placeholder="e.g. Staff on this mission with you"></div>
+            </div>
+          </div>
+        </div>
+        <div class="action-bar">
+          <button class="btn-primary" onclick="submitHero()" id="hero-submit-btn">Publish Changes →</button>
+          <div class="action-note">As an admin, your changes publish immediately without approval.</div>
+        </div>
+      </div>
+
+      <!-- APPROVALS (Admin only) -->
+      <div id="section-approvals" style="display:none">
+        <div style="margin-bottom:16px">
+          <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk)">Pending Approvals</div>
+          <div style="font-size:13px;color:var(--gtxt);margin-top:3px">Review content submitted by departments before it goes live on Mission Central.</div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-head"><span class="sch-icon">✅</span><span class="sch-title">Submitted Changes Awaiting Approval</span></div>
+          <div class="section-card-body" id="approvals-list">
+            <div style="text-align:center;padding:32px;color:var(--gtxt)">
+              <div style="font-size:32px;margin-bottom:10px">✅</div>
+              <div style="font-size:14px;font-weight:600">No pending approvals</div>
+              <div style="font-size:12px;margin-top:4px">When departments submit changes, they will appear here for your review.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HELP -->
+      <div id="section-help" style="display:none">
+        <div style="font-family:var(--font-h);font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--blk);margin-bottom:16px">How to use Mission Central CMS</div>
+        <div class="section-card">
+          <div class="section-card-head"><span class="sch-icon">📋</span><span class="sch-title">Step by step</span></div>
+          <div class="section-card-body">
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <div style="width:28px;height:28px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0">1</div>
+                <div><div style="font-size:14px;font-weight:700;color:var(--blk);margin-bottom:3px">Choose a section from the sidebar</div><div style="font-size:13px;color:var(--gtxt)">Select News, Events, or Employee Directory on the left. You can only edit sections your department owns.</div></div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <div style="width:28px;height:28px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0">2</div>
+                <div><div style="font-size:14px;font-weight:700;color:var(--blk);margin-bottom:3px">Fill in your changes</div><div style="font-size:13px;color:var(--gtxt)">Type your updated content into the form fields. You don't need to know any code — just type in plain English.</div></div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <div style="width:28px;height:28px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0">3</div>
+                <div><div style="font-size:14px;font-weight:700;color:var(--blk);margin-bottom:3px">Click Submit for Approval</div><div style="font-size:13px;color:var(--gtxt)">Your changes are sent to MarCom for review. You'll receive an email confirmation right away.</div></div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <div style="width:28px;height:28px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0">4</div>
+                <div><div style="font-size:14px;font-weight:700;color:var(--blk);margin-bottom:3px">Changes go live</div><div style="font-size:13px;color:var(--gtxt)">Once approved, your content appears on Mission Central automatically. You'll get an email when it's live.</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section-card" style="margin-top:14px">
+          <div class="section-card-head"><span class="sch-icon">❓</span><span class="sch-title">Need help?</span></div>
+          <div class="section-card-body">
+            <div style="font-size:13px;color:var(--dk);line-height:1.6">Contact MarCom at <strong>support@ywcacolumbus.org</strong> for content questions. For access code issues, contact <strong>itsupport@ywcacolumbus.org</strong>.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end main-content -->
+  </div><!-- end app-body -->
+</div><!-- end app -->
+
+<script>
+// ══════════════════════════════════════════════════════
+// CONFIGURATION — UPDATE THESE VALUES
+// ══════════════════════════════════════════════════════
+var CONFIG = {
+  // Approval email — where non-elevated submissions get sent for review
+  approvalEmail: 'support@ywcacolumbus.org',
+
+  // SECURE BACKEND — your GitHub token lives here, NOT in this file.
+  // Deploy the companion Vercel function (see vercel-backend folder) and
+  // paste its URL here. This file never sees or stores your token.
+  // Example: 'https://mission-central-backend.vercel.app/api/update-portal'
+  : 'backendUrl: 'https://mission-central-backend.vercel.app/api/update-portal',
+
+  // GitHub details — informational only, the actual token-protected calls
+  // happen inside the Vercel backend function, not here.
+  githubOwner: 'ywcacolumbusit',
+  githubRepo: 'mission-central',
+  githubFile: 'index.html',
+
+  // Access codes per department/role (change these to secure values before deploying)
+  accessCodes: {
+    'Leadership':                'ywca-lead-2026',
+    'Human Resources':           'ywca-hr-2026',
+    'LSJ':                       'ywca-lsj-2026',
+    'MarCom':                    'ywca-marcom-2026',
+    'Advancement':               'ywca-adv-2026',
+    'Board':                     'ywca-board-2026',
+    'Data':                      'ywca-data-2026',
+    'Development & Engagement':  'ywca-dev-2026',
+    'EDU - Kids Place':          'ywca-edu-2026',
+    'Family Center':             'ywca-fc-2026',
+    'Finance':                   'ywca-fin-2026',
+    'Griswold Front Desk':       'ywca-gris-2026',
+    'Information Technology':    'ywca-it-2026',
+    "Women's Residency":         'ywca-wr-2026',
+    'YWCA Meetings':             'ywca-mtg-2026',
+  },
+
+  // Departments/roles that can publish without approval — per MarCom doc:
+  // "limiting access to Leadership, HR, LSJ & MarCom, with each user reviewed
+  //  and approved individually... role-based permissions to ensure that the
+  //  users uploading information (e.g. HR, LSJ) only have access to the
+  //  information they need."
+  autoPublishDepts: ['Leadership','Human Resources','LSJ','MarCom'],
+
+  // Role-based section ownership — each elevated role can only edit ITS sections
+  // without approval; everyone else can submit to any section but it requires approval
+  roleOwnedSections: {
+    'Leadership': ['leadership'],
+    'Human Resources': ['staff','hrlibrary','events'],
+    'LSJ': ['socialjustice'],
+    'MarCom': ['news','events','staff','leadership','socialjustice','hrlibrary','deptlinks','hero'],
+  },
+};
+
+// ══════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════
+var state = {
+  dept: '',
+  name: '',
+  isAdmin: false,
+  staffRowCount: 4,
+  deptRowCount: 0,
+};
+
+// ══════════════════════════════════════════════════════
+// LOGIN
+// ══════════════════════════════════════════════════════
+function doLogin() {
+  var dept = document.getElementById('login-dept').value;
+  var name = document.getElementById('login-name').value.trim();
+  var code = document.getElementById('login-code').value;
+  var err  = document.getElementById('login-error');
+
+  if (!dept || !name || !code) {
+    err.style.display = 'block';
+    err.textContent = 'Please fill in all fields.';
+    return;
+  }
+
+  var expected = CONFIG.accessCodes[dept];
+  if (!expected || code !== expected) {
+    err.style.display = 'block';
+    err.textContent = 'Incorrect access code. Contact IT: support@ywcacolumbus.org';
+    return;
+  }
+
+  state.dept = dept;
+  state.name = name;
+  state.isAdmin = CONFIG.autoPublishDepts.indexOf(dept) !== -1;
+
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  initApp();
+}
+
+function doLogout() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-code').value = '';
+  document.getElementById('login-error').style.display = 'none';
+}
+
+// ══════════════════════════════════════════════════════
+// INIT APP
+// ══════════════════════════════════════════════════════
+function initApp() {
+  // Set greeting
+  var h = new Date().getHours();
+  document.getElementById('greeting-time').textContent = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
+  document.getElementById('welcome-name').textContent = state.name.split(' ')[0];
+
+  // Set header
+  document.getElementById('header-user-name').textContent = state.name;
+  var badge = document.getElementById('header-dept-badge');
+  badge.textContent = state.dept;
+  if (state.isAdmin) badge.classList.add('admin');
+
+  // Welcome sub text
+  var sub = document.getElementById('welcome-sub');
+  var ownedSections = CONFIG.roleOwnedSections[state.dept] || [];
+  if (state.isAdmin) {
+    var sectionNames = {news:'News',events:'Events',staff:'Employee Directory',leadership:'Leadership in Motion',socialjustice:'Social Justice Corner',hrlibrary:'HR Resource Library',deptlinks:'Department Links',hero:'Hero & Stats'};
+    var ownedList = ownedSections.map(function(s){return sectionNames[s] || s;}).join(', ');
+    sub.textContent = 'As ' + state.dept + ', you can update ' + ownedList + ' and publish immediately without approval. Use the sidebar to get started.';
+  } else {
+    sub.textContent = 'Select a section to update Mission Central. Your changes will be reviewed by MarCom before publishing — usually within a few hours.';
+  }
+
+  // Show admin sections only to MarCom (full admin) — others see only their owned sections
+  if (state.dept === 'MarCom') {
+    document.getElementById('admin-sidebar').style.display = 'block';
+    document.getElementById('admin-welcome-cards').style.display = 'block';
+  }
+
+  // Hide sidebar items not owned by this role (unless MarCom, who sees everything)
+  var allEditableSections = ['news','events','staff','leadership','socialjustice','hrlibrary'];
+  if (state.dept !== 'MarCom') {
+    allEditableSections.forEach(function(s) {
+      var navEl = document.getElementById('nav-' + s);
+      if (navEl && ownedSections.indexOf(s) === -1) {
+        navEl.classList.add('locked');
+        navEl.onclick = function() {
+          showStatus('news-status', 'error', 'You do not have edit access to this section. Contact MarCom if you need access.');
+        };
+      }
+    });
+  }
+
+  // Show/hide approval banners based on ownership
+  function setApprovalBanner(sectionId, bannerId) {
+    var owns = state.isAdmin && (state.dept === 'MarCom' || ownedSections.indexOf(sectionId) !== -1);
+    var banner = document.getElementById(bannerId);
+    if (banner) banner.style.display = owns ? 'none' : 'flex';
+  }
+  setApprovalBanner('news', 'news-approval-banner');
+  setApprovalBanner('events', 'events-approval-banner');
+  setApprovalBanner('staff', 'staff-approval-banner');
+  setApprovalBanner('leadership', 'leadership-approval-banner');
+  setApprovalBanner('socialjustice', 'sj-approval-banner');
+
+  // Update submit button labels based on section ownership
+  function setSubmitLabel(sectionId, btnId, noteId) {
+    var owns = state.isAdmin && (state.dept === 'MarCom' || ownedSections.indexOf(sectionId) !== -1);
+    var btn = document.getElementById(btnId);
+    var note = noteId ? document.getElementById(noteId) : null;
+    if (btn) btn.textContent = owns ? 'Publish Now →' : 'Submit for Approval →';
+    if (note) note.textContent = owns
+      ? 'As ' + state.dept + ', your changes publish immediately without approval.'
+      : 'Changes will be sent to MarCom for approval before going live on Mission Central.';
+  }
+  setSubmitLabel('news', 'news-submit-btn', 'news-action-note');
+
+  // Init dept links if MarCom (full admin)
+  if (state.dept === 'MarCom') initDeptLinks();
+
+  showSection('welcome');
+}
+
+// ══════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════
+var sections = ['welcome','news','events','staff','leadership','socialjustice','hrlibrary','deptlinks','hero','approvals','help'];
+
+function showSection(id) {
+  sections.forEach(function(s) {
+    var el = document.getElementById('section-' + s);
+    var nav = document.getElementById('nav-' + s);
+    if (el) el.style.display = s === id ? 'block' : 'none';
+    if (nav) {
+      nav.classList.remove('active');
+      if (s === id) nav.classList.add('active');
+    }
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// STAFF ROWS
+// ══════════════════════════════════════════════════════
+function addStaffRow() {
+  state.staffRowCount++;
+  var n = state.staffRowCount;
+  var div = document.createElement('div');
+  div.className = 'staff-row-editor';
+  div.id = 'staff-row-' + n;
+  div.innerHTML =
+    '<div class="field"><label>Full Name</label><input type="text" id="s'+n+'-name" placeholder="First Last"></div>' +
+    '<div class="field"><label>Job Title</label><input type="text" id="s'+n+'-title" placeholder="e.g. Director"></div>' +
+    '<div class="field"><label>Department</label><input type="text" id="s'+n+'-dept" placeholder="e.g. Programs"></div>' +
+    '<div class="field"><label>Email (optional)</label><input type="email" id="s'+n+'-email" placeholder="name@ywcacolumbus.org"></div>' +
+    '<button class="remove-btn" onclick="removeStaffRow('+n+')">✕</button>';
+  document.getElementById('staff-list').appendChild(div);
+}
+
+function removeStaffRow(n) {
+  var el = document.getElementById('staff-row-' + n);
+  if (el) el.remove();
+}
+
+// ══════════════════════════════════════════════════════
+// DEPT LINKS
+// ══════════════════════════════════════════════════════
+var defaultDeptLinks = [
+  ['Advancement','https://ywcacolumbus.sharepoint.com/sites/AdvancementBrand'],
+  ['Anti-Racism','https://ywcacolumbus.sharepoint.com/sites/AntiRacism'],
+  ['Board','https://ywcacolumbus.sharepoint.com/sites/Board'],
+  ['Data','https://ywcacolumbus.sharepoint.com/sites/Data'],
+  ['Development & Engagement','https://ywcacolumbus.sharepoint.com/sites/Development'],
+  ['EDU – Kids Place','https://ywcacolumbus.sharepoint.com/sites/EDUKidsPlace'],
+  ['Family Center','https://ywcacolumbus.sharepoint.com/sites/FamilyCenter'],
+  ['Finance','https://ywcacolumbus.sharepoint.com/sites/Finance'],
+  ['Griswold Front Desk','https://ywcacolumbus.sharepoint.com/sites/GriswoldFrontDesk'],
+  ['Human Resources','https://ywcacolumbus.sharepoint.com/sites/HRAdmin'],
+  ['Information Technology','https://ywcacolumbus.sharepoint.com/sites/InfoTech'],
+  ["Women's Residency",'https://ywcacolumbus.sharepoint.com/sites/WomensResidency'],
+];
+
+function initDeptLinks() {
+  var list = document.getElementById('dept-links-list');
+  list.innerHTML = '';
+  state.deptRowCount = 0;
+  defaultDeptLinks.forEach(function(d) { addDeptRowWithValues(d[0], d[1]); });
+}
+
+function addDeptRow() { addDeptRowWithValues('', ''); }
+
+function addDeptRowWithValues(name, url) {
+  state.deptRowCount++;
+  var n = state.deptRowCount;
+  var div = document.createElement('div');
+  div.className = 'field-row';
+  div.id = 'dept-row-' + n;
+  div.style.marginBottom = '8px';
+  div.innerHTML =
+    '<div class="field"><label>Department Name</label><input type="text" id="dl'+n+'-name" value="'+name+'" placeholder="e.g. Family Center"></div>' +
+    '<div class="field"><label>SharePoint URL</label><input type="url" id="dl'+n+'-url" value="'+url+'" placeholder="https://ywcacolumbus.sharepoint.com/sites/..."></div>' +
+    '<button class="remove-btn" style="align-self:flex-end;margin-bottom:0" onclick="document.getElementById(\'dept-row-'+n+'\').remove()">✕</button>';
+  document.getElementById('dept-links-list').appendChild(div);
+}
+
+// ══════════════════════════════════════════════════════
+// COLLECT FORM DATA
+// ══════════════════════════════════════════════════════
+function collectNewsData() {
+  return {
+    featured1: {
+      headline: document.getElementById('news1-headline').value,
+      tag: document.getElementById('news1-tag').value,
+      date: document.getElementById('news1-date').value,
+      link: document.getElementById('news1-link').value,
+      excerpt: document.getElementById('news1-excerpt').value,
+    },
+    featured2: {
+      headline: document.getElementById('news2-headline').value,
+      tag: document.getElementById('news2-tag').value,
+      date: document.getElementById('news2-date').value,
+      link: document.getElementById('news2-link').value,
+      excerpt: document.getElementById('news2-excerpt').value,
+    },
+    small: [
+      {h:v('news3-h'),d:v('news3-d'),tag:v('news3-tag')},
+      {h:v('news4-h'),d:v('news4-d'),tag:v('news4-tag')},
+      {h:v('news5-h'),d:v('news5-d'),tag:v('news5-tag')},
+      {h:v('news6-h'),d:v('news6-d'),tag:v('news6-tag')},
+    ]
+  };
+}
+
+function collectEventsData() {
+  var events = [];
+  for (var i = 1; i <= 4; i++) {
+    events.push({
+      month: v('ev'+i+'-month'),
+      title: v('ev'+i+'-title'),
+      time:  v('ev'+i+'-time'),
+      type:  v('ev'+i+'-type'),
+    });
+  }
+  return events;
+}
+
+function collectStaffData() {
+  var staff = [];
+  for (var i = 1; i <= state.staffRowCount; i++) {
+    var row = document.getElementById('staff-row-' + i);
+    if (!row) continue;
+    var name = v('s'+i+'-name');
+    if (!name) continue;
+    staff.push({name:name, title:v('s'+i+'-title'), dept:v('s'+i+'-dept'), email:v('s'+i+'-email')});
+  }
+  return staff;
+}
+
+function v(id) {
+  var el = document.getElementById(id);
+  return el ? el.value : '';
+}
+
+// ══════════════════════════════════════════════════════
+// SUBMIT FUNCTIONS — USE CLAUDE API TO GENERATE UPDATE
+// ══════════════════════════════════════════════════════
+async function submitNews() {
+  var data = collectNewsData();
+  if (!data.featured1.headline || !data.featured1.excerpt) {
+    showStatus('news-status', 'error', 'Please fill in at least the headline and description for Featured Story 1.');
+    return;
+  }
+  await handleSubmission('news-submit-btn', 'news-status', 'News & Announcements', data);
+}
+
+async function submitEvents() {
+  var data = collectEventsData();
+  if (!data[0].title) {
+    showStatus('events-status', 'error', 'Please fill in at least the first event title.');
+    return;
+  }
+  await handleSubmission('events-submit-btn', 'events-status', 'Events Calendar', data);
+}
+
+async function submitStaff() {
+  var data = collectStaffData();
+  if (!data.length) {
+    showStatus('staff-status', 'error', 'Please add at least one staff member.');
+    return;
+  }
+  await handleSubmission('staff-submit-btn', 'staff-status', 'Employee Directory', data);
+}
+
+async function submitLeadership() {
+  var data = {name: v('lim-name'), title: v('lim-title'), text: v('lim-text')};
+  if (!data.name || !data.text) {
+    showStatus('leadership-status', 'error', 'Please fill in the leader name and message.');
+    return;
+  }
+  await handleSubmission('leadership-submit-btn', 'leadership-status', 'Leadership in Motion', data);
+}
+
+async function submitSocialJustice() {
+  var data = {headline: v('sj-headline'), text: v('sj-text'), link: v('sj-link')};
+  if (!data.headline || !data.text) {
+    showStatus('sj-status', 'error', 'Please fill in the headline and description.');
+    return;
+  }
+  await handleSubmission('sj-submit-btn', 'sj-status', 'Social Justice Corner', data);
+}
+
+async function submitHRLibrary() {
+  var data = {
+    adp: v('hrlib-adp'), referral: v('hrlib-referral'), store: v('hrlib-store'),
+    reportit: v('hrlib-reportit'), feedback: v('hrlib-feedback'),
+  };
+  await handleSubmission('hrlib-submit-btn', 'hrlib-status', 'HR Resource Library', data);
+}
+
+
+  var data = {
+    heroSub: v('hero-sub'),
+    stats: [
+      {num:v('stat1-num'),label:v('stat1-label')},
+      {num:v('stat2-num'),label:v('stat2-label')},
+      {num:v('stat3-num'),label:v('stat3-label')},
+      {num:v('stat4-num'),label:v('stat4-label')},
+    ]
+  };
+  await handleSubmission('hero-submit-btn', 'hero-status', 'Hero & Stats', data);
+}
+
+async function submitDeptLinks() {
+  var links = [];
+  for (var i = 1; i <= state.deptRowCount; i++) {
+    var row = document.getElementById('dept-row-' + i);
+    if (!row) continue;
+    var name = v('dl'+i+'-name');
+    var url  = v('dl'+i+'-url');
+    if (name && url) links.push({name:name, url:url});
+  }
+  await handleSubmission('dept-submit-btn', 'dept-status', 'Department Links', links);
+}
+
+// ══════════════════════════════════════════════════════
+// CORE SUBMISSION HANDLER
+// ══════════════════════════════════════════════════════
+async function handleSubmission(btnId, statusId, sectionName, data) {
+  var btn = document.getElementById(btnId);
+  var origText = btn.textContent;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Processing...';
+
+  try {
+    if (state.isAdmin) {
+      // Elevated role: call the secure backend, which holds the GitHub token
+      // and (optionally) uses Claude server-side to merge the change into the HTML
+      await pushToGitHub(sectionName, data);
+      showStatus(statusId, 'success', '✓ Published! Your ' + sectionName + ' changes are now live on Mission Central. It may take 2-3 minutes to appear.');
+    } else {
+      // Non-elevated role: send approval email via mailto (opens email client)
+      // No API calls needed — this works with zero backend configuration
+      sendApprovalEmail(sectionName, data, null);
+      showStatus(statusId, 'pending', '⏳ Submitted for approval! An email has been sent to MarCom at ' + CONFIG.approvalEmail + '. You will receive a confirmation when your changes go live — usually within a few hours.');
+    }
+  } catch(err) {
+    showStatus(statusId, 'error', 'Something went wrong: ' + err.message + '. Please contact support@ywcacolumbus.org');
+  }
+
+  btn.disabled = false;
+  btn.textContent = origText;
+}
+
+// ══════════════════════════════════════════════════════
+// SEND APPROVAL EMAIL (mailto — works with zero backend setup)
+// ══════════════════════════════════════════════════════
+function formatDataForEmail(data) {
+  var lines = [];
+  function walk(obj, prefix) {
+    if (obj === null || obj === undefined) return;
+    if (Array.isArray(obj)) {
+      obj.forEach(function(item, i) { walk(item, prefix + ' #' + (i+1)); });
+    } else if (typeof obj === 'object') {
+      Object.keys(obj).forEach(function(key) {
+        var label = prefix ? prefix + ' > ' + key : key;
+        walk(obj[key], label);
+      });
+    } else if (String(obj).trim() !== '') {
+      lines.push(prefix + ': ' + obj);
+    }
+  }
+  walk(data, '');
+  return lines.join('\n');
+}
+
+function sendApprovalEmail(sectionName, data) {
+  var subject = 'Mission Central Update Request: ' + sectionName + ' — ' + state.name + ' (' + state.dept + ')';
+  var body = 'Mission Central update requested by ' + state.name + ' (' + state.dept + ').\n\n' +
+    'Section: ' + sectionName + '\n\n' +
+    'Requested changes:\n' + formatDataForEmail(data) + '\n\n' +
+    'Submitted by: ' + state.name + ' (' + state.dept + ')';
+  var mailto = 'mailto:' + CONFIG.approvalEmail +
+    '?subject=' + encodeURIComponent(subject) +
+    '&body=' + encodeURIComponent(body);
+  window.open(mailto, '_blank');
+}
+
+// ══════════════════════════════════════════════════════
+// SECURE BACKEND CALL (for auto-publish roles)
+// No GitHub token is ever stored or used in this file. The token lives
+// only inside the Vercel backend function as an Environment Variable.
+// This function simply calls that backend and lets it do the secure work.
+// ══════════════════════════════════════════════════════
+async function pushToGitHub(sectionName, data) {
+  if (!CONFIG.backendUrl || CONFIG.backendUrl === 'https://mission-central-backend.vercel.app/api/update-portal') {
+    // Backend not configured yet — fall back to email approval even for elevated roles
+    sendApprovalEmail(sectionName, data);
+    return;
+  }
+
+  var response = await fetch(CONFIG.backendUrl, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      action: 'update',
+      sectionName: sectionName,
+      data: data,
+      submitterName: state.name,
+      submitterDept: state.dept,
+    })
+  });
+
+  var result = await response.json();
+
+  if (!response.ok || !result.success) {
+    throw new Error(result.error || 'The backend could not publish your changes. Please contact IT.');
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// STATUS MESSAGES
+// ══════════════════════════════════════════════════════
+function showStatus(id, type, msg) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.className = 'status-msg status-' + type;
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// ══════════════════════════════════════════════════════
+// PREVIEW
+// ══════════════════════════════════════════════════════
+function previewNews() {
+  window.open('https://ywcacolumbusit.github.io/mission-central/', '_blank');
+}
+
+// ══════════════════════════════════════════════════════
+// KEYBOARD SHORTCUT: Enter to login
+// ══════════════════════════════════════════════════════
+document.addEventListener('keypress', function(e) {
+  if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') {
+    doLogin();
+  }
+});
+</script>
+</body>
+</html>

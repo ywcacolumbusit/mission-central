@@ -801,7 +801,7 @@ var CONFIG = {
   // Deploy the companion Vercel function (see vercel-backend folder) and
   // paste its URL here. This file never sees or stores your token.
   // Example: 'https://mission-central-backend.vercel.app/api/update-portal'
-  : 'backendUrl: 'https://mission-central-backend.vercel.app/api/update-portal',
+  backendUrl: 'YOUR_VERCEL_BACKEND_URL_HERE',
 
   // GitHub details — informational only, the actual token-protected calls
   // happen inside the Vercel backend function, not here.
@@ -1165,7 +1165,7 @@ async function submitHRLibrary() {
   await handleSubmission('hrlib-submit-btn', 'hrlib-status', 'HR Resource Library', data);
 }
 
-
+async function submitHero() {
   var data = {
     heroSub: v('hero-sub'),
     stats: [
@@ -1260,7 +1260,7 @@ function sendApprovalEmail(sectionName, data) {
 // This function simply calls that backend and lets it do the secure work.
 // ══════════════════════════════════════════════════════
 async function pushToGitHub(sectionName, data) {
-  if (!CONFIG.backendUrl || CONFIG.backendUrl === 'https://mission-central-backend.vercel.app/api/update-portal') {
+  if (!CONFIG.backendUrl || CONFIG.backendUrl === 'YOUR_VERCEL_BACKEND_URL_HERE') {
     // Backend not configured yet — fall back to email approval even for elevated roles
     sendApprovalEmail(sectionName, data);
     return;

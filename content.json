@@ -106,6 +106,17 @@
       "type": "tg-org",
       "createdAt": "2026-06-18T12:00:00.000Z",
       "createdBy": "Human Resources"
+    },
+    {
+      "id": "event-mr14mts7asva",
+      "status": "live",
+      "month": "Jul",
+      "day": "3",
+      "title": "Office Closed",
+      "time": "All Day",
+      "type": "tg-org",
+      "createdAt": "2026-06-30T20:56:22.855Z",
+      "createdBy": "MarCom"
     }
   ],
   "hrLinks": [

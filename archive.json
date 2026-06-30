@@ -1,5 +1,23 @@
 [
   {
+    "timestamp": "2026-06-30T21:16:37.853Z",
+    "action": "Updated news item news-006",
+    "submitterName": "Service Desk",
+    "submitterDept": "MarCom",
+    "changesApplied": {
+      "id": "news-006",
+      "status": "live",
+      "featured": false,
+      "headline": "Second Safe & Sound Location Open",
+      "tag": "Programs",
+      "date": "Apr 2026",
+      "excerpt": "",
+      "link": "",
+      "createdAt": "2026-04-01T09:00:00.000Z",
+      "createdBy": "MarCom"
+    }
+  },
+  {
     "timestamp": "2026-06-30T20:56:58.894Z",
     "action": "Added event: Tech Talks",
     "submitterName": "Service Desk",

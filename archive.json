@@ -1,5 +1,16 @@
 [
   {
+    "timestamp": "2026-06-30T20:54:08.806Z",
+    "action": "Updated Leadership in Motion",
+    "submitterName": "Service Desk",
+    "submitterDept": "MarCom",
+    "changesApplied": {
+      "name": "Elizabeth Brown",
+      "title": "President & CEO",
+      "text": "As we celebrate 150 years, I'm reminded that our mission has not changed — only the moment. Thank you for showing up for our community every single day."
+    }
+  },
+  {
     "timestamp": "2026-06-30T20:53:41.516Z",
     "action": "Updated Hero & Stats",
     "submitterName": "Service Desk",

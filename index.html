@@ -168,6 +168,14 @@ html,body{width:100%;margin:0;padding:0;background:var(--cream);scroll-behavior:
 .sb-hl:hover{text-decoration:underline}
 .sb-bd{padding:12px 14px}
 .sb-search{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:5px;font-size:12px;outline:none;font-family:var(--font-b);background:var(--cream2);color:var(--chr);margin-bottom:8px}
+
+/* MAIN SITES */
+.main-site-row{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--cream2);border-radius:5px;margin-bottom:4px}
+.main-site-name{font-size:11px;font-weight:700;color:var(--chr)}
+.main-site-phone{font-size:11px;font-weight:700;color:var(--or)}
+
+/* VIEW ALL EXPANDED */
+.expanded-section{border-top:1px solid var(--line);margin-top:10px;padding-top:10px}
 .sb-search:focus{border-color:var(--or)}
 
 /* STAFF/EMPLOYEE DIRECTORY */
@@ -315,24 +323,11 @@ html,body{width:100%;margin:0;padding:0;background:var(--cream);scroll-behavior:
     <div class="sh">
       <div class="sh-title" data-en="News & Announcements" data-es="Noticias y Anuncios">News &amp; Announcements</div>
       <div class="sh-line"></div>
-      <a class="sh-link" href="#" data-en="View all →" data-es="Ver todo →">View all &rarr;</a>
+      <a class="sh-link" href="#" id="news-view-all" data-en="View all →" data-es="Ver todo →">View all &rarr;</a>
     </div>
-    <div class="news-2col">
-      <a class="news-card" href="#" target="_blank">
-        <div class="nc-img"><span class="nc-tag" data-en="Org-Wide" data-es="Toda la Org.">Org-Wide</span></div>
-        <div class="nc-body"><div class="nc-h">Test 6</div><div class="nc-date">10:00 AM &ndash; 11:30 AM</div></div>
-      </a>
-      <a class="news-card" href="#" target="_blank">
-        <div class="nc-img b"><span class="nc-tag" data-en="HR Update" data-es="Actualización RR.HH.">HR Update</span></div>
-        <div class="nc-body"><div class="nc-h">Open Enrollment Closes July 30</div><div class="nc-date">Review your benefits today</div></div>
-      </a>
-    </div>
-    <div class="news-4col">
-      <a class="ns" href="#"><div class="ns-img"></div><div class="ns-bd"><div class="ns-h">Mission Central Refresh Is Live</div><div class="ns-d">Jun 22, 2026</div></div></a>
-      <a class="ns" href="#"><div class="ns-img"></div><div class="ns-bd"><div class="ns-h">House Bill 472 Is a Win for Ohio</div><div class="ns-d">Feb 20, 2026</div></div></a>
-      <a class="ns" href="#"><div class="ns-img"></div><div class="ns-bd"><div class="ns-h">YWCA Columbus Turns 140 🎉</div><div class="ns-d">May 4, 2026</div></div></a>
-      <a class="ns" href="#"><div class="ns-img"></div><div class="ns-bd"><div class="ns-h">Second Safe & Sound Location Open</div><div class="ns-d">Apr 2026</div></div></a>
-    </div>
+    <div class="news-2col" id="news-featured-container"></div>
+    <div class="news-4col" id="news-small-container"></div>
+    <div id="news-expanded-container" style="display:none;margin-top:10px"></div>
   </section>
 
   <!-- LEADERSHIP IN MOTION -->
@@ -342,15 +337,7 @@ html,body{width:100%;margin:0;padding:0;background:var(--cream);scroll-behavior:
       <div class="sh-line"></div>
       <a class="sh-link" href="#" data-en="All updates →" data-es="Todas las actualizaciones →">All updates &rarr;</a>
     </div>
-    <a class="lim-card" href="#">
-      <div class="lim-av">EB</div>
-      <div>
-        <div class="lim-name">Elizabeth Brown</div>
-        <div class="lim-title">President &amp; CEO</div>
-        <div class="lim-text" data-en="&quot;As we celebrate 140 years, I'm reminded that our mission has not changed — only the moment. Thank you for showing up for our community every single day.&quot;" data-es="&quot;Al celebrar 140 años, recuerdo que nuestra misión no ha cambiado, solo el momento. Gracias por presentarse para nuestra comunidad todos los días.&quot;">"As we celebrate 140 years, I'm reminded that our mission has not changed &mdash; only the moment. Thank you for showing up for our community every single day."</div>
-        <div class="lim-date">Posted June 2026</div>
-      </div>
-    </a>
+    <div id="leadership-container"></div>
   </section>
 
   <!-- SOCIAL JUSTICE CORNER -->
@@ -360,12 +347,7 @@ html,body{width:100%;margin:0;padding:0;background:var(--cream);scroll-behavior:
       <div class="sh-line"></div>
       <a class="sh-link" href="https://www.ywcacolumbus.org/social-justice/justice-equity-and-belonging-training" target="_blank" data-en="LSJ resources →" data-es="Recursos de LSJ →">LSJ resources &rarr;</a>
     </div>
-    <a class="sj-card" href="https://www.ywcacolumbus.org/social-justice/justice-equity-and-belonging-training/racial-equity-101/" target="_blank">
-      <div class="sj-badge" data-en="✦ Learning from LSJ" data-es="✦ Aprendizaje de LSJ">&#10022; Learning from LSJ</div>
-      <div class="sj-h" data-en="Advance Racial Equity Now" data-es="Avance la Equidad Racial Ahora">Advance Racial Equity Now</div>
-      <div class="sj-text" data-en="This month's quick facts focus on voting rights history in Ohio. Explore resources curated by our Leadership for Social Change team." data-es="Los datos rápidos de este mes se centran en la historia del derecho al voto en Ohio. Explore los recursos seleccionados por nuestro equipo de Liderazgo para el Cambio Social.">This month's quick facts focus on voting rights history in Ohio. Explore resources curated by our Leadership for Social Change team.</div>
-      <span class="btn-or" data-en="Start Here →" data-es="Comience Aquí →">Start Here &rarr;</span>
-    </a>
+    <div id="socialjustice-container"></div>
   </section>
 
   <!-- REQUESTS -->
@@ -401,20 +383,7 @@ html,body{width:100%;margin:0;padding:0;background:var(--cream);scroll-behavior:
       <div class="sh-line"></div>
       <a class="sh-link" href="https://ywcacolumbus.sharepoint.com/sites" target="_blank" data-en="All sites →" data-es="Todos los sitios →">All sites &rarr;</a>
     </div>
-    <div class="dept-grid">
-      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/AdvancementBrand" target="_blank"><div class="dc-dot"></div><div class="dc-t">Advancement</div></a>
-      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/AntiRacism" target="_blank"><div class="dc-dot"></div><div class="dc-t">Anti-Racism</div></a>
-      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/Board" target="_blank"><div class="dc-dot"></div><div class="dc-t">Board</div></a>
-      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/Data" target="_blank"><div class="dc-dot g"></div><div class="dc-t">Data</div></a>
-      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/Development" target="_blank"><div class="dc-dot"></div><div class="dc-t">Development &amp; Engagement</div></a>
-      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/EDUKidsPlace" target="_blank"><div class="dc-dot g"></div><div class="dc-t">EDU &ndash; Kids Place</div></a>
-      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/FamilyCenter" target="_blank"><div class="dc-dot"></div><div class="dc-t">Family Center</div></a>
-      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/Finance" target="_blank"><div class="dc-dot g"></div><div class="dc-t">Finance</div></a>
-      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/GriswoldFrontDesk" target="_blank"><div class="dc-dot"></div><div class="dc-t">Griswold Front Desk</div></a>
-      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/HRAdmin" target="_blank"><div class="dc-dot"></div><div class="dc-t">Human Resources</div></a>
-      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/InfoTech" target="_blank"><div class="dc-dot g"></div><div class="dc-t">Info. Technology</div></a>
-      <a class="dc" href="https://ywcacolumbus.sharepoint.com/sites/WomensResidency" target="_blank"><div class="dc-dot"></div><div class="dc-t">Women&apos;s Residency</div></a>
-    </div>
+    <div class="dept-grid" id="dept-grid-container"></div>
   </section>
 
 </div>
@@ -426,14 +395,13 @@ html,body{width:100%;margin:0;padding:0;background:var(--cream);scroll-behavior:
   <div class="sb-card" id="directory-section">
     <div class="sb-hd">
       <div class="sb-ht" data-en="Employee Directory" data-es="Directorio de Empleados">Employee Directory</div>
-      <a class="sb-hl" href="#" data-en="View all →" data-es="Ver todo →">View all &rarr;</a>
+      <a class="sb-hl" href="#" id="directory-view-all" data-en="View all →" data-es="Ver todo →">View all &rarr;</a>
     </div>
     <div class="sb-bd">
-      <input class="sb-search" placeholder="Search name or dept..." data-placeholder-en="Search name or dept..." data-placeholder-es="Buscar nombre o depto..." />
-      <div class="sr"><div class="sav">EB</div><div class="si"><div class="sn">Elizabeth Brown</div><div class="srl">President &amp; CEO</div></div></div>
-      <div class="sr"><div class="sav b">SD</div><div class="si"><div class="sn">Sue Darby</div><div class="srl">Chief Operating Officer</div></div></div>
-      <div class="sr"><div class="sav c">DR</div><div class="si"><div class="sn">Dana Raymond</div><div class="srl">VP, Programs</div></div></div>
-      <div class="sr"><div class="sav d">MM</div><div class="si"><div class="sn">Makiva McIntosh</div><div class="srl">VP, Marketing &amp; Communications</div></div></div>
+      <div id="main-sites-container" style="margin-bottom:10px"></div>
+      <input class="sb-search" id="directory-search" placeholder="Search name or dept..." data-placeholder-en="Search name or dept..." data-placeholder-es="Buscar nombre o depto..." />
+      <div id="staff-container"></div>
+      <div id="staff-expanded-container" style="display:none"></div>
     </div>
   </div>
 
@@ -441,12 +409,11 @@ html,body{width:100%;margin:0;padding:0;background:var(--cream);scroll-behavior:
   <div class="sb-card" id="calendar-section">
     <div class="sb-hd">
       <div class="sb-ht" data-en="Upcoming Events" data-es="Próximos Eventos">Upcoming Events</div>
-      <a class="sb-hl" href="https://ywcacolumbus.sharepoint.com/sites/YWCAMeetings" target="_blank" data-en="Full calendar →" data-es="Calendario completo →">Full calendar &rarr;</a>
+      <a class="sb-hl" href="https://ywcacolumbus.sharepoint.com/sites/YWCAMeetings" target="_blank" id="events-view-all" data-en="View all →" data-es="Ver todo →">View all &rarr;</a>
     </div>
     <div class="sb-bd">
-      <div class="ce"><div class="cd"><div class="cm">Jul</div><div class="cn">15</div></div><div class="ci"><div class="ct">All-Staff Q3 Mission Meeting</div><div class="ctm">10:00 AM &ndash; 11:30 AM</div></div></div>
-      <div class="ce"><div class="cd"><div class="cm">Jul</div><div class="cn">30</div></div><div class="ci"><div class="ct">Open Enrollment Closes</div><div class="ctm">End of day deadline</div></div></div>
-      <div class="ce"><div class="cd"><div class="cm">Aug</div><div class="cn">5</div></div><div class="ci"><div class="ct">New Hire Orientation</div><div class="ctm">9:00 AM</div></div></div>
+      <div id="events-container"></div>
+      <div id="events-expanded-container" style="display:none"></div>
     </div>
   </div>
 
@@ -454,13 +421,11 @@ html,body{width:100%;margin:0;padding:0;background:var(--cream);scroll-behavior:
   <div class="sb-card" id="hr-resources-section">
     <div class="sb-hd">
       <div class="sb-ht" data-en="HR Resource Library" data-es="Biblioteca de Recursos de RR.HH.">HR Resource Library</div>
+      <a class="sb-hl" href="#" id="hrlinks-view-all" data-en="View all →" data-es="Ver todo →">View all &rarr;</a>
     </div>
     <div class="sb-bd">
-      <a class="hr-row" href="#" target="_blank"><span class="hr-label">&#128203; ADP Self-Service</span><span class="hr-arrow">&rarr;</span></a>
-      <a class="hr-row" href="#" target="_blank"><span class="hr-label">&#127873; Referral Program</span><span class="hr-arrow">&rarr;</span></a>
-      <a class="hr-row" href="#" target="_blank"><span class="hr-label">&#128717;&#65039; Employee Brand Store</span><span class="hr-arrow">&rarr;</span></a>
-      <a class="hr-row" href="#" target="_blank"><span class="hr-label">&#128221; Submit ReportIt</span><span class="hr-arrow">&rarr;</span></a>
-      <a class="hr-row" href="#" target="_blank"><span class="hr-label">&#128172; Anonymous Feedback</span><span class="hr-arrow">&rarr;</span></a>
+      <div id="hrlinks-container"></div>
+      <div id="hrlinks-expanded-container" style="display:none"></div>
     </div>
   </div>
 
@@ -541,5 +506,251 @@ window.addEventListener('resize', reportHeight);
 if (window.ResizeObserver) {
   new ResizeObserver(reportHeight).observe(document.body);
 }
+
+/* ════════════════════════════════════════════════════════════════
+   DYNAMIC CONTENT RENDERING ENGINE
+   Fetches content.json from GitHub Pages and renders News, Events,
+   Leadership, Social Justice, HR Links, Employee Directory, and
+   Department Links dynamically — including "View all" expand/collapse
+   for unlimited items beyond the default homepage count.
+   ════════════════════════════════════════════════════════════════ */
+var CONTENT_URL = 'content.json';
+var siteContent = null;
+
+function esc(s) {
+  return (s || '').toString().replace(/[&<>"']/g, function(c) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+async function loadSiteContent() {
+  try {
+    var resp = await fetch(CONTENT_URL + '?v=' + Date.now());
+    if (!resp.ok) throw new Error('content.json not found');
+    siteContent = await resp.json();
+    renderAll();
+  } catch (err) {
+    console.warn('Mission Central: could not load content.json, using static fallback content.', err);
+  }
+}
+
+function renderAll() {
+  renderNews();
+  renderLeadership();
+  renderSocialJustice();
+  renderDeptLinks();
+  renderMainSites();
+  renderStaffDirectory();
+  renderEvents();
+  renderHRLinks();
+  setTimeout(reportHeight, 100);
+}
+
+/* ── NEWS ── */
+function renderNews() {
+  if (!siteContent || !siteContent.news) return;
+  var liveItems = siteContent.news.filter(function(n) { return n.status === 'live'; });
+  var featured = liveItems.filter(function(n) { return n.featured; }).slice(0, 2);
+  var small = liveItems.filter(function(n) { return !n.featured; }).slice(0, 4);
+
+  var featContainer = document.getElementById('news-featured-container');
+  if (featContainer) {
+    featContainer.innerHTML = featured.map(function(n, i) {
+      return '<a class="news-card" href="' + esc(n.link || '#') + '" target="_blank">' +
+        '<div class="nc-img' + (i === 1 ? ' b' : '') + '"><span class="nc-tag">' + esc(n.tag) + '</span></div>' +
+        '<div class="nc-body"><div class="nc-h">' + esc(n.headline) + '</div><div class="nc-date">' + esc(n.date) + '</div></div></a>';
+    }).join('');
+  }
+
+  var smallContainer = document.getElementById('news-small-container');
+  if (smallContainer) {
+    smallContainer.innerHTML = small.map(function(n) {
+      return '<a class="ns" href="' + esc(n.link || '#') + '"><div class="ns-img"></div><div class="ns-bd"><div class="ns-h">' + esc(n.headline) + '</div><div class="ns-d">' + esc(n.date) + '</div></div></a>';
+    }).join('');
+  }
+
+  var viewAllBtn = document.getElementById('news-view-all');
+  if (viewAllBtn) {
+    viewAllBtn.onclick = function(e) {
+      e.preventDefault();
+      toggleExpanded('news-expanded-container', function() { return renderAllNewsExpanded(liveItems); });
+    };
+  }
+}
+
+function renderAllNewsExpanded(items) {
+  return '<div class="expanded-section"><div class="news-4col">' +
+    items.map(function(n) {
+      return '<a class="ns" href="' + esc(n.link || '#') + '"><div class="ns-img"></div><div class="ns-bd"><div class="ns-h">' + esc(n.headline) + '</div><div class="ns-d">' + esc(n.date) + '</div></div></a>';
+    }).join('') + '</div></div>';
+}
+
+function toggleExpanded(containerId, htmlBuilder) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  if (el.style.display === 'none' || !el.style.display) {
+    el.innerHTML = htmlBuilder();
+    el.style.display = 'block';
+  } else {
+    el.style.display = 'none';
+  }
+  setTimeout(reportHeight, 100);
+}
+
+/* ── LEADERSHIP IN MOTION ── */
+function renderLeadership() {
+  if (!siteContent || !siteContent.leadership) return;
+  var l = siteContent.leadership;
+  var initials = (l.name || '').split(' ').map(function(p){return p[0];}).join('').toUpperCase().slice(0,2);
+  var container = document.getElementById('leadership-container');
+  if (container) {
+    container.innerHTML =
+      '<a class="lim-card" href="#"><div class="lim-av">' + esc(initials) + '</div><div>' +
+      '<div class="lim-name">' + esc(l.name) + '</div><div class="lim-title">' + esc(l.title) + '</div>' +
+      '<div class="lim-text">&ldquo;' + esc(l.text) + '&rdquo;</div></div></a>';
+  }
+}
+
+/* ── SOCIAL JUSTICE CORNER ── */
+function renderSocialJustice() {
+  if (!siteContent || !siteContent.socialJustice) return;
+  var sj = siteContent.socialJustice;
+  var container = document.getElementById('socialjustice-container');
+  if (container) {
+    container.innerHTML =
+      '<a class="sj-card" href="' + esc(sj.link || '#') + '" target="_blank">' +
+      '<div class="sj-badge">&#10022; Learning from LSJ</div>' +
+      '<div class="sj-h">' + esc(sj.headline) + '</div>' +
+      '<div class="sj-text">' + esc(sj.text) + '</div>' +
+      '<span class="btn-or">Start Here &rarr;</span></a>';
+  }
+}
+
+/* ── DEPARTMENT LINKS ── */
+function renderDeptLinks() {
+  if (!siteContent || !siteContent.deptLinks) return;
+  var container = document.getElementById('dept-grid-container');
+  if (container) {
+    container.innerHTML = siteContent.deptLinks.map(function(d, i) {
+      return '<a class="dc" href="' + esc(d.url) + '" target="_blank"><div class="dc-dot' + (i % 2 === 1 ? ' g' : '') + '"></div><div class="dc-t">' + esc(d.name) + '</div></a>';
+    }).join('');
+  }
+}
+
+/* ── MAIN SITES (Griswold, Family Center, Jenkins Campus) ── */
+function renderMainSites() {
+  if (!siteContent || !siteContent.mainSites) return;
+  var container = document.getElementById('main-sites-container');
+  if (container) {
+    container.innerHTML = siteContent.mainSites.map(function(s) {
+      return '<div class="main-site-row"><span class="main-site-name">' + esc(s.name) + '</span><span class="main-site-phone">' + esc(s.phone || 'No number listed') + '</span></div>';
+    }).join('');
+  }
+}
+
+/* ── EMPLOYEE DIRECTORY ── */
+function renderStaffDirectory() {
+  if (!siteContent || !siteContent.staffDirectory) return;
+  var avColors = ['', ' b', ' c', ' d'];
+  var staff = siteContent.staffDirectory;
+  var visible = staff.slice(0, 4);
+
+  var container = document.getElementById('staff-container');
+  if (container) {
+    container.innerHTML = visible.map(function(s, i) { return staffRowHtml(s, i, avColors); }).join('');
+  }
+
+  var searchInput = document.getElementById('directory-search');
+  if (searchInput) {
+    searchInput.oninput = function() {
+      var q = searchInput.value.toLowerCase();
+      var filtered = staff.filter(function(s) {
+        return (s.name || '').toLowerCase().indexOf(q) !== -1 || (s.department || '').toLowerCase().indexOf(q) !== -1;
+      });
+      var expandedEl = document.getElementById('staff-expanded-container');
+      if (q && expandedEl) {
+        expandedEl.style.display = 'block';
+        expandedEl.innerHTML = '<div class="expanded-section">' + filtered.map(function(s, i) { return staffRowHtml(s, i, avColors); }).join('') + '</div>';
+        if (container) container.innerHTML = '';
+      } else if (expandedEl) {
+        expandedEl.style.display = 'none';
+        if (container) container.innerHTML = visible.map(function(s, i) { return staffRowHtml(s, i, avColors); }).join('');
+      }
+    };
+  }
+
+  var viewAllBtn = document.getElementById('directory-view-all');
+  if (viewAllBtn) {
+    viewAllBtn.onclick = function(e) {
+      e.preventDefault();
+      toggleExpanded('staff-expanded-container', function() {
+        return '<div class="expanded-section">' + staff.map(function(s, i) { return staffRowHtml(s, i, avColors); }).join('') + '</div>';
+      });
+    };
+  }
+}
+
+function staffRowHtml(s, i, avColors) {
+  var initials = (s.name || '').split(' ').map(function(p){return p[0];}).join('').toUpperCase().slice(0,2);
+  var colorClass = avColors[i % avColors.length];
+  var phoneHtml = s.phone ? '<div class="srl">' + esc(s.phone) + '</div>' : '';
+  return '<div class="sr"><div class="sav' + colorClass + '">' + esc(initials) + '</div><div class="si"><div class="sn">' + esc(s.name) + '</div><div class="srl">' + esc(s.title) + '</div>' + phoneHtml + '</div></div>';
+}
+
+/* ── EVENTS CALENDAR ── */
+function renderEvents() {
+  if (!siteContent || !siteContent.events) return;
+  var liveEvents = siteContent.events.filter(function(e) { return e.status === 'live'; });
+  var visible = liveEvents.slice(0, 4);
+
+  var container = document.getElementById('events-container');
+  if (container) {
+    container.innerHTML = visible.map(eventRowHtml).join('');
+  }
+
+  var viewAllBtn = document.getElementById('events-view-all');
+  if (viewAllBtn) {
+    viewAllBtn.onclick = function(e) {
+      e.preventDefault();
+      toggleExpanded('events-expanded-container', function() {
+        return '<div class="expanded-section">' + liveEvents.map(eventRowHtml).join('') + '</div>';
+      });
+    };
+  }
+}
+
+function eventRowHtml(e) {
+  return '<div class="ce"><div class="cd"><div class="cm">' + esc(e.month) + '</div><div class="cn">' + esc(e.day) + '</div></div>' +
+    '<div class="ci"><div class="ct">' + esc(e.title) + '</div><div class="ctm">' + esc(e.time) + '</div></div></div>';
+}
+
+/* ── HR RESOURCE LIBRARY ── */
+function renderHRLinks() {
+  if (!siteContent || !siteContent.hrLinks) return;
+  var liveLinks = siteContent.hrLinks.filter(function(h) { return h.status === 'live'; });
+  var visible = liveLinks.slice(0, 5);
+
+  var container = document.getElementById('hrlinks-container');
+  if (container) {
+    container.innerHTML = visible.map(hrLinkRowHtml).join('');
+  }
+
+  var viewAllBtn = document.getElementById('hrlinks-view-all');
+  if (viewAllBtn) {
+    viewAllBtn.onclick = function(e) {
+      e.preventDefault();
+      toggleExpanded('hrlinks-expanded-container', function() {
+        return '<div class="expanded-section">' + liveLinks.map(hrLinkRowHtml).join('') + '</div>';
+      });
+    };
+  }
+}
+
+function hrLinkRowHtml(h) {
+  return '<a class="hr-row" href="' + esc(h.url || '#') + '" target="_blank"><span class="hr-label">' + esc(h.icon) + ' ' + esc(h.label) + '</span><span class="hr-arrow">&rarr;</span></a>';
+}
+
+/* Load content on page ready */
+loadSiteContent();
 </script>
 </html>
